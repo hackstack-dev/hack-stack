@@ -1,7 +1,8 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
-import { Providers } from '@/app/providers'
+import AuthProvider from '@/app/providers/AuthProvider'
+import ThemeProvider from '@/app/providers/ThemeProvider'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -16,9 +17,15 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className="dark text-foreground bg-background">
+    <html lang="en" className="text-foreground bg-background" suppressHydrationWarning>
       <body className={inter.className}>
-        <Providers>{children}</Providers>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          disableTransitionOnChange
+        >
+          <AuthProvider>{children}</AuthProvider>
+        </ThemeProvider>
       </body>
     </html>
   )

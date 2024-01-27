@@ -9,12 +9,17 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@clerk/nextjs": "^4.29.5",
+    "@clerk/themes": "^1.7.9",
     "@nextui-org/react": "^2.2.9",
+    "clsx": "^2.1.0",
     "framer-motion": "^11.0.3",
     "lucide-react": "^0.316.0",
     "next": "14.1.0",
+    "next-themes": "^0.2.1",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "tailwind-merge": "^2.2.1"
   },
   "devDependencies": {
     "@biomejs/biome": "1.5.3",

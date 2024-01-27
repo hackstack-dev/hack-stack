@@ -11,8 +11,7 @@ export default function Home() {
           Uncover, Share, Plan and unlock the Collective Genius: HackStack is
           Your Tech Stack Hub
         </p>
-
-        <Button color="primary" className="w-full md:w-1/2">
+        <Button href="hs/explore" as={Link} color="primary" variant="solid" className="w-full md:w-1/2">
           Get Started
         </Button>
       </div>

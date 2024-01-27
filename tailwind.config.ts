@@ -32,8 +32,16 @@ const config: Config = {
           colors: {
             primary: {
               DEFAULT: 'hsl(189,87%,65%)',
-              foreground: "#000",
-            },
+              foreground: '#000'
+            }
+          }
+        },
+        light: {
+          colors: {
+            primary: {
+              DEFAULT: '#22d3ee',
+              foreground: '#fff'
+            }
           }
         }
       }
