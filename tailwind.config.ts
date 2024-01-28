@@ -31,7 +31,7 @@ const config: Config = {
         dark: {
           colors: {
             primary: {
-              DEFAULT: 'hsl(189,87%,65%)',
+              DEFAULT: '#a3e635',
               foreground: '#000'
             }
           }
@@ -39,7 +39,7 @@ const config: Config = {
         light: {
           colors: {
             primary: {
-              DEFAULT: '#22d3ee',
+              DEFAULT: '#000',
               foreground: '#fff'
             }
           }

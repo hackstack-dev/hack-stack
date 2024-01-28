@@ -15,22 +15,31 @@ export default function AppNavigation() {
       <Button
         href="explore"
         as={Link}
-        size="sm"
-        variant="flat"
+        size="md"
+        variant="light"
         color={exploreColor}
+        radius="full"
       >
         Explore
       </Button>
       <Button
         href="create"
         as={Link}
-        size="sm"
-        variant="flat"
+        size="md"
+        variant="light"
         color={createColor}
+        radius="full"
       >
         Create
       </Button>
-      <Button href="plan" as={Link} size="sm" variant="flat" color={planColor}>
+      <Button
+        href="plan"
+        as={Link}
+        size="md"
+        variant="light"
+        color={planColor}
+        radius="full"
+      >
         Plan
       </Button>
     </nav>
