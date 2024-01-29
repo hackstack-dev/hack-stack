@@ -1,3 +1,10 @@
+import ListPage from '@/app/hs/explore/List'
+import ContentContainer from '@/app/hs/components/ContentContainer'
+
 export default function ExplorePage() {
-  return <h1>Explore</h1>
+  return (
+    <ContentContainer>
+      <ListPage />
+    </ContentContainer>
+  )
 }

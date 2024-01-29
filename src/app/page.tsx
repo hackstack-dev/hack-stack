@@ -19,9 +19,9 @@ export default function Home() {
         <Image
           alt="Welcome Image"
           className="h-full w-full object-cover"
-          height="1600"
-          src="/tstack.webp"
-          width="2011"
+          height="1154"
+          src="/assets/images/tstack.png"
+          width="2308"
         />
       </div>
     </div>

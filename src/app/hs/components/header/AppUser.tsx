@@ -4,7 +4,7 @@ export default function AppUser() {
   return (
     <div className="flex gap-4 items-center">
       <SignedIn>
-        <UserButton />
+        <UserButton afterSignOutUrl="/" />
       </SignedIn>
       <SignedOut>
         <SignInButton />

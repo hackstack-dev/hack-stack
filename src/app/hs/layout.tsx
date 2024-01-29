@@ -9,7 +9,7 @@ export default function HackStackLayout({
   return (
     <main>
       <AppHeader />
-      <section className="container py-12 px-4">{children}</section>
+      <section>{children}</section>
     </main>
   )
 }
