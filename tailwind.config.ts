@@ -9,18 +9,17 @@ const config: Config = {
     './node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}'
   ],
   theme: {
-    extend: {
-      backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-conic':
-          'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))'
-      }
-    }
+    extend: {}
   },
   plugins: [
     nextui({
       layout: {
         disabledOpacity: '0.3', // opacity-[0.3]
+        borderWidth: {
+          small: '0.5rem', // border
+          medium: '1px', // border-2
+          large: '4px' // border-4
+        }, // border
         radius: {
           small: '2px', // rounded-small
           medium: '4px', // rounded-medium
@@ -31,7 +30,7 @@ const config: Config = {
         dark: {
           colors: {
             primary: {
-              DEFAULT: '#a3e635',
+              DEFAULT: '#EFCE4A',
               foreground: '#000'
             }
           }

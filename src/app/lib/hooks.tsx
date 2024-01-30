@@ -7,7 +7,7 @@ export function useAppLogo({ size }: { size: number }) {
       height={size}
       width={size}
       alt="HackStack logo"
-      className="invert-0 dark:invert"
+      // className="invert-0 dark:invert"
     />
   )
 }

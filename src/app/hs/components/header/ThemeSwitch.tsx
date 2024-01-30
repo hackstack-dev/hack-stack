@@ -33,7 +33,7 @@ export default function ThemeSwitch(props: React.PropsWithChildren) {
             class: ['w-7 h-7', 'flex items-center justify-center']
           })}
         >
-          {isSelected ? <SunIcon /> : <MoonIcon />}
+          {isSelected ? <SunIcon /> : <MoonIcon color="#EFCE4A" />}
         </div>
       </Component>
     </div>

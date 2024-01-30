@@ -51,7 +51,7 @@ export default function AppHeader() {
           'data-[active=true]:after:right-0',
           'data-[active=true]:after:h-[1px]',
           'data-[active=true]:after:rounded-[1px]',
-          'data-[active=true]:after:bg-primary'
+          'data-[active=true]:after:bg-gradient-to-b from-orange-400 to-red-500 dark:from-amber-200 dark:to-amber-400 bg-clip-text text-transparent'
         ]
       }}
       isBordered

@@ -10,6 +10,7 @@ import {
 import Link from 'next/link'
 import { MenuItem } from '@/app/hs/components/header/types'
 import React from 'react'
+import { cn } from '@/app/lib/utils'
 
 const DEFAULT_COLOR = 'default'
 const PRIMARY_COLOR = 'primary'
@@ -42,7 +43,14 @@ export default function AppNavigation({
               color={color}
               radius="full"
             >
-              {item.name}
+              <span
+                className={cn(
+                  isActive &&
+                    'bg-gradient-to-b from-orange-400 to-red-500 dark:from-amber-200 dark:to-amber-400 bg-clip-text text-transparent'
+                )}
+              >
+                {item.name}
+              </span>
             </Button>
           </NavbarItem>
         ) : (

@@ -27,7 +27,7 @@ export default function Flow({
   const [nodes, setNodes] = useState<Node[]>(initNodes)
   const [edges, setEdges] = useState<Edge[]>(initEdges)
   const { theme } = useTheme()
-  const backgroundColor = theme === 'light' ? '#1f2937' : '#a3e635'
+  const backgroundColor = theme === 'light' ? '#1f2937' : '#EFCE4A'
 
   const onNodesChange: OnNodesChange = useCallback((chs) => {
     setNodes((nds) => applyNodeChanges(chs, nds))
