@@ -4,16 +4,17 @@ import { ScrollShadow } from '@nextui-org/react'
 import React from 'react'
 import { Chip } from '@nextui-org/chip'
 import { cn, generateRandomStackName } from '@/app/lib/utils'
-import { projectTypes } from '@/app/hs/create/create.config'
+import { projectTypes } from '@/app/hs/stacks/create/create.config'
 import { Controller, useForm } from 'react-hook-form'
 import {
   ProjectType,
   StackForm,
   stackFormSchema,
   StackStateProps
-} from '@/app/hs/create/create.types'
+} from '@/app/hs/stacks/create/create.types'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useWizard } from 'react-use-wizard'
+import { FancyStepTitle } from '@/app/hs/stacks/create/components/layout/FancyStepTitle'
 
 export default function StackDetails({
   stackState,
@@ -50,41 +51,40 @@ export default function StackDetails({
   const projectTypesErrorMessage =
     form.getFieldState('projectTypes').error?.message
 
-  console.log(projectTypesValue)
-
   return (
     <div className="my-12">
-      <h2 className="font-bold text-2xl">Let's start with the basics</h2>
+      <FancyStepTitle>Let's start with the basics</FancyStepTitle>
       <form>
-        <div className="max-w-screen-md flex flex-col gap-8 mt-8">
-          <Controller
-            name="name"
-            control={form.control}
-            render={({ field, fieldState }) => (
-              <Input
-                variant="bordered"
-                label="Stack name"
-                labelPlacement="outside"
-                isInvalid={fieldState.invalid}
-                errorMessage={fieldState.error?.message}
-                value={field.value}
-                onChange={field.onChange}
-                description={
-                  <p>
-                    Need inspiration? How about{' '}
-                    <span
-                      onClick={handleNameSuggestionClick}
-                      className="cursor-pointer text-secondary"
-                    >
-                      {nameSuggestion}
-                    </span>
-                    ?
-                  </p>
-                }
-              />
-            )}
-          />
-          <div className="flex flex-col gap-2">
+        <div className="max-w-screen-lg flex flex-col gap-8 mt-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-8">
+            <Controller
+              name="name"
+              control={form.control}
+              render={({ field, fieldState }) => (
+                <Input
+                  variant="bordered"
+                  label="Stack name"
+                  labelPlacement="outside"
+                  isInvalid={fieldState.invalid}
+                  errorMessage={fieldState.error?.message}
+                  value={field.value}
+                  onChange={field.onChange}
+                />
+              )}
+            />
+            <p className="text-tiny text-default-500 md:self-center md:mt-6">
+              Need inspiration? How about{' '}
+              <span
+                onClick={handleNameSuggestionClick}
+                className="cursor-pointer text-secondary"
+              >
+                {nameSuggestion}
+              </span>
+              ?
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div
               className={cn(
                 'border px-1 py-2 rounded-large border-default-200',
@@ -117,19 +117,19 @@ export default function StackDetails({
                   )}
                 />
               </ScrollShadow>
+              {projectTypesErrorMessage && (
+                <p className="text-tiny text-danger">
+                  {form.getFieldState('projectTypes').error?.message}
+                </p>
+              )}
             </div>
-            {projectTypesErrorMessage && (
-              <p className="text-tiny text-danger">
-                {form.getFieldState('projectTypes').error?.message}
-              </p>
-            )}
-            <p className="text-small flex items-center gap-2 flex-wrap">
+            <div className="text-small flex items-center gap-2 flex-wrap self-start">
               {projectTypesValue.map((v) => (
                 <Chip key={v} size="sm" color="secondary" variant="bordered">
                   {v}
                 </Chip>
               ))}
-            </p>
+            </div>
           </div>
           <Controller
             name="sourceCodeUrl"

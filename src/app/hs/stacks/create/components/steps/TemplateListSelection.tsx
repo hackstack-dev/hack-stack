@@ -1,4 +1,3 @@
-'use client'
 import { useConvexAuth, useQuery } from 'convex/react'
 import { api } from '~/convex/_generated/api'
 import { Divider, Spinner, Radio } from '@nextui-org/react'
@@ -8,17 +7,21 @@ import { Card, CardBody, CardHeader } from '@nextui-org/card'
 import Image from 'next/image'
 import { useAppLogo } from '@/app/lib/hooks'
 import { cn, getIconAsset } from '@/app/lib/utils'
-import { Id } from '~/convex/_generated/dataModel'
+import { Doc, Id } from '~/convex/_generated/dataModel'
 import { RadioGroup } from '@nextui-org/radio'
 import { LucideSearch } from 'lucide-react'
-import { StackStateProps } from '@/app/hs/create/create.types'
+import { StackStateProps } from '@/app/hs/stacks/create/create.types'
+import { useWizard } from 'react-use-wizard'
+import { FancyStepTitle } from '@/app/hs/stacks/create/components/layout/FancyStepTitle'
 
 export default function TemplateListSelection({
   stackState,
   onStateChange
 }: StackStateProps) {
+  const { handleStep } = useWizard()
   const { isAuthenticated } = useConvexAuth()
   const [search, setSearch] = React.useState('')
+  const [error, setError] = React.useState('')
 
   const AppLogo = useAppLogo({ size: 22 })
   const templates = useQuery(
@@ -26,8 +29,15 @@ export default function TemplateListSelection({
     !isAuthenticated ? 'skip' : {}
   )
 
+  handleStep(async () => {
+    if (!stackState.template?._id) {
+      setError('Please choose a template')
+      return Promise.reject('templateId is required')
+    }
+  })
   const handleSelectTemplate = (value: string) => {
-    onStateChange({ templateId: value as Id<'templates'> })
+    const template = templates?.find((t) => t._id === value)
+    onStateChange({ template })
   }
 
   const filteredTemplates = React.useMemo(
@@ -45,16 +55,22 @@ export default function TemplateListSelection({
         </div>
       ) : (
         <RadioGroup
-          value={stackState.templateId}
+          value={stackState.template?._id}
           onValueChange={handleSelectTemplate}
         >
-          <Input
-            size="sm"
-            className="mt-12 mb-4 max-w-[450px]"
-            placeholder={'Search templates'}
-            onValueChange={setSearch}
-            startContent={<LucideSearch />}
-          />
+          <div className="flex items-center justify-between">
+            <div className="mt-4">
+              <FancyStepTitle>Choose a template</FancyStepTitle>
+              {error && <p className="text-tiny text-danger">{error}</p>}
+            </div>
+            <Input
+              size="sm"
+              className="mt-12 ml-auto mb-4 max-w-[450px]"
+              placeholder={'Search templates'}
+              onValueChange={setSearch}
+              startContent={<LucideSearch />}
+            />
+          </div>
           <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {filteredTemplates?.map((t) => (
               <li
@@ -65,7 +81,7 @@ export default function TemplateListSelection({
                 <Card
                   className={cn(
                     'max-w-[450px] h-[140px]',
-                    stackState.templateId === t._id && 'ring-1 ring-primary'
+                    stackState.template?._id === t._id && 'ring-1 ring-primary'
                   )}
                 >
                   <CardHeader className="flex items-center justify-between">

@@ -1,6 +1,6 @@
 import { Edge, Node, Position } from 'reactflow'
 import PlanProvider from '@/app/hs/plan/components/PlanProvider'
-import ContentContainer from '@/app/hs/components/ContentContainer'
+import ContentContainer from '@/app/hs/components/ui/ContentContainer'
 
 const nodeSize = {
   width: 100,

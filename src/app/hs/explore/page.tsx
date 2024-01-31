@@ -1,4 +1,4 @@
-import ContentContainer from '@/app/hs/components/ContentContainer'
+import ContentContainer from '@/app/hs/components/ui/ContentContainer'
 
 export default function ExplorePage() {
   return (

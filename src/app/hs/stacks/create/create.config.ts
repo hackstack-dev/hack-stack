@@ -1,4 +1,4 @@
-import { StackForm } from '@/app/hs/create/create.types'
+import { StackForm } from '@/app/hs/stacks/create/create.types'
 
 export const projectTypes: StackForm['projectTypes'] = [
   'Academic research',

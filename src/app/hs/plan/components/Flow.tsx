@@ -49,6 +49,8 @@ export default function Flow({
       onNodesChange={onNodesChange}
       onEdgesChange={onEdgesChange}
       onConnect={onConnect}
+      className="stack-blocks"
+      proOptions={{ hideAttribution: true }}
     >
       <Background color={backgroundColor} variant={BackgroundVariant.Dots} />
     </ReactFlow>

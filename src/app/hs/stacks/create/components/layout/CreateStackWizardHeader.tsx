@@ -6,7 +6,8 @@ import React from 'react'
 
 export function CreateStackWizardHeader() {
   const { activeStep, stepCount, previousStep, nextStep } = useWizard()
-  const progress = (activeStep - 1 / stepCount) * 100
+  const currentStep = activeStep + 1
+  const progress = (currentStep / stepCount) * 100
   return (
     <div className="flex items-center gap-8">
       <Progress

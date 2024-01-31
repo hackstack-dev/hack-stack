@@ -25,11 +25,10 @@ export default function AppNavigation({
   mode = 'nav'
 }: AppNavigationProps) {
   const pathname = usePathname()
-
   return (
     <>
       {menuItems.map((item) => {
-        const isActive = pathname.includes(`/${item.href}`)
+        const isActive = pathname.includes(item.parentPath)
         const color = isActive ? PRIMARY_COLOR : DEFAULT_COLOR
         const menuItemColor = isActive ? PRIMARY_COLOR : FOREGROUND_COLOR
 
@@ -46,7 +45,7 @@ export default function AppNavigation({
               <span
                 className={cn(
                   isActive &&
-                    'bg-gradient-to-b from-orange-400 to-red-500 dark:from-amber-200 dark:to-amber-400 bg-clip-text text-transparent'
+                    'bg-gradient-to-b from-orange-400 to-red-500  dark:from-amber-300 dark:via-orange-300 dark:to-red-300 bg-clip-text text-transparent'
                 )}
               >
                 {item.name}

@@ -20,42 +20,25 @@ import { MenuItem } from '@/app/hs/components/header/types'
 const menuItems: MenuItem[] = [
   {
     name: 'Explore',
-    href: 'explore'
+    href: '/hs/explore',
+    parentPath: 'explore'
   },
   {
-    name: 'Create',
-    href: 'create'
+    name: 'Stacks',
+    href: '/hs/stacks',
+    parentPath: 'stacks'
   },
   {
     name: 'Plan',
-    href: 'plan'
+    href: '/hs/plan',
+    parentPath: 'plan'
   }
 ]
 
 export default function AppHeader() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false)
   return (
-    <Navbar
-      onMenuOpenChange={setIsMenuOpen}
-      maxWidth="full"
-      classNames={{
-        item: [
-          'flex',
-          'relative',
-          'h-full',
-          'items-center',
-          "data-[active=true]:after:content-['']",
-          'data-[active=true]:after:absolute',
-          'data-[active=true]:after:bottom-0',
-          'data-[active=true]:after:left-0',
-          'data-[active=true]:after:right-0',
-          'data-[active=true]:after:h-[1px]',
-          'data-[active=true]:after:rounded-[1px]',
-          'data-[active=true]:after:bg-gradient-to-b from-orange-400 to-red-500 dark:from-amber-200 dark:to-amber-400 bg-clip-text text-transparent'
-        ]
-      }}
-      isBordered
-    >
+    <Navbar onMenuOpenChange={setIsMenuOpen} maxWidth="full" isBordered>
       <NavbarContent>
         <NavbarMenuToggle
           aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
