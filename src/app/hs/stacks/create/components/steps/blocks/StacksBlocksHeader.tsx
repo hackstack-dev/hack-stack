@@ -1,25 +1,25 @@
 import React from 'react'
 import { StackState } from '@/app/hs/stacks/create/create.types'
-import { FancyStepTitle } from '@/app/hs/stacks/create/components/layout/FancyStepTitle'
-import { Divider } from '@nextui-org/react'
-import Drawer from '@/app/hs/components/ui/drawer/Drawer'
+import { BreadcrumbItem, Breadcrumbs } from '@nextui-org/react'
+import { Button } from '@nextui-org/button'
+import { useWizard } from 'react-use-wizard'
 
 interface StacksBlocksHeaderProps {
   stackState: StackState
 }
 export function StacksBlocksHeader({ stackState }: StacksBlocksHeaderProps) {
-  const [isOpen, setIsOpen] = React.useState(false)
-
+  const { goToStep, previousStep } = useWizard()
   return (
     <div className="py-4 flex items-center gap-4">
-      <span>{stackState.name}</span>
-      <Divider orientation="vertical" className="h-5" />
-      <span>{stackState.template.name}</span>
-      <Divider orientation="vertical" className="h-5" />
-      <Drawer isOpen={isOpen} onOpenChange={setIsOpen} />
-      <span className="cursor-pointer" onClick={() => setIsOpen(true)}>
-        Edit
-      </span>
+      <Breadcrumbs>
+        <BreadcrumbItem>
+          <span onClick={() => goToStep(0)}>{stackState.name}</span>
+        </BreadcrumbItem>
+        <BreadcrumbItem>
+          <span onClick={previousStep}>{stackState.template.name}</span>
+        </BreadcrumbItem>
+        <BreadcrumbItem>Build your stack</BreadcrumbItem>
+      </Breadcrumbs>
     </div>
   )
 }

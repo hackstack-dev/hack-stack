@@ -51,6 +51,8 @@ export default function Flow({
       onConnect={onConnect}
       className="stack-blocks"
       proOptions={{ hideAttribution: true }}
+      fitViewOptions={{ maxZoom: 1 }}
+      fitView
     >
       <Background color={backgroundColor} variant={BackgroundVariant.Dots} />
     </ReactFlow>

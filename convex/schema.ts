@@ -8,31 +8,35 @@ export default defineSchema({
     name: v.string(),
     userId: v.string(),
     projectTypes: v.union(
-      v.literal('Academic research'),
-      v.literal('As freelance'),
-      v.literal('As part of my job'),
-      v.literal('Bootcamp project'),
-      v.literal('Commercial project'),
-      v.literal('Early stage startup'),
-      v.literal('Hackathon project'),
-      v.literal('Learning project'),
-      v.literal('Nonprofit project'),
-      v.literal('Open source project'),
-      v.literal('Pet project'),
-      v.literal('Side project'),
-      v.literal('Student final project'),
+      v.literal('In an academic research'),
+      v.literal('In a freelance project'),
+      v.literal('At my company'),
+      v.literal('In a bootcamp project'),
+      v.literal('In a commercial project'),
+      v.literal('At a early stage startup'),
+      v.literal('In a hackathon project'),
+      v.literal('In a learning project'),
+      v.literal('In a nonprofit project'),
+      v.literal('In an open source project'),
+      v.literal('In my side project'),
+      v.literal('In my student final project'),
       v.literal('Other')
     ),
     templateId: v.string(),
     sourceCodeUrl: v.optional(v.string()),
     websiteUrl: v.optional(v.string()),
-    description: v.optional(v.string()),
+    description: v.optional(v.string())
   }),
   tech: defineTable({ name: v.string() }),
+  blocks: defineTable({
+    name: v.string(),
+    description: v.optional(v.string()),
+    icon: v.optional(v.string())
+  }),
   templates: defineTable({
     name: v.string(),
     description: v.string(),
-    blocks: v.array(v.string()),
+    blocks: v.array(v.object({})),
     icon: v.optional(v.string())
   })
 })

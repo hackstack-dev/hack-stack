@@ -7,13 +7,7 @@
     background-color: #111;
     box-shadow: 1px 1px 0 1px #000, 3px 3px 0 1px #ED8A19, 5px 5px 0 1px #000, 7px 7px 0 1px #EA6248;
     color: white;
-    transition: border, box-shadow 0.2s ease-in-out;
-}
-
-.stack-blocks .react-flow__node.selected,
-.stack-blocks .react-flow__node:hover,
-.stack-blocks .react-flow__node:focus {
-    box-shadow: 1px 1px 0 1px #000, 3px 3px 0 1px #ED8A19, 5px 5px 0 1px #000, 7px 7px 0 1px #EA6248;
+    transition: border, box-shadow 0.3s linear;
 }
 
 .stack-blocks .react-flow__node.selected {

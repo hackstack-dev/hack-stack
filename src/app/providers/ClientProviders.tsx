@@ -6,12 +6,14 @@ import { ThemeProvider } from 'next-themes'
 import { ConvexReactClient } from 'convex/react'
 import { useAuth } from '@clerk/nextjs'
 import { NextUIProvider } from '@nextui-org/react'
+import { useRouter } from 'next/navigation'
 
 const convex = new ConvexReactClient(
   process.env.NEXT_PUBLIC_CONVEX_URL as string
 )
 
 export default function ClientProviders({ children }: React.PropsWithChildren) {
+  const router = useRouter()
   return (
     <ConvexProviderWithClerk client={convex} useAuth={useAuth}>
       <ThemeProvider
@@ -19,7 +21,7 @@ export default function ClientProviders({ children }: React.PropsWithChildren) {
         defaultTheme="dark"
         disableTransitionOnChange
       >
-        <NextUIProvider>{children}</NextUIProvider>
+        <NextUIProvider navigate={router.push}>{children}</NextUIProvider>
       </ThemeProvider>
     </ConvexProviderWithClerk>
   )

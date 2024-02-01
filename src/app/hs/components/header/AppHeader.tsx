@@ -45,7 +45,7 @@ export default function AppHeader() {
           className="sm:hidden"
         />
         <NavbarBrand>
-          <Link href="explore" className="flex items-center space-x-2">
+          <Link href="/hs/explore" className="flex items-center space-x-2">
             <AppLogo />
             <h1 className="text-2xl font-semibold text-center">HackStack</h1>
           </Link>

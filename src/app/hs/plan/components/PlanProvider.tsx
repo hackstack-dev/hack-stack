@@ -1,22 +1,7 @@
 'use client'
 
-import {
-  Edge,
-  Node,
-  ReactFlowProvider
-} from 'reactflow'
-import Flow from '@/app/hs/plan/components/Flow'
+import { FancyStepTitle } from '@/app/hs/stacks/create/components/layout/FancyStepTitle'
 
-interface PlanProviderProps {
-  nodes: Node[]
-  edges: Edge[]
-}
-export default function PlanProvider({ nodes, edges }: PlanProviderProps) {
-  return (
-    <ReactFlowProvider initialNodes={nodes} initialEdges={edges}>
-      <section className="h-screen w-full">
-        <Flow nodes={nodes} edges={edges} />
-      </section>
-    </ReactFlowProvider>
-  )
+export default function PlanProvider() {
+  return <FancyStepTitle>Plan your stack</FancyStepTitle>
 }

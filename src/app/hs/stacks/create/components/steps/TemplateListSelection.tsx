@@ -81,7 +81,7 @@ export default function TemplateListSelection({
                 <Card
                   className={cn(
                     'max-w-[450px] h-[140px]',
-                    stackState.template?._id === t._id && 'ring-1 ring-primary'
+                    stackState.template?._id === t._id && 'ring-1 ring-default'
                   )}
                 >
                   <CardHeader className="flex items-center justify-between">
@@ -100,11 +100,11 @@ export default function TemplateListSelection({
                       <h3 className="text-md">{t.name}</h3>
                     </div>
 
-                    <Radio size="sm" value={t._id} />
+                    <Radio size="sm" value={t._id} color="default" />
                   </CardHeader>
                   <Divider />
                   <CardBody>
-                    <p className="text-xs font-light">{t.description}</p>
+                    <p className="text-xs font-light text-default-500">{t.description}</p>
                   </CardBody>
                 </Card>
               </li>

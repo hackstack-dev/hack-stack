@@ -91,7 +91,7 @@ export default function StackDetails({
                 projectTypesInvalid && 'border-medium border-danger'
               )}
             >
-              <p className="text-small text-default-500 p-2">Project types</p>
+              <p className="text-small text-default-500 p-2">This stack is used in:</p>
               <ScrollShadow className="max-h-[300px]">
                 <Controller
                   name="projectTypes"

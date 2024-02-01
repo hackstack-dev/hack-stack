@@ -8,6 +8,7 @@ import { CreateStackWizardHeader } from '@/app/hs/stacks/create/components/layou
 import { StackState } from '@/app/hs/stacks/create/create.types'
 import StackBlocks from '@/app/hs/stacks/create/components/steps/blocks/StackBlocks'
 import { StepContainer } from '@/app/hs/stacks/create/components/layout/StepContainer'
+import { Doc } from '~/convex/_generated/dataModel'
 
 export default function CreateStackWizard() {
   const [createStackState, setStackState] = React.useState<StackState>({
@@ -16,7 +17,7 @@ export default function CreateStackWizard() {
     sourceCodeUrl: '',
     websiteUrl: '',
     description: '',
-    templateId: ''
+    template: {} as Doc<'templates'>
   })
 
   const handleStackStateChange = React.useCallback(

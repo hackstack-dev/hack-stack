@@ -32,7 +32,10 @@ const config: Config = {
             primary: {
               DEFAULT: '#EFCE4A',
               foreground: '#000'
-            }
+            },
+            secondary: {
+              DEFAULT: '#A74AC7'
+            },
           }
         },
         light: {
