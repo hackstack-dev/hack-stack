@@ -10,7 +10,7 @@ interface StacksBlocksHeaderProps {
 export function StacksBlocksHeader({ stackState }: StacksBlocksHeaderProps) {
   const { goToStep, previousStep } = useWizard()
   return (
-    <div className="py-4 flex items-center gap-4">
+    <div className="py-4 flex items-center gap-4 border-b-1 dark:border-default-100">
       <Breadcrumbs>
         <BreadcrumbItem>
           <span onClick={() => goToStep(0)}>{stackState.name}</span>

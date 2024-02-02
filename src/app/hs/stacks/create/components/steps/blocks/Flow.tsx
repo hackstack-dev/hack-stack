@@ -1,55 +1,52 @@
-'use client'
-
-import { useCallback, useState } from 'react'
+import React from 'react'
 import ReactFlow, {
-  addEdge,
   Node,
-  Edge,
-  applyNodeChanges,
-  applyEdgeChanges,
   OnNodesChange,
-  OnEdgesChange,
-  OnConnect,
   Background,
-  BackgroundVariant
+  BackgroundVariant,
+  useStoreApi,
+  useReactFlow,
+  getNodesBounds,
+  useNodesState
 } from 'reactflow'
 
 import 'reactflow/dist/style.css'
 import { useTheme } from 'next-themes'
+import BlockNode from '@/app/hs/stacks/create/components/steps/blocks/BlockNode'
 
-export default function Flow({
-  nodes: initNodes,
-  edges: initEdges
-}: {
+const nodeTypes = {
+  blockNode: BlockNode
+}
+
+interface FlowProps {
   nodes: Node[]
-  edges: Edge[]
-}) {
-  const [nodes, setNodes] = useState<Node[]>(initNodes)
-  const [edges, setEdges] = useState<Edge[]>(initEdges)
+  setNodes: (nodes: Node[]) => void
+  onNodesChange: OnNodesChange
+}
+export default function Flow({ nodes, onNodesChange }: FlowProps) {
+  const store = useStoreApi()
+  const { setCenter } = useReactFlow()
+
   const { theme } = useTheme()
   const backgroundColor = theme === 'light' ? '#1f2937' : '#EFCE4A'
 
-  const onNodesChange: OnNodesChange = useCallback((chs) => {
-    setNodes((nds) => applyNodeChanges(chs, nds))
-  }, [])
-
-  const onEdgesChange: OnEdgesChange = useCallback((chs) => {
-    setEdges((eds) => applyEdgeChanges(chs, eds))
-  }, [])
-
-  const onConnect: OnConnect = useCallback(
-    (params) => setEdges((eds) => addEdge(params, eds)),
-    []
-  )
+  React.useEffect(() => {
+    const { nodeInternals } = store.getState()
+    const nodes = Array.from(nodeInternals).map(([, node]) => node)
+    if (nodes.length) {
+      const bounds = getNodesBounds(nodes)
+      const x = bounds.x - bounds.width / 2
+      const y = bounds.y + bounds.height / 2
+      setCenter(x, y, { zoom: 0.8, duration: 1000 })
+    }
+  }, [store, setCenter])
 
   return (
     <ReactFlow
       nodes={nodes}
-      edges={edges}
+      edges={[]}
+      nodeTypes={nodeTypes}
       onNodesChange={onNodesChange}
-      onEdgesChange={onEdgesChange}
-      onConnect={onConnect}
-      className="stack-blocks"
       proOptions={{ hideAttribution: true }}
       fitViewOptions={{ maxZoom: 1 }}
       fitView

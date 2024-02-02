@@ -13,6 +13,9 @@
 body {
 }
 
+@layer components {
+}
+
 @layer utilities {
     .text-balance {
         text-wrap: balance;

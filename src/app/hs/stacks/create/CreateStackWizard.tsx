@@ -9,6 +9,7 @@ import { StackState } from '@/app/hs/stacks/create/create.types'
 import StackBlocks from '@/app/hs/stacks/create/components/steps/blocks/StackBlocks'
 import { StepContainer } from '@/app/hs/stacks/create/components/layout/StepContainer'
 import { Doc } from '~/convex/_generated/dataModel'
+import { ReactFlowProvider } from 'reactflow'
 
 export default function CreateStackWizard() {
   const [createStackState, setStackState] = React.useState<StackState>({
@@ -41,10 +42,12 @@ export default function CreateStackWizard() {
           onStateChange={handleStackStateChange}
         />
       </StepContainer>
-      <StackBlocks
-        stackState={createStackState}
-        onStateChange={handleStackStateChange}
-      />
+      <ReactFlowProvider>
+        <StackBlocks
+          stackState={createStackState}
+          onStateChange={handleStackStateChange}
+        />
+      </ReactFlowProvider>
       <div>Finish</div>
     </Wizard>
   )

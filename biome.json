@@ -9,6 +9,9 @@
       "a11y": {
         "recommended": false,
         "all": false
+      },
+      "complexity": {
+        "noForEach": "off"
       }
     }
   },

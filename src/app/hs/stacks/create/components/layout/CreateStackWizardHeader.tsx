@@ -14,8 +14,8 @@ export function CreateStackWizardHeader() {
         size="sm"
         radius="sm"
         classNames={{
-          track: 'drop-shadow-md border border-default',
-          indicator: 'bg-gradient-to-r from-yellow-400 to-red-400',
+          track: 'dark:drop-shadow-md border border-default',
+          indicator: 'bg-black dark:bg-gradient-to-r from-yellow-400 to-red-400',
           label: 'tracking-wider font-medium text-default-600',
           value: 'text-foreground/60'
         }}

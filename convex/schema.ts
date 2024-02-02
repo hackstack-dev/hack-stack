@@ -27,12 +27,22 @@ export default defineSchema({
     websiteUrl: v.optional(v.string()),
     description: v.optional(v.string())
   }),
+
   tech: defineTable({ name: v.string() }),
-  blocks: defineTable({
+
+  categories: defineTable({
     name: v.string(),
-    description: v.optional(v.string()),
     icon: v.optional(v.string())
   }),
+
+  blocks: defineTable({
+    name: v.string(),
+    description: v.string(),
+    category: v.id('categories'),
+    tags: v.array(v.string()),
+    icon: v.optional(v.string())
+  }).index('by_category', ['category']),
+
   templates: defineTable({
     name: v.string(),
     description: v.string(),
