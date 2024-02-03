@@ -9,6 +9,10 @@ export function getIconAsset(icon: string) {
   return `/assets/icons/${icon}.svg`
 }
 
+export function getTechLogo(tech: string) {
+  return `https://ik.imagekit.io/odzx7thry/hack_stack/logos/${tech}`
+}
+
 export function generateRandomStackName() {
   const adjectives = [
     'Agile',

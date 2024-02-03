@@ -15,6 +15,7 @@ import type {
   FunctionReference,
 } from "convex/server";
 import type * as blocks from "../blocks.js";
+import type * as tech from "../tech.js";
 import type * as templates from "../templates.js";
 import type * as utils from "../utils.js";
 
@@ -28,6 +29,7 @@ import type * as utils from "../utils.js";
  */
 declare const fullApi: ApiFromModules<{
   blocks: typeof blocks;
+  tech: typeof tech;
   templates: typeof templates;
   utils: typeof utils;
 }>;

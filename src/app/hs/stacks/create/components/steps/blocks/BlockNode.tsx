@@ -1,47 +1,54 @@
-import { NodeProps, NodeToolbar, Position } from 'reactflow'
-import { cn } from '@/app/lib/utils'
-import {
-  LucideCopy,
-  LucideDatabase,
-  LucidePackagePlus,
-  LucideTrash
-} from 'lucide-react'
-import { ButtonGroup } from '@nextui-org/react'
-import { Button } from '@nextui-org/button'
+import { NodeProps } from 'reactflow'
+import { cn, getTechLogo } from '@/app/lib/utils'
 
+import Image from 'next/image'
 export default function BlockNode(props: NodeProps) {
   const { data, selected } = props
+  const techLogo = data?.tech?.icon ?? 'logo.svg'
   return (
     <>
-      <NodeToolbar isVisible={undefined} position={Position.Top}>
-        <ButtonGroup variant="flat" size="sm" radius="lg">
-          <Button>
-            <LucideTrash size={16} />
-          </Button>
-          <Button>
-            <LucideCopy size={16} />
-          </Button>
-          <Button>
-            <LucidePackagePlus size={16} />
-          </Button>
-        </ButtonGroup>
-      </NodeToolbar>
+      {/*<NodeToolbar isVisible={undefined} position={Position.Top}>*/}
+      {/*  <ButtonGroup variant="flat" size="sm" radius="lg">*/}
+      {/*    <Button>*/}
+      {/*      <LucideTrash size={16} />*/}
+      {/*    </Button>*/}
+      {/*    <Button>*/}
+      {/*      <LucideCopy size={16} />*/}
+      {/*    </Button>*/}
+      {/*    <Button>*/}
+      {/*      <LucidePackagePlus size={16} />*/}
+      {/*    </Button>*/}
+      {/*  </ButtonGroup>*/}
+      {/*</NodeToolbar>*/}
       <div
         className={cn([
+          'min-w-[200px]',
           'bg-white dark:bg-[#111]',
           'border-2 border-primary',
           'rounded-md hs-block-shadow',
-          'shadow-[1px_1px_0_1px_#fff,3px_3px_0_1px_#222,5px_5px_0_1px_#fff,7px_7px_0_1px_#222]',
-          'dark:shadow-[1px_1px_0_1px_#222,3px_3px_0_1px_#ED8A19,5px_5px_0_1px_#222,7px_7px_0_1px_#EA6248]',
           'transition-[border,box-shadow] duration-300 linear',
-          selected && 'shadow-none dark:border-white dark:shadow-none'
+          selected && [
+            'shadow-[1px_1px_0_1px_#fff,3px_3px_0_1px_#222,5px_5px_0_1px_#fff]',
+            'dark:shadow-[1px_1px_0_1px_#222,3px_3px_0_1px_#d946ef,5px_5px_0_1px_#222]'
+          ]
         ])}
       >
-        <header className="flex items-center gap-2 px-4 py-2">
-          <LucideDatabase size={16} />
-          <h3>{data.label}</h3>
-        </header>
-        <section>Select</section>
+        <div className="flex items-stretch">
+          <div className="flex flex-col justify-center px-2 dark:bg-transparent rounded-tl-sm rounded-bl-sm">
+            <Image
+              src={getTechLogo(techLogo)}
+              alt={techLogo}
+              width={32}
+              height={32}
+              className="h-8"
+            />
+          </div>
+          <div className="border-l-2 border-primary py-2 px-4">
+            <h3 className="text-default-500 text-sm">{data.blockName}</h3>
+
+            <span>{data?.tech?.name ?? 'Not selected'}</span>
+          </div>
+        </div>
       </div>
     </>
   )

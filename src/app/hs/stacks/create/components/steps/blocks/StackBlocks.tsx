@@ -10,6 +10,7 @@ import { Panel, PanelGroup, PanelResizeHandle } from 'react-resizable-panels'
 import ResizeHandle from '@/app/hs/stacks/create/components/steps/blocks/ResizeHandle'
 import BlockDataPanel from '@/app/hs/stacks/create/components/steps/blocks/BlockDataPanel'
 import { BlockNodeData } from '@/app/hs/stacks/create/components/steps/blocks/Blocks.types'
+import useNewBlockPosition from '@/app/hs/stacks/create/components/steps/blocks/hooks/useNewBlockPosition'
 
 const initialNodes: Node[] = []
 
@@ -18,7 +19,7 @@ export default function StackBlocks({
   onStateChange
 }: StackStateProps) {
   const { handleStep } = useWizard()
-  // const { isAuthenticated } = useConvexAuth()
+  const { setPosition } = useNewBlockPosition()
 
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes)
 
@@ -26,13 +27,30 @@ export default function StackBlocks({
     setNodes((prev) => [
       ...prev,
       {
-        id: `${prev.length}`,
+        id: `${nodeData.id}_${prev.length}`,
         type: 'blockNode',
         data: nodeData,
-        position: { x: 0, y: 0 }
+        position: setPosition()
       }
     ])
   }
+
+  const handleUpdateBlock = (
+    nodeId: Node['id'],
+    blockSelectedTech: BlockNodeData['tech']
+  ) => {
+    setNodes((nds) =>
+      nds.map((node) => {
+        if (node.id === nodeId) {
+          // it's important that you create a new object here
+          // in order to notify react flow about the change
+          return { ...node, data: { ...node.data, tech: blockSelectedTech } }
+        }
+        return node
+      })
+    )
+  }
+
   handleStep(async () => {})
 
   return (
@@ -53,7 +71,7 @@ export default function StackBlocks({
           <ResizeHandle />
         </PanelResizeHandle>
         <Panel defaultSize={30} minSize={0}>
-          <BlockDataPanel />
+          <BlockDataPanel onUpdateBlock={handleUpdateBlock} nodes={nodes} />
         </Panel>
       </PanelGroup>
     </div>

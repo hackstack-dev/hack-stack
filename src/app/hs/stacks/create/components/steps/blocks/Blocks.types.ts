@@ -1,6 +1,9 @@
+import {Doc} from "~/convex/_generated/dataModel";
+
 export type BlockNodeData = {
   id: string
-  label: string
+  blockName: string
+  tech?: Doc<'tech'>
 }
 
 export interface AddBlockProps {

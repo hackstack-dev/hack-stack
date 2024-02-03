@@ -24,7 +24,8 @@ export const createTemplate = mutation({
     }
     return await ctx.db.insert('templates', {
       name: args.name,
-      description: args.description
+      description: args.description,
+      blocks: []
     })
   }
 })

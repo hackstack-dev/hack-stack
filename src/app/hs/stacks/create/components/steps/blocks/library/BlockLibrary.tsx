@@ -115,7 +115,10 @@ export default function BlockLibrary({
                       className="cursor-pointer bg-default-100 dark:bg-black p-4 rounded-md transition-all hover:ring-1 ring-secondary"
                       key={block._id}
                       onClick={() =>
-                        handleAddBlock({ id: block._id, label: block.name })
+                        handleAddBlock({
+                          id: block._id,
+                          blockName: block.name
+                        })
                       }
                     >
                       <h3 className="text-lg">{block.name}</h3>

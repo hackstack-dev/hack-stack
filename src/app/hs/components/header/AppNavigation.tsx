@@ -44,8 +44,7 @@ export default function AppNavigation({
             >
               <span
                 className={cn(
-                  isActive &&
-                    'bg-gradient-to-b from-orange-400 to-red-500  dark:from-amber-300 dark:via-orange-300 dark:to-red-300 bg-clip-text text-transparent'
+                  isActive && 'text-secondary-400',
                 )}
               >
                 {item.name}

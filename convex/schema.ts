@@ -28,7 +28,11 @@ export default defineSchema({
     description: v.optional(v.string())
   }),
 
-  tech: defineTable({ name: v.string() }),
+  tech: defineTable({
+    name: v.string(),
+    icon: v.string(),
+    blockId: v.id('blocks')
+  }).index('by_block', ['blockId']),
 
   categories: defineTable({
     name: v.string(),
