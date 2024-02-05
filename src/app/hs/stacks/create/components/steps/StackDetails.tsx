@@ -7,7 +7,6 @@ import { cn, generateRandomStackName } from '@/app/lib/utils'
 import { projectTypes } from '@/app/hs/stacks/create/create.config'
 import { Controller, useForm } from 'react-hook-form'
 import {
-  ProjectType,
   StackForm,
   stackFormSchema,
   StackStateProps
@@ -91,7 +90,9 @@ export default function StackDetails({
                 projectTypesInvalid && 'border-medium border-danger'
               )}
             >
-              <p className="text-small text-default-500 p-2">This stack is used in:</p>
+              <p className="text-small text-default-500 p-2">
+                This stack is used in:
+              </p>
               <ScrollShadow className="max-h-[300px]">
                 <Controller
                   name="projectTypes"
@@ -104,7 +105,7 @@ export default function StackDetails({
                       selectionMode="multiple"
                       selectedKeys={field.value}
                       onSelectionChange={(keys) =>
-                        field.onChange(Array.from(keys) as ProjectType[])
+                        field.onChange(Array.from(keys) as string[])
                       }
                       classNames={{
                         list: 'max-h-[300px] overflow-scroll'

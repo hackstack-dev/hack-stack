@@ -1,5 +1,4 @@
 import { query } from './_generated/server'
-import { v } from 'convex/values'
 
 export const blocksByCategories = query({
   args: {},

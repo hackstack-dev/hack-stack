@@ -24,6 +24,7 @@
     "react-dom": "^18",
     "react-hook-form": "^7.49.3",
     "react-resizable-panels": "^2.0.2",
+    "react-rough-notation": "^1.0.5",
     "react-use-wizard": "^2.2.4",
     "reactflow": "^11.10.3",
     "tailwind-merge": "^2.2.1",

@@ -4,7 +4,12 @@ import { Button } from '@nextui-org/button'
 import { LucideArrowLeft, LucideArrowRight } from 'lucide-react'
 import React from 'react'
 
-export function CreateStackWizardHeader() {
+interface CreateStackWizardHeaderProps {
+  onSaveStack: () => void
+}
+export function CreateStackWizardHeader({
+  onSaveStack
+}: CreateStackWizardHeaderProps) {
   const { activeStep, stepCount, previousStep, nextStep } = useWizard()
   const currentStep = activeStep + 1
   const progress = (currentStep / stepCount) * 100
@@ -40,6 +45,11 @@ export function CreateStackWizardHeader() {
             endContent={<LucideArrowRight />}
           >
             Next
+          </Button>
+        )}
+        {activeStep === stepCount - 1 && (
+          <Button variant="solid" color="secondary" onClick={onSaveStack}>
+            Save stack
           </Button>
         )}
       </div>

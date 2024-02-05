@@ -20,8 +20,10 @@ export default function StackBlocks({
 }: StackStateProps) {
   const { handleStep } = useWizard()
   const { setPosition } = useNewBlockPosition()
-
-  const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes)
+  const [error, setError] = React.useState('')
+  const [nodes, setNodes, onNodesChange] = useNodesState(
+    stackState.stackBlocks ?? initialNodes
+  )
 
   const handleAddBlock = (nodeData: BlockNodeData) => {
     setNodes((prev) => [
@@ -51,11 +53,22 @@ export default function StackBlocks({
     )
   }
 
-  handleStep(async () => {})
+  handleStep(async () => {
+    setError('')
+    if (!nodes.length) {
+      setError('No blocks added')
+      return Promise.reject('No blocks added')
+    }
+    if (nodes?.some((node) => !node.data?.tech)) {
+      setError('Some blocks are missing tech')
+      return Promise.reject('Some blocks are missing tech')
+    }
+    onStateChange({ stackBlocks: nodes })
+  })
 
   return (
     <div className="border-b-1 dark:border-default-100">
-      <StacksBlocksHeader stackState={stackState} />
+      <StacksBlocksHeader stackState={stackState} error={error} />
       <PanelGroup direction="horizontal">
         <Panel minSize={70}>
           <section className="h-[calc(100vh-175px)] w-full relative">

@@ -7,7 +7,7 @@ import { useQuery } from 'convex/react'
 import { api } from '~/convex/_generated/api'
 import Image from 'next/image'
 import { cn, getTechLogo } from '@/app/lib/utils'
-import { Id } from '~/convex/_generated/dataModel'
+import { Doc, Id } from '~/convex/_generated/dataModel'
 
 interface BlockDataPanelProps {
   nodes: Node[]
@@ -35,6 +35,11 @@ export default function BlockDataPanel({
         : { blockId: selectedNode.data.id as Id<'blocks'> }
     ) || []
 
+  const handleBlockUpdate = (tech: Doc<'tech'>) => {
+    const { _id, _creationTime, ...rest } = tech
+    onUpdateBlock(selectedNode?.id ?? '', rest)
+  }
+
   return (
     <div className="p-4 h-full w-full bg-default-50 border-l-1 dark:border-default-100">
       {selectedNode ? (
@@ -42,7 +47,7 @@ export default function BlockDataPanel({
           <h2 className="text-2xl dark:text-default-500">
             {selectedNode?.data?.blockName}
           </h2>
-          {tech && tech.length > 10 && (
+          {tech && tech.length > 20 && (
             <div className="mt-4">
               <Input
                 size="sm"
@@ -53,7 +58,7 @@ export default function BlockDataPanel({
             </div>
           )}
           <ul className="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 text-center gap-4">
-            {tech.map((tech) => (
+            {tech.slice(0, 20).map((tech) => (
               <li
                 key={tech._id}
                 className={cn(
@@ -61,7 +66,7 @@ export default function BlockDataPanel({
                   selectedNode?.data?.tech?._id === tech._id &&
                     'ring-1 ring-primary'
                 )}
-                onClick={() => onUpdateBlock(selectedNode.id, tech)}
+                onClick={() => handleBlockUpdate(tech)}
               >
                 <Image
                   src={getTechLogo(tech.icon)}

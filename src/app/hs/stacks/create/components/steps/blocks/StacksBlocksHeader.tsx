@@ -6,8 +6,12 @@ import { useWizard } from 'react-use-wizard'
 
 interface StacksBlocksHeaderProps {
   stackState: StackState
+  error: string
 }
-export function StacksBlocksHeader({ stackState }: StacksBlocksHeaderProps) {
+export function StacksBlocksHeader({
+  stackState,
+  error
+}: StacksBlocksHeaderProps) {
   const { goToStep, previousStep } = useWizard()
   return (
     <div className="py-4 flex items-center gap-4 border-b-1 dark:border-default-100">
@@ -20,6 +24,7 @@ export function StacksBlocksHeader({ stackState }: StacksBlocksHeaderProps) {
         </BreadcrumbItem>
         <BreadcrumbItem>Build your stack</BreadcrumbItem>
       </Breadcrumbs>
+      {error && <p className="text-small text-danger pr-2">{error}</p>}
     </div>
   )
 }

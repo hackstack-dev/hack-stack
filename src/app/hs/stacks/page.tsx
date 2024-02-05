@@ -1,13 +1,25 @@
 import ContentContainer from '@/app/hs/components/ui/ContentContainer'
 import React from 'react'
-import CreateStackWizard from '@/app/hs/stacks/create/CreateStackWizard'
 import { Button } from '@nextui-org/button'
 import Link from 'next/link'
+import StackList from '@/app/hs/stacks/list/StackList'
+import { LucideListPlus } from 'lucide-react'
+import ActionableHeader from '@/app/hs/components/ui/ActionableHeader'
 
 export default function StacksPage() {
   return (
     <ContentContainer>
-      <Button color="primary" as={Link} href="stacks/create">Create new Stack</Button>
+      <ActionableHeader
+        title="Your stacks"
+        action={
+          <Button color="primary" as={Link} href="stacks/create">
+            <LucideListPlus /> Create new Stack
+          </Button>
+        }
+      />
+      <div className="my-8">
+        <StackList />
+      </div>
     </ContentContainer>
   )
 }

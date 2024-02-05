@@ -1,32 +1,49 @@
 import { defineSchema, defineTable } from 'convex/server'
 import { v } from 'convex/values'
 
+export const stacksValidator = v.object({
+  name: v.string(),
+  userId: v.string(),
+  projectTypes: v.array(v.string()),
+  templateId: v.string(),
+  sourceCodeUrl: v.optional(v.string()),
+  websiteUrl: v.optional(v.string()),
+  description: v.optional(v.string()),
+  stackBlocks: v.array(
+    v.object({
+      id: v.string(),
+      type: v.optional(v.string()),
+      data: v.object({
+        id: v.string(),
+        blockName: v.string(),
+        tech: v.object({
+          blockId: v.id('blocks'),
+          name: v.string(),
+          icon: v.string()
+        })
+      }),
+      position: v.object({
+        x: v.number(),
+        y: v.number()
+      }),
+      positionAbsolute: v.optional(
+        v.object({
+          x: v.optional(v.number()),
+          y: v.optional(v.number())
+        })
+      ),
+      width: v.optional(v.union(v.number(), v.null())),
+      height: v.optional(v.union(v.number(), v.null())),
+      selected: v.optional(v.boolean()),
+      dragging: v.optional(v.boolean())
+    })
+  )
+})
+
 export default defineSchema({
   plans: defineTable({ name: v.string(), userId: v.string() }),
 
-  stacks: defineTable({
-    name: v.string(),
-    userId: v.string(),
-    projectTypes: v.union(
-      v.literal('In an academic research'),
-      v.literal('In a freelance project'),
-      v.literal('At my company'),
-      v.literal('In a bootcamp project'),
-      v.literal('In a commercial project'),
-      v.literal('At a early stage startup'),
-      v.literal('In a hackathon project'),
-      v.literal('In a learning project'),
-      v.literal('In a nonprofit project'),
-      v.literal('In an open source project'),
-      v.literal('In my side project'),
-      v.literal('In my student final project'),
-      v.literal('Other')
-    ),
-    templateId: v.string(),
-    sourceCodeUrl: v.optional(v.string()),
-    websiteUrl: v.optional(v.string()),
-    description: v.optional(v.string())
-  }),
+  stacks: defineTable(stacksValidator).index('by_user', ['userId']),
 
   tech: defineTable({
     name: v.string(),
