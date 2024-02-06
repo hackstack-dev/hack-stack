@@ -75,7 +75,7 @@ export default function StackDetails({
               Need inspiration? How about{' '}
               <span
                 onClick={handleNameSuggestionClick}
-                className="cursor-pointer text-secondary"
+                className="cursor-pointer text-primary"
               >
                 {nameSuggestion}
               </span>
@@ -126,7 +126,7 @@ export default function StackDetails({
             </div>
             <div className="text-small flex items-center gap-2 flex-wrap self-start">
               {projectTypesValue.map((v) => (
-                <Chip key={v} size="sm" color="secondary" variant="bordered">
+                <Chip key={v} size="sm" color="primary" variant="bordered">
                   {v}
                 </Chip>
               ))}

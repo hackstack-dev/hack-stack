@@ -26,15 +26,21 @@ export default function StackBlocks({
   )
 
   const handleAddBlock = (nodeData: BlockNodeData) => {
-    setNodes((prev) => [
-      ...prev,
-      {
-        id: `${nodeData.id}_${prev.length}`,
+    setNodes((nodes) => {
+      const updatedNodes = nodes.map((node) =>
+        node.selected ? { ...node, selected: false } : node
+      )
+
+      const newBlockNode = {
+        id: `${nodeData.id}_${updatedNodes.length}`,
         type: 'blockNode',
         data: nodeData,
-        position: setPosition()
+        position: setPosition(),
+        selected: true
       }
-    ])
+
+      return [...updatedNodes, newBlockNode]
+    })
   }
 
   const handleUpdateBlock = (

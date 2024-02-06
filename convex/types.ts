@@ -4,4 +4,8 @@ import { Infer } from 'convex/values'
 import { stacksValidator } from '~/convex/schema'
 
 export type Stack = Omit<Infer<typeof stacksValidator>, 'userId'>
-export type MostUsedCountData = [string, {count: number, icon: string}][]
+
+export type MostUsedStatsData = [
+  string,
+  { count: number; percent: number; icon: string }
+][]

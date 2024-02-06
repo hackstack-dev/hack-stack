@@ -32,7 +32,7 @@ export default function BlockNodeDataDisplay({
         className={cn([
           'min-w-[200px]',
           'bg-white dark:bg-[#111]',
-          'border-2 border-primary',
+          'border-2 border-secondary',
           'rounded-md hs-block-shadow',
           'transition-[border,box-shadow] duration-300 linear',
           selected && [
@@ -51,7 +51,7 @@ export default function BlockNodeDataDisplay({
               className="h-8"
             />
           </div>
-          <div className="border-l-2 border-primary py-2 px-4">
+          <div className="border-l-2 border-secondary py-2 px-4">
             <h3 className="text-default-500 text-sm">{blockName}</h3>
 
             <span>{tech?.name ?? 'Not selected'}</span>

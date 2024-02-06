@@ -30,11 +30,11 @@ const config: Config = {
         dark: {
           colors: {
             primary: {
-              DEFAULT: '#8b5cf6',
+              DEFAULT: '#d946ef',
               foreground: '#000'
             },
             secondary: {
-              DEFAULT: '#d946ef',
+              DEFAULT: '#8b5cf6',
               400: '#22d3ee',
             },
           }

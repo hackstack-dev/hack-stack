@@ -20,7 +20,7 @@ export function CreateStackWizardHeader({
         radius="sm"
         classNames={{
           track: 'dark:drop-shadow-md border border-default',
-          indicator: 'bg-black dark:bg-gradient-to-r from-primary to-secondary',
+          indicator: 'bg-black dark:bg-gradient-to-r from-secondary to-primary',
           label: 'tracking-wider font-medium text-default-600',
           value: 'text-foreground/60'
         }}
@@ -48,7 +48,7 @@ export function CreateStackWizardHeader({
           </Button>
         )}
         {activeStep === stepCount - 1 && (
-          <Button variant="solid" color="secondary" onClick={onSaveStack}>
+          <Button variant="solid" color="primary" onClick={onSaveStack}>
             Save stack
           </Button>
         )}

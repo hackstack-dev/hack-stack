@@ -60,11 +60,11 @@ export default function BlockDataPanel({
           <ul className="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 text-center gap-4">
             {tech.slice(0, 20).map((tech) => (
               <li
-                key={tech._id}
+                key={tech.icon}
                 className={cn(
-                  'p-2 cursor-pointer rounded-md hover:ring-1 ring-primary transition-all',
-                  selectedNode?.data?.tech?._id === tech._id &&
-                    'ring-1 ring-primary'
+                  'p-2 cursor-pointer rounded-md hover:ring-1 ring-secondary transition-all',
+                  selectedNode?.data?.tech?.icon === tech.icon &&
+                    'ring-1 ring-secondary'
                 )}
                 onClick={() => handleBlockUpdate(tech)}
               >

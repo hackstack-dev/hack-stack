@@ -10,6 +10,7 @@ import {
   AddBlockProps,
   BlockNodeData
 } from '@/app/hs/stacks/create/components/steps/blocks/Blocks.types'
+import { Doc } from '~/convex/_generated/dataModel'
 
 interface BlockLibraryProps extends AddBlockProps {
   onClose: () => void
@@ -88,7 +89,7 @@ export default function BlockLibrary({
                 size="sm"
                 variant="flat"
                 color={
-                  categoryFilter === category.name ? 'secondary' : 'default'
+                  categoryFilter === category.name ? 'primary' : 'default'
                 }
                 onClick={() => handleFilterClick(category.name)}
                 className="w-full"
@@ -102,7 +103,7 @@ export default function BlockLibrary({
       <>
         {!queryData ? (
           <div className="mx-auto my-4">
-            <Spinner color="secondary" />
+            <Spinner color="primary" />
           </div>
         ) : (
           <div>
@@ -112,12 +113,13 @@ export default function BlockLibrary({
                 <div className="grid grid-cols-3 gap-4">
                   {blocks.map((block) => (
                     <div
-                      className="cursor-pointer bg-default-100 dark:bg-black p-4 rounded-md transition-all hover:ring-1 ring-secondary"
+                      className="cursor-pointer bg-default-100 dark:bg-black p-4 rounded-md transition-all hover:ring-1 ring-primary"
                       key={block._id}
                       onClick={() =>
                         handleAddBlock({
                           id: block._id,
-                          blockName: block.name
+                          blockName: block.name,
+                          tech: {} as Doc<'tech'>
                         })
                       }
                     >
@@ -130,7 +132,7 @@ export default function BlockLibrary({
                           <Chip
                             key={tag}
                             size="sm"
-                            color="secondary"
+                            color="primary"
                             variant="bordered"
                           >
                             {tag}

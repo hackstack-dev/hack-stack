@@ -14,6 +14,7 @@ import Summary from '@/app/hs/stacks/create/components/steps/Summary'
 import { useMutation } from 'convex/react'
 import { api } from '~/convex/_generated/api'
 import { useRouter } from 'next/navigation'
+import { getRandomCardBackground } from '@/app/lib/utils'
 
 export default function CreateStackWizard() {
   const router = useRouter()
@@ -40,8 +41,9 @@ export default function CreateStackWizard() {
     // save stack
     const { template, ...rest } = createStackState
     const templateId = template._id
+    const coverImage = getRandomCardBackground()
     // const stack: Stack = { ...rest, templateId }
-    await saveStack({ stack: { ...rest, templateId } })
+    await saveStack({ stack: { ...rest, templateId, coverImage } })
     router.push('/hs/stacks')
   }
 

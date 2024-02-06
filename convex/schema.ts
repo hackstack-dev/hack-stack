@@ -6,6 +6,7 @@ export const stacksValidator = v.object({
   userId: v.string(),
   projectTypes: v.array(v.string()),
   templateId: v.string(),
+  coverImage: v.string(),
   sourceCodeUrl: v.optional(v.string()),
   websiteUrl: v.optional(v.string()),
   description: v.optional(v.string()),

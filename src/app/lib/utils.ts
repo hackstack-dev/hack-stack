@@ -13,6 +13,10 @@ export function getTechLogo(tech: string) {
   return `https://ik.imagekit.io/odzx7thry/hack_stack/logos/${tech}`
 }
 
+export function getRandomCardBackground() {
+  return `/assets/images/${Math.floor(Math.random() * 14) + 1}.jpeg`
+}
+
 export function generateRandomStackName() {
   const adjectives = [
     'Agile',
