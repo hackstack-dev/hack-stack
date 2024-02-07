@@ -10,11 +10,16 @@ import ResizeHandle from '@/app/hs/stacks/components/blocks/ResizeHandle'
 import BlockDataPanel from '@/app/hs/stacks/components/blocks/BlockDataPanel'
 import { BlockNodeData } from '@/app/hs/stacks/components/blocks/Blocks.types'
 import useNewBlockPosition from '@/app/hs/stacks/components/blocks/hooks/useNewBlockPosition'
+import { cn } from '@/app/lib/utils'
 
 interface StackBlocksProps {
   initialNodes: Node<BlockNodeData, string | undefined>[]
+  hidden?: boolean
 }
-export default function StackBlocks({ initialNodes }: StackBlocksProps) {
+export default function StackBlocks({
+  initialNodes,
+  hidden = false
+}: StackBlocksProps) {
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes)
   const { setPosition } = useNewBlockPosition()
   const handleAddBlock = (nodeData: BlockNodeData) => {
@@ -52,10 +57,15 @@ export default function StackBlocks({ initialNodes }: StackBlocksProps) {
   }
 
   return (
-    <div className="border-b-1 dark:border-default-100">
+    <div
+      className={cn(
+        'grow border-b-1 border-t-1 border-l-1 rounded dark:border-default-50',
+        hidden && 'hidden'
+      )}
+    >
       <PanelGroup direction="horizontal">
         <Panel minSize={70}>
-          <section className="h-[calc(100vh-175px)] w-full relative">
+          <section className="h-full w-full relative">
             <NewBlockDialog onAddBlock={handleAddBlock} />
             <Flow
               nodes={nodes}

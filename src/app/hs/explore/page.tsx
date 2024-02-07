@@ -1,5 +1,4 @@
 import ContentContainer from '@/app/hs/components/ui/ContentContainer'
-import PageTitle from '@/app/hs/components/ui/PageTitle'
 import ExploreDashboard from '@/app/hs/explore/dashboard/ExploreDashboard'
 import ActionableHeader from '@/app/hs/components/ui/ActionableHeader'
 import { Button } from '@nextui-org/button'

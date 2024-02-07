@@ -36,7 +36,7 @@ export default function StackList() {
                 className="h-[300px]"
               >
                 <CardHeader className="absolute z-10 top-1 flex-col items-start">
-                  <h4 className="text-white/90 font-medium text-xl">
+                  <h4 className="text-white/90 font-medium text-xl drop-shadow">
                     {stack.name}
                   </h4>
                 </CardHeader>

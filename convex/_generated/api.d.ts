@@ -16,6 +16,7 @@ import type {
 } from "convex/server";
 import type * as blocks from "../blocks.js";
 import type * as stack from "../stack.js";
+import type * as stats from "../stats.js";
 import type * as tech from "../tech.js";
 import type * as templates from "../templates.js";
 import type * as types from "../types.js";
@@ -32,6 +33,7 @@ import type * as utils from "../utils.js";
 declare const fullApi: ApiFromModules<{
   blocks: typeof blocks;
   stack: typeof stack;
+  stats: typeof stats;
   tech: typeof tech;
   templates: typeof templates;
   types: typeof types;
