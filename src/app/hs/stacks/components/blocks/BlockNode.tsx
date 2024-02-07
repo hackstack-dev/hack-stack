@@ -2,7 +2,7 @@ import { NodeProps } from 'reactflow'
 import { cn, getTechLogo } from '@/app/lib/utils'
 
 import Image from 'next/image'
-import BlockNodeDataDisplay from '@/app/hs/stacks/create/components/steps/blocks/BlockNodeDataDisplay'
+import BlockNodeDataDisplay from '@/app/hs/stacks/components/blocks/BlockNodeDataDisplay'
 export default function BlockNode(props: NodeProps) {
   const { data, selected } = props
   return (

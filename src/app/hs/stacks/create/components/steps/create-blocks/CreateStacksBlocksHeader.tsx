@@ -8,7 +8,7 @@ interface StacksBlocksHeaderProps {
   stackState: StackState
   error: string
 }
-export function StacksBlocksHeader({
+export function CreateStacksBlocksHeader({
   stackState,
   error
 }: StacksBlocksHeaderProps) {
@@ -20,7 +20,7 @@ export function StacksBlocksHeader({
           <span onClick={() => goToStep(0)}>{stackState.name}</span>
         </BreadcrumbItem>
         <BreadcrumbItem>
-          <span onClick={previousStep}>{stackState.template.name}</span>
+          <span onClick={previousStep}>{stackState.template?.name}</span>
         </BreadcrumbItem>
         <BreadcrumbItem>Build your stack</BreadcrumbItem>
       </Breadcrumbs>

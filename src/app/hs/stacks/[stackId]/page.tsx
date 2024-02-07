@@ -1,11 +1,8 @@
 import ContentContainer from '@/app/hs/components/ui/ContentContainer'
 import React from 'react'
 import { Id } from '~/convex/_generated/dataModel'
-import ActionableHeader from '@/app/hs/components/ui/ActionableHeader'
-import { Button } from '@nextui-org/button'
-import Link from 'next/link'
-import { LucideListPlus } from 'lucide-react'
 import StackView from '@/app/hs/stacks/[stackId]/StackView'
+import StackViewProvider from '@/app/hs/stacks/[stackId]/StackViewProvider'
 
 export default function StackPage({
   params
@@ -14,7 +11,9 @@ export default function StackPage({
 
   return (
     <ContentContainer>
-      <StackView id={id} />
+      <StackViewProvider>
+        <StackView id={id} />
+      </StackViewProvider>
     </ContentContainer>
   )
 }

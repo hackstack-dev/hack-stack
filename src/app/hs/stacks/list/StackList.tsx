@@ -8,7 +8,7 @@ import { api } from '~/convex/_generated/api'
 import { Card, CardBody, CardFooter, CardHeader } from '@nextui-org/card'
 import { Button } from '@nextui-org/button'
 import { Image } from '@nextui-org/image'
-import { getRandomCardBackground, getTechLogo } from '@/app/lib/utils'
+import { getCardBackground, getTechLogo } from '@/app/lib/utils'
 import { useRouter } from 'next/navigation'
 
 export default function StackList() {
@@ -45,7 +45,7 @@ export default function StackList() {
                   isZoomed
                   alt="Relaxing app background"
                   className="z-0 w-full h-full object-cover"
-                  src={stack.coverImage || getRandomCardBackground()}
+                  src={getCardBackground(stack.coverImage)}
                 />
                 <CardFooter className="absolute bg-black/40 bottom-0 z-10 border-t-1 border-default-600 dark:border-default-100">
                   <div className="flex flex-grow gap-2 items-center">

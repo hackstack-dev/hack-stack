@@ -1,17 +1,16 @@
 import { Card, CardBody, CardHeader } from '@nextui-org/card'
-import { ButtonGroup, Progress, Spinner } from '@nextui-org/react'
+import { Progress, Spinner, Tab, Tabs } from '@nextui-org/react'
 import { MostUsedStatsData } from '~/convex/types'
 import Image from 'next/image'
 import { getTechLogo } from '@/app/lib/utils'
 import React from 'react'
-import { Button } from '@nextui-org/button'
 import { LucidePercent, LucideSigma } from 'lucide-react'
 interface MostPopularCountProps {
   title: string
   data?: MostUsedStatsData
 }
 export default function MostUsedStats({ title, data }: MostPopularCountProps) {
-  const [view, setView] = React.useState<'percent' | 'count'>('percent')
+  const [view, setView] = React.useState<string | number>('percent')
   const subTitle = view === 'percent' ? '% from overall' : 'Total count'
   return (
     <Card className="p-2">
@@ -20,20 +19,30 @@ export default function MostUsedStats({ title, data }: MostPopularCountProps) {
           <h3 className="font-semibold">{title}</h3>
           <p className="text-default-500 text-xs">{subTitle}</p>
         </div>
-        <ButtonGroup size="sm" variant="flat">
-          <Button
-            color={view === 'percent' ? 'primary' : 'default'}
-            onClick={() => setView('percent')}
-          >
-            <LucidePercent size={16} />
-          </Button>
-          <Button
-            color={view === 'count' ? 'primary' : 'default'}
-            onClick={() => setView('count')}
-          >
-            <LucideSigma size={16} />
-          </Button>
-        </ButtonGroup>
+
+        <Tabs
+          aria-label="Options"
+          variant="bordered"
+          size="sm"
+          onSelectionChange={setView}
+        >
+          <Tab
+            key="percent"
+            title={
+              <div className="flex items-center space-x-2">
+                <LucidePercent size={16} />
+              </div>
+            }
+          />
+          <Tab
+            key="count"
+            title={
+              <div className="flex items-center space-x-2">
+                <LucideSigma size={16} />
+              </div>
+            }
+          />
+        </Tabs>
       </CardHeader>
 
       <CardBody>

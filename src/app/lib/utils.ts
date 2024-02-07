@@ -1,6 +1,7 @@
 import { type ClassValue, clsx } from 'clsx'
 import { twMerge } from 'tailwind-merge'
 
+const IMAGEKIT_URL = 'https://ik.imagekit.io/odzx7thry/hack_stack'
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
@@ -10,11 +11,14 @@ export function getIconAsset(icon: string) {
 }
 
 export function getTechLogo(tech: string) {
-  return `https://ik.imagekit.io/odzx7thry/hack_stack/logos/${tech}`
+  return `${IMAGEKIT_URL}/logos/${tech}`
 }
 
-export function getRandomCardBackground() {
-  return `/assets/images/${Math.floor(Math.random() * 14) + 1}.jpeg`
+export function getRandomBackground() {
+  return `${Math.floor(Math.random() * 25) + 1}.jpeg`
+}
+export function getCardBackground(bg: string) {
+  return `${IMAGEKIT_URL}/backgrounds/${bg}`
 }
 
 export function generateRandomStackName() {

@@ -1,33 +1,25 @@
 import React from 'react'
-import { StackStateProps } from '@/app/hs/stacks/create/create.types'
-import { useWizard } from 'react-use-wizard'
+import { StackState } from '@/app/hs/stacks/create/create.types'
 import { useNodesState } from 'reactflow'
-import Flow from '@/app/hs/stacks/create/components/steps/blocks/Flow'
+import Flow from '@/app/hs/stacks/components/blocks/Flow'
 import { Node } from 'reactflow'
-import { StacksBlocksHeader } from '@/app/hs/stacks/create/components/steps/blocks/StacksBlocksHeader'
-import { NewBlockDialog } from '@/app/hs/stacks/create/components/steps/blocks/library/NewBlockDialog'
+import { CreateStacksBlocksHeader } from '@/app/hs/stacks/create/components/steps/create-blocks/CreateStacksBlocksHeader'
+import { NewBlockDialog } from '@/app/hs/stacks/components/blocks/library/NewBlockDialog'
 import { Panel, PanelGroup, PanelResizeHandle } from 'react-resizable-panels'
-import ResizeHandle from '@/app/hs/stacks/create/components/steps/blocks/ResizeHandle'
-import BlockDataPanel from '@/app/hs/stacks/create/components/steps/blocks/BlockDataPanel'
-import { BlockNodeData } from '@/app/hs/stacks/create/components/steps/blocks/Blocks.types'
-import useNewBlockPosition from '@/app/hs/stacks/create/components/steps/blocks/hooks/useNewBlockPosition'
+import ResizeHandle from '@/app/hs/stacks/components/blocks/ResizeHandle'
+import BlockDataPanel from '@/app/hs/stacks/components/blocks/BlockDataPanel'
+import { BlockNodeData } from '@/app/hs/stacks/components/blocks/Blocks.types'
+import useNewBlockPosition from '@/app/hs/stacks/components/blocks/hooks/useNewBlockPosition'
 
-const initialNodes: Node[] = []
-
-export default function StackBlocks({
-  stackState,
-  onStateChange
-}: StackStateProps) {
-  const { handleStep } = useWizard()
+interface StackBlocksProps {
+  initialNodes: Node<BlockNodeData, string | undefined>[]
+}
+export default function StackBlocks({ initialNodes }: StackBlocksProps) {
+  const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes)
   const { setPosition } = useNewBlockPosition()
-  const [error, setError] = React.useState('')
-  const [nodes, setNodes, onNodesChange] = useNodesState(
-    stackState.stackBlocks ?? initialNodes
-  )
-
   const handleAddBlock = (nodeData: BlockNodeData) => {
-    setNodes((nodes) => {
-      const updatedNodes = nodes.map((node) =>
+    setNodes((nds) => {
+      const updatedNodes = nds.map((node) =>
         node.selected ? { ...node, selected: false } : node
       )
 
@@ -59,22 +51,8 @@ export default function StackBlocks({
     )
   }
 
-  handleStep(async () => {
-    setError('')
-    if (!nodes.length) {
-      setError('No blocks added')
-      return Promise.reject('No blocks added')
-    }
-    if (nodes?.some((node) => !node.data?.tech)) {
-      setError('Some blocks are missing tech')
-      return Promise.reject('Some blocks are missing tech')
-    }
-    onStateChange({ stackBlocks: nodes })
-  })
-
   return (
     <div className="border-b-1 dark:border-default-100">
-      <StacksBlocksHeader stackState={stackState} error={error} />
       <PanelGroup direction="horizontal">
         <Panel minSize={70}>
           <section className="h-[calc(100vh-175px)] w-full relative">

@@ -1,7 +1,7 @@
 import { Doc } from '~/convex/_generated/dataModel'
 import { z } from 'zod'
 import type { Node } from 'reactflow'
-import { BlockNodeData } from '@/app/hs/stacks/create/components/steps/blocks/Blocks.types'
+import { BlockNodeData } from '@/app/hs/stacks/components/blocks/Blocks.types'
 
 export const stackFormSchema = z.object({
   name: z
@@ -19,7 +19,7 @@ export const stackFormSchema = z.object({
 export type StackForm = z.infer<typeof stackFormSchema>
 
 export type StackState = StackForm & {
-  template: Doc<'templates'>
+  template?: Doc<'templates'>
   stackBlocks: Node<BlockNodeData>[]
 }
 export interface StackStateProps {

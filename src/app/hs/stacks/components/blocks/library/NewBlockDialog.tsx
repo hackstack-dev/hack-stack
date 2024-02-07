@@ -2,8 +2,8 @@ import { Button } from '@nextui-org/button'
 import { LucidePlus } from 'lucide-react'
 import { Modal, ModalContent, useDisclosure } from '@nextui-org/react'
 import { ModalBody, ModalHeader } from '@nextui-org/modal'
-import BlockLibrary from '@/app/hs/stacks/create/components/steps/blocks/library/BlockLibrary'
-import { AddBlockProps } from '@/app/hs/stacks/create/components/steps/blocks/Blocks.types'
+import BlockLibrary from '@/app/hs/stacks/components/blocks/library/BlockLibrary'
+import { AddBlockProps } from '@/app/hs/stacks/components/blocks/Blocks.types'
 
 export function NewBlockDialog({ onAddBlock }: AddBlockProps) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure()

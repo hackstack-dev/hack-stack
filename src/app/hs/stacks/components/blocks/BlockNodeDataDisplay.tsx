@@ -2,7 +2,7 @@ import { NodeProps } from 'reactflow'
 import { cn, getTechLogo } from '@/app/lib/utils'
 
 import Image from 'next/image'
-import { BlockNodeData } from '@/app/hs/stacks/create/components/steps/blocks/Blocks.types'
+import { BlockNodeData } from '@/app/hs/stacks/components/blocks/Blocks.types'
 
 interface BlockNodeDataDisplayProps extends BlockNodeData {
   selected: boolean

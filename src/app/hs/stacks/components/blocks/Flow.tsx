@@ -8,8 +8,8 @@ import ReactFlow, {
 
 import 'reactflow/dist/style.css'
 import { useTheme } from 'next-themes'
-import BlockNode from '@/app/hs/stacks/create/components/steps/blocks/BlockNode'
-import useSetCenter from '@/app/hs/stacks/create/components/steps/blocks/hooks/useSetCenter'
+import BlockNode from '@/app/hs/stacks/components/blocks/BlockNode'
+import useSetCenter from '@/app/hs/stacks/components/blocks/hooks/useSetCenter'
 
 const nodeTypes = {
   blockNode: BlockNode

@@ -9,7 +9,7 @@ import { Button } from '@nextui-org/button'
 import {
   AddBlockProps,
   BlockNodeData
-} from '@/app/hs/stacks/create/components/steps/blocks/Blocks.types'
+} from '@/app/hs/stacks/components/blocks/Blocks.types'
 import { Doc } from '~/convex/_generated/dataModel'
 
 interface BlockLibraryProps extends AddBlockProps {

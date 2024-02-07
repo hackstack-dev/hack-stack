@@ -1,6 +1,6 @@
 import React from 'react'
 import { useOnSelectionChange, Node } from 'reactflow'
-import { BlockNodeData } from '@/app/hs/stacks/create/components/steps/blocks/Blocks.types'
+import { BlockNodeData } from '@/app/hs/stacks/components/blocks/Blocks.types'
 import { Input } from '@nextui-org/input'
 import { LucideSearch } from 'lucide-react'
 import { useQuery } from 'convex/react'
@@ -23,7 +23,7 @@ export default function BlockDataPanel({
   const [search, setSearch] = React.useState('')
 
   const selectedNode = React.useMemo(
-    () => nodes.find((node) => node.selected),
+    () => nodes?.find((node) => node.selected),
     [nodes]
   )
 

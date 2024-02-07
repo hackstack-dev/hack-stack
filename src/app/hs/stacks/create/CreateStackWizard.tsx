@@ -2,11 +2,11 @@
 
 import { Wizard } from 'react-use-wizard'
 import TemplateListSelection from '@/app/hs/stacks/create/components/steps/TemplateListSelection'
-import StackDetails from '@/app/hs/stacks/create/components/steps/StackDetails'
+import CreateStackDetails from '@/app/hs/stacks/create/components/steps/create-blocks/CreateStackDetails'
 import React from 'react'
 import { CreateStackWizardHeader } from '@/app/hs/stacks/create/components/layout/CreateStackWizardHeader'
 import { StackState } from '@/app/hs/stacks/create/create.types'
-import StackBlocks from '@/app/hs/stacks/create/components/steps/blocks/StackBlocks'
+import StackBlocks from '@/app/hs/stacks/components/blocks/StackBlocks'
 import { StepContainer } from '@/app/hs/stacks/create/components/layout/StepContainer'
 import { Doc } from '~/convex/_generated/dataModel'
 import { ReactFlowProvider } from 'reactflow'
@@ -14,7 +14,8 @@ import Summary from '@/app/hs/stacks/create/components/steps/Summary'
 import { useMutation } from 'convex/react'
 import { api } from '~/convex/_generated/api'
 import { useRouter } from 'next/navigation'
-import { getRandomCardBackground } from '@/app/lib/utils'
+import { getRandomBackground } from '@/app/lib/utils'
+import CreateStackBlocks from '@/app/hs/stacks/create/components/steps/create-blocks/CreateStackBlocks'
 
 export default function CreateStackWizard() {
   const router = useRouter()
@@ -40,9 +41,8 @@ export default function CreateStackWizard() {
   const handleSaveStack = async () => {
     // save stack
     const { template, ...rest } = createStackState
-    const templateId = template._id
-    const coverImage = getRandomCardBackground()
-    // const stack: Stack = { ...rest, templateId }
+    const templateId = template?._id ?? ''
+    const coverImage = getRandomBackground()
     await saveStack({ stack: { ...rest, templateId, coverImage } })
     router.push('/hs/stacks')
   }
@@ -53,7 +53,7 @@ export default function CreateStackWizard() {
       header={<CreateStackWizardHeader onSaveStack={handleSaveStack} />}
     >
       <StepContainer>
-        <StackDetails
+        <CreateStackDetails
           stackState={createStackState}
           onStateChange={handleStackStateChange}
         />
@@ -65,7 +65,7 @@ export default function CreateStackWizard() {
         />
       </StepContainer>
       <ReactFlowProvider>
-        <StackBlocks
+        <CreateStackBlocks
           stackState={createStackState}
           onStateChange={handleStackStateChange}
         />
