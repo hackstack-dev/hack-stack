@@ -10,7 +10,7 @@ export default function useSetCenter() {
     const nodes = Array.from(nodeInternals).map(([, node]) => node)
     if (nodes.length) {
       const bounds = getNodesBounds(nodes)
-      const x = bounds.x - bounds.width / 2
+      const x = bounds.x - bounds.x
       const y = bounds.y + bounds.height / 2
       setTimeout(() => setCenter(x, y, { zoom: 1, duration: 700 }))
     }

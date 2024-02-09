@@ -41,7 +41,7 @@ export default function BlockDataPanel({
   }
 
   return (
-    <div className="p-4 h-full w-full bg-default-50 border-l-1 dark:border-default-100">
+    <div className="p-4 h-full w-full bg-default-50 dark:bg-black border-l-1 dark:border-default-50">
       {selectedNode ? (
         <>
           <h2 className="text-2xl dark:text-default-500">

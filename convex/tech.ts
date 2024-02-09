@@ -6,7 +6,7 @@ export const findTechByBlock = query({
   handler: async (ctx, { blockId }) => {
     return await ctx.db
       .query('tech')
-      .withIndex('by_block', (q) => q.eq('blockId', blockId))
+      .withIndex('by_blockId', (q) => q.eq('blockId', blockId))
       .collect()
   }
 })

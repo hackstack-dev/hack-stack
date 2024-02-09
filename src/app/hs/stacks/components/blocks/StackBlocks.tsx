@@ -59,7 +59,7 @@ export default function StackBlocks({
   return (
     <div
       className={cn(
-        'grow border-b-1 border-t-1 border-l-1 rounded dark:border-default-50',
+        'grow border-1 rounded dark:border-default-50',
         hidden && 'hidden'
       )}
     >

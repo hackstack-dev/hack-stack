@@ -21,6 +21,19 @@ export function getCardBackground(bg: string) {
   return `${IMAGEKIT_URL}/backgrounds/${bg}`
 }
 
+export function getUniqueHueStyle(str: string) {
+  let hash = 0
+  for (let i = 0; i < str.length; i++) {
+    const char = str.charCodeAt(i)
+    hash = (hash << 5) - hash + char
+  }
+  const hueRotateValue = Math.abs(hash) % 360
+
+  return {
+    filter: `hue-rotate(-${hueRotateValue}deg)`
+  }
+}
+
 export function generateRandomStackName() {
   const adjectives = [
     'Agile',
@@ -95,4 +108,12 @@ export function generateRandomStackName() {
   return `${randomAdjective} ${randomNoun} Stack`
 }
 
-// E
+export const formatNumber = (num: number) => {
+  if (num < 1000) {
+    return num.toString()
+  }
+  if (num < 1000000) {
+    return `${(num / 1000).toFixed(0)}k`
+  }
+  return `${(num / 1000000).toFixed(0)}M`
+}

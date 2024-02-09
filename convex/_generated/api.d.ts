@@ -15,11 +15,15 @@ import type {
   FunctionReference,
 } from "convex/server";
 import type * as blocks from "../blocks.js";
+import type * as clerk from "../clerk.js";
+import type * as http from "../http.js";
+import type * as likes from "../likes.js";
 import type * as stack from "../stack.js";
 import type * as stats from "../stats.js";
 import type * as tech from "../tech.js";
 import type * as templates from "../templates.js";
 import type * as types from "../types.js";
+import type * as users from "../users.js";
 import type * as utils from "../utils.js";
 
 /**
@@ -32,11 +36,15 @@ import type * as utils from "../utils.js";
  */
 declare const fullApi: ApiFromModules<{
   blocks: typeof blocks;
+  clerk: typeof clerk;
+  http: typeof http;
+  likes: typeof likes;
   stack: typeof stack;
   stats: typeof stats;
   tech: typeof tech;
   templates: typeof templates;
   types: typeof types;
+  users: typeof users;
   utils: typeof utils;
 }>;
 export declare const api: FilterApi<

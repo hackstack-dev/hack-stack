@@ -11,12 +11,15 @@ import EditStack from '@/app/hs/stacks/[stackId]/EditStack'
 import { Spinner } from '@nextui-org/react'
 
 interface StackViewProps {
-  id: Id<'stacks'>
+  stackId: Id<'stacks'>
 }
-export default function StackView({ id }: StackViewProps) {
+export default function EditStackView({ stackId }: StackViewProps) {
   const { isAuthenticated } = useConvexAuth()
-  const shouldFetch = isAuthenticated && id
-  const stack = useQuery(api.stack.getStack, shouldFetch ? { id } : 'skip')
+  const shouldFetch = isAuthenticated && stackId
+  const stack = useQuery(
+    api.stack.getUserStack,
+    shouldFetch ? { stackId } : 'skip'
+  )
   const [editStackState, setStackState] = React.useState<StackState>({
     name: '',
     projectTypes: [],
@@ -47,11 +50,7 @@ export default function StackView({ id }: StackViewProps) {
         </div>
       )}
       {editStackState.name && stack && (
-        <EditStack
-          id={id}
-          stack={stack}
-          stackState={editStackState}
-        />
+        <EditStack stackId={stackId} stack={stack} stackState={editStackState} />
       )}
     </>
   )

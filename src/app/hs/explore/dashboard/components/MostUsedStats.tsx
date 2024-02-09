@@ -73,9 +73,7 @@ export default function MostUsedStats({ title, data }: MostPopularCountProps) {
                     radius="sm"
                     classNames={{
                       base: 'max-w-md pb-1',
-                      track: 'drop-shadow-md border border-default',
                       indicator: 'bg-gradient-to-r from-secondary to-primary',
-                      // label: "tracking-wider font-medium text-default-600",
                       value: 'text-sm text-foreground/60 ml-auto'
                     }}
                     value={entry.percent}

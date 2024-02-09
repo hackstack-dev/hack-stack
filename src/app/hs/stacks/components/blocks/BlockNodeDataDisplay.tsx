@@ -36,7 +36,7 @@ export default function BlockNodeDataDisplay({
           'rounded-md hs-block-shadow',
           'transition-[border,box-shadow] duration-300 linear',
           selected && [
-            'shadow-[1px_1px_0_1px_#fff,3px_3px_0_1px_#222,5px_5px_0_1px_#fff]',
+            'shadow-[1px_1px_0_1px_#fff,3px_3px_0_1px_#d946ef,5px_5px_0_1px_#fff]',
             'dark:shadow-[1px_1px_0_1px_#222,3px_3px_0_1px_#d946ef,5px_5px_0_1px_#222]'
           ]
         ])}

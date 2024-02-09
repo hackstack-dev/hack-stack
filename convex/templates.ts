@@ -1,13 +1,10 @@
 import { mutation, query } from 'convex/_generated/server'
 import { v } from 'convex/values'
-import { getUserId } from 'convex/utils'
+import { authQuery, getUserId } from 'convex/utils'
 
-export const getTemplates = query({
+export const getTemplates = authQuery({
   handler: async (ctx, args) => {
-    const userId = await getUserId(ctx)
-    if (!userId) {
-      throw new Error('you must be logged in to get templates')
-    }
+    if (!ctx.user) return []
     return await ctx.db.query('templates').collect()
   }
 })

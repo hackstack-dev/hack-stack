@@ -10,12 +10,14 @@
     "convex:dev": "convex dev"
   },
   "dependencies": {
+    "@clerk/clerk-sdk-node": "^4.13.8",
     "@clerk/nextjs": "^4.29.5",
     "@clerk/themes": "^1.7.9",
     "@hookform/resolvers": "^3.3.4",
     "@nextui-org/react": "^2.2.9",
     "clsx": "^2.1.0",
     "convex": "^1.8.0",
+    "convex-helpers": "^0.1.15",
     "framer-motion": "^11.0.3",
     "lucide-react": "^0.316.0",
     "next": "14.1.0",
@@ -28,6 +30,7 @@
     "react-use-wizard": "^2.2.4",
     "reactflow": "^11.10.3",
     "sonner": "^1.4.0",
+    "svix": "^1.17.0",
     "tailwind-merge": "^2.2.1",
     "zod": "^3.22.4"
   },

@@ -5,9 +5,8 @@ import { Input } from '@nextui-org/input'
 import React from 'react'
 import { Card, CardBody, CardHeader } from '@nextui-org/card'
 import Image from 'next/image'
-import { useAppLogo } from '@/app/lib/hooks'
+import { useColorAppLogo } from '@/app/lib/hooks'
 import { cn, getIconAsset } from '@/app/lib/utils'
-import { Doc, Id } from '~/convex/_generated/dataModel'
 import { RadioGroup } from '@nextui-org/radio'
 import { LucideSearch } from 'lucide-react'
 import { StackStateProps } from '@/app/hs/stacks/create/create.types'
@@ -23,7 +22,7 @@ export default function TemplateListSelection({
   const [search, setSearch] = React.useState('')
   const [error, setError] = React.useState('')
 
-  const AppLogo = useAppLogo({ size: 22 })
+  const { colorLogoByString } = useColorAppLogo({ size: 22 })
   const templates = useQuery(
     api.templates.getTemplates,
     !isAuthenticated ? 'skip' : {}
@@ -95,7 +94,7 @@ export default function TemplateListSelection({
                           className="invert-0 dark:invert"
                         />
                       ) : (
-                        AppLogo
+                        <>{colorLogoByString(`${t.name}${t._id}`)}</>
                       )}
                       <h3 className="text-md">{t.name}</h3>
                     </div>
@@ -104,7 +103,9 @@ export default function TemplateListSelection({
                   </CardHeader>
                   <Divider />
                   <CardBody>
-                    <p className="text-xs font-light text-default-500">{t.description}</p>
+                    <p className="text-xs font-light text-default-500">
+                      {t.description}
+                    </p>
                   </CardBody>
                 </Card>
               </li>

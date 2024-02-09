@@ -3,7 +3,8 @@ import { v } from 'convex/values'
 
 export const stacksValidator = v.object({
   name: v.string(),
-  userId: v.string(),
+  userId: v.id('users'),
+  isPublic: v.boolean(),
   projectTypes: v.array(v.string()),
   templateId: v.string(),
   coverImage: v.string(),
@@ -42,15 +43,15 @@ export const stacksValidator = v.object({
 })
 
 export default defineSchema({
-  plans: defineTable({ name: v.string(), userId: v.string() }),
+  plans: defineTable({ name: v.string(), userId: v.id('users') }),
 
-  stacks: defineTable(stacksValidator).index('by_user', ['userId']),
+  stacks: defineTable(stacksValidator).index('by_userId', ['userId']),
 
   tech: defineTable({
     name: v.string(),
     icon: v.string(),
     blockId: v.id('blocks')
-  }).index('by_block', ['blockId']),
+  }).index('by_blockId', ['blockId']),
 
   categories: defineTable({
     name: v.string(),
@@ -70,5 +71,21 @@ export default defineSchema({
     description: v.string(),
     blocks: v.array(v.object({})),
     icon: v.optional(v.string())
+  }),
+
+  users: defineTable({
+    userId: v.string(),
+    email: v.string(),
+    name: v.optional(v.string()),
+    isAdmin: v.optional(v.boolean()),
+    profileImage: v.optional(v.string())
+  }).index('by_userId', ['userId']),
+
+  stackLikes: defineTable({
+    stackId: v.id('stacks'),
+    userId: v.id('users')
   })
+    .index('by_userId_stackId', ['userId', 'stackId'])
+    .index('by_stackId', ['stackId'])
+    .index('by_userId', ['userId'])
 })

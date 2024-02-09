@@ -10,7 +10,7 @@ export default function ExplorePage() {
   return (
     <ContentContainer>
       <ActionableHeader
-        title="Explore"
+        title=""
         action={
           <Button color="primary" as={Link} href="stacks/create">
             <LucideListPlus /> Create new Stack
