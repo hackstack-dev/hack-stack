@@ -18,7 +18,7 @@ export default function Home() {
       <div className="w-full md:w-1/2">
         <Image
           alt="Welcome Image"
-          className="h-full w-full object-cover rotate-45 border rounded-md"
+          className="h-full w-full object-cover"
           height="2000"
           src="/assets/images/bg.jpg"
           width="3000"
