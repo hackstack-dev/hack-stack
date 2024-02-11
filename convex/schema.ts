@@ -21,7 +21,10 @@ export const stacksValidator = v.object({
         tech: v.object({
           blockId: v.id('blocks'),
           name: v.string(),
-          icon: v.string()
+          icon: v.string(),
+          githubUrl: v.optional(v.string()),
+          websiteUrl: v.optional(v.string()),
+          description: v.optional(v.string())
         })
       }),
       position: v.object({
@@ -50,8 +53,13 @@ export default defineSchema({
   tech: defineTable({
     name: v.string(),
     icon: v.string(),
+    githubUrl: v.optional(v.string()),
+    websiteUrl: v.optional(v.string()),
+    description: v.optional(v.string()),
     blockId: v.id('blocks')
-  }).index('by_blockId', ['blockId']),
+  })
+    .index('by_name', ['name'])
+    .index('by_blockId', ['blockId']),
 
   categories: defineTable({
     name: v.string(),

@@ -1,20 +1,17 @@
 import {
-  ActionCtx,
-  MutationCtx,
-  QueryCtx,
   action,
-  mutation
+  ActionCtx,
+  mutation,
+  MutationCtx,
+  query,
+  QueryCtx
 } from './_generated/server'
 import {
-  customQuery,
   customCtx,
   customMutation,
-  customAction
+  customQuery
 } from 'convex-helpers/server/customFunctions'
-import { query } from './_generated/server'
 import { ConvexError, v } from 'convex/values'
-import { internal } from './_generated/api'
-import { Id } from './_generated/dataModel'
 
 export const authQuery = customQuery(
   query,
@@ -27,86 +24,9 @@ export const authQuery = customQuery(
   })
 )
 
-export const authAction = customAction(
-  action,
-  customCtx(async (ctx) => {
-    const userId = (await ctx.auth.getUserIdentity())?.subject
-
-    if (!userId) {
-      throw new ConvexError('must be logged in')
-    }
-
-    // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-    const user: any = await ctx.runQuery(internal.users.getUserById, {
-      userId
-    })
-
-    if (!user) {
-      throw new ConvexError('user not found')
-    }
-
-    const _id: Id<'users'> = user._id
-    const isPremium: boolean = user.isPremium
-
-    return {
-      user: {
-        _id,
-        userId,
-        isPremium
-      }
-    }
-  })
-)
-
 export const authMutation = customMutation(
   mutation,
   customCtx(async (ctx) => ({ user: await getUserOrThrow(ctx) }))
-)
-
-export const adminAuthAction = customAction(
-  action,
-  customCtx(async (ctx) => {
-    const userId = (await ctx.auth.getUserIdentity())?.subject
-
-    if (!userId) {
-      throw new ConvexError('must be logged in')
-    }
-
-    // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-    const user: any = await ctx.runQuery(internal.users.getUserById, {
-      userId
-    })
-
-    if (!user) {
-      throw new ConvexError('user not found')
-    }
-
-    if (!user.isAdmin) {
-      throw new ConvexError('must be admin to run this action')
-    }
-
-    const _id: Id<'users'> = user._id
-
-    return {
-      user: {
-        _id,
-        userId
-      }
-    }
-  })
-)
-
-export const adminAuthMutation = customMutation(
-  mutation,
-  customCtx(async (ctx) => {
-    const user = await getUserOrThrow(ctx)
-
-    if (!user.isAdmin) {
-      throw new ConvexError('must be admin to run this mutation')
-    }
-
-    return { user }
-  })
 )
 
 async function getUserOrThrow(ctx: QueryCtx | MutationCtx) {
@@ -130,3 +50,35 @@ async function getUserOrThrow(ctx: QueryCtx | MutationCtx) {
 export const getUserId = async (ctx: QueryCtx | MutationCtx | ActionCtx) => {
   return (await ctx.auth.getUserIdentity())?.subject
 }
+
+
+export const getOwnerAndRepoFromUrl = (url: string) => {
+  const regex = /^https?:\/\/github\.com\/([^\/]+)\/([^\/]+)(\/|$)/
+  const match = url.match(regex)
+
+  if (match && match.length === 4) {
+    const owner = match[1]
+    const repo = match[2]
+    return { owner, repo }
+  }
+
+  return null
+}
+export const getRepositoryData = action({
+  args: { githubUrl: v.string() },
+  handler: async (_, { githubUrl }) => {
+    try {
+      const result = getOwnerAndRepoFromUrl(githubUrl)
+      if (!result) {
+        return null
+      }
+      const repoData = await fetch(
+        `https://api.github.com/repos/${result.owner}/${result.repo}`
+      )
+      return await repoData.json()
+    } catch (error) {
+      console.error(error)
+      return null
+    }
+  }
+})

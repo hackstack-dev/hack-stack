@@ -10,8 +10,13 @@ export function getIconAsset(icon: string) {
   return `/assets/icons/${icon}.svg`
 }
 
-export function getTechLogo(tech: string) {
-  return `${IMAGEKIT_URL}/logos/${tech}`
+export function getTechLogo(tech: string, theme: string | undefined) {
+  const techExtension = tech.split('.').pop() ?? 'svg'
+  const logoName =
+    theme === 'dark'
+      ? `${tech.replace(techExtension, `dark.${techExtension}`)}`
+      : tech
+  return `${IMAGEKIT_URL}/logos/${logoName}`
 }
 
 export function getRandomBackground() {
@@ -116,4 +121,58 @@ export const formatNumber = (num: number) => {
     return `${(num / 1000).toFixed(0)}k`
   }
   return `${(num / 1000000).toFixed(0)}M`
+}
+
+export const timeAgo = (dateString: string, includeTime = false) => {
+  const currentDate = new Date()
+  const inputDate = new Date(dateString)
+
+  const timeDifference = currentDate.getTime() - inputDate.getTime()
+
+  const secondsInMs = 1000
+  const minutesInMs = secondsInMs * 60
+  const hoursInMs = minutesInMs * 60
+  const daysInMs = hoursInMs * 24
+  const monthsInMs = daysInMs * 30 // Assuming a month is 30 days for simplicity
+  const yearsInMs = daysInMs * 365 // Assuming a year is 365 days for simplicity
+
+  const yearsAgo = Math.floor(timeDifference / yearsInMs)
+  const monthsAgo = Math.floor((timeDifference % yearsInMs) / monthsInMs)
+  const daysAgo = Math.floor((timeDifference % monthsInMs) / daysInMs)
+  const hoursAgo = Math.floor((timeDifference % daysInMs) / hoursInMs)
+  const minutesAgo = Math.floor((timeDifference % hoursInMs) / minutesInMs)
+
+  let result = ''
+
+  if (yearsAgo > 0) {
+    result += yearsAgo + (yearsAgo === 1 ? ' year' : ' years')
+  }
+
+  if (monthsAgo > 0) {
+    result +=
+      (result ? ', ' : '') +
+      monthsAgo +
+      (monthsAgo === 1 ? ' month' : ' months')
+  }
+
+  if (daysAgo > 0) {
+    result +=
+      (result ? ', ' : '') + daysAgo + (daysAgo === 1 ? ' day' : ' days')
+  }
+
+  if (includeTime) {
+    if (hoursAgo > 0) {
+      result +=
+        (result ? ', ' : '') + hoursAgo + (hoursAgo === 1 ? ' hour' : ' hours')
+    }
+
+    if (minutesAgo > 0) {
+      result +=
+        (result ? ', ' : '') +
+        minutesAgo +
+        (minutesAgo === 1 ? ' minute' : ' minutes')
+    }
+  }
+
+  return result || 'Just now'
 }

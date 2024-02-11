@@ -162,6 +162,7 @@ export default function StackDetailsForm({
               onChange={field.onChange}
               placeholder="Describe your stack"
               variant="bordered"
+              maxLength={500}
             />
           )}
         />

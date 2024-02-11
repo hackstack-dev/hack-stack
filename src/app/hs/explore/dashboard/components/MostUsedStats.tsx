@@ -5,11 +5,14 @@ import Image from 'next/image'
 import { getTechLogo } from '@/app/lib/utils'
 import React from 'react'
 import { LucidePercent, LucideSigma } from 'lucide-react'
+import { useTheme } from 'next-themes'
 interface MostPopularCountProps {
   title: string
   data?: MostUsedStatsData
 }
 export default function MostUsedStats({ title, data }: MostPopularCountProps) {
+  const { theme } = useTheme()
+
   const [view, setView] = React.useState<string | number>('percent')
   const subTitle = view === 'percent' ? '% from overall' : 'Total count'
   return (
@@ -55,7 +58,7 @@ export default function MostUsedStats({ title, data }: MostPopularCountProps) {
                   {entry?.icon && (
                     <div>
                       <Image
-                        src={getTechLogo(entry.icon)}
+                        src={getTechLogo(entry.icon, theme)}
                         alt={item}
                         width={24}
                         height={24}

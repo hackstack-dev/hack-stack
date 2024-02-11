@@ -8,12 +8,16 @@ interface UserAvatarProps {
   userId: Id<'users'>
   withName?: boolean
 }
-export default function UserAvatar({ userId, withName=false }: UserAvatarProps) {
+export default function UserAvatar({
+  userId,
+  withName = false
+}: UserAvatarProps) {
   const user = useQuery(api.users.getProfile, { userId })
+  const userName = user?.name === 'null null' ? '' : user?.name
   return (
     <div className="flex flex-col items-center">
       <Avatar size="sm" src={user?.profileImage} />
-      {withName && <span className="text-sm">{user?.name}</span>}
+      {withName && userName && <span className="text-xs">{userName}</span>}
     </div>
   )
 }

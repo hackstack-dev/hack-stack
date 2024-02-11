@@ -8,6 +8,9 @@ import { api } from '~/convex/_generated/api'
 import Image from 'next/image'
 import { cn, getTechLogo } from '@/app/lib/utils'
 import { Doc, Id } from '~/convex/_generated/dataModel'
+import { useTheme } from 'next-themes'
+import StackViewTechDetails from '@/app/hs/stacks/view/[stackId]/StackViewTechDetails'
+import { Divider } from '@nextui-org/react'
 
 interface BlockDataPanelProps {
   nodes: Node[]
@@ -20,6 +23,7 @@ export default function BlockDataPanel({
   nodes,
   onUpdateBlock
 }: BlockDataPanelProps) {
+  const { theme } = useTheme()
   const [search, setSearch] = React.useState('')
 
   const selectedNode = React.useMemo(
@@ -60,16 +64,16 @@ export default function BlockDataPanel({
           <ul className="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 text-center gap-4">
             {tech.slice(0, 20).map((tech) => (
               <li
-                key={tech.icon}
+                key={tech.name}
                 className={cn(
                   'p-2 cursor-pointer rounded-md hover:ring-1 ring-secondary transition-all',
-                  selectedNode?.data?.tech?.icon === tech.icon &&
+                  selectedNode?.data?.tech?.name === tech.name &&
                     'ring-1 ring-secondary'
                 )}
                 onClick={() => handleBlockUpdate(tech)}
               >
                 <Image
-                  src={getTechLogo(tech.icon)}
+                  src={getTechLogo(tech.icon, theme)}
                   alt={tech.name}
                   width={32}
                   height={32}
@@ -79,6 +83,9 @@ export default function BlockDataPanel({
               </li>
             ))}
           </ul>
+          <div className="my-6">
+            <StackViewTechDetails name={selectedNode?.data?.tech?.name} />
+          </div>
         </>
       ) : (
         <p className="text-default-500">Select a block to view details</p>

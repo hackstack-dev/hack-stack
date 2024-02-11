@@ -3,6 +3,7 @@ import { cn, getTechLogo } from '@/app/lib/utils'
 
 import Image from 'next/image'
 import { BlockNodeData } from '@/app/hs/stacks/components/blocks/Blocks.types'
+import { useTheme } from 'next-themes'
 
 interface BlockNodeDataDisplayProps extends BlockNodeData {
   selected: boolean
@@ -12,7 +13,8 @@ export default function BlockNodeDataDisplay({
   blockName,
   tech
 }: BlockNodeDataDisplayProps) {
-  const techLogo = tech?.icon ?? 'logo.svg'
+  const { theme } = useTheme()
+  const techLogo = tech?.icon ?? 'icon.svg'
   return (
     <>
       {/*<NodeToolbar isVisible={undefined} position={Position.Top}>*/}
@@ -44,7 +46,7 @@ export default function BlockNodeDataDisplay({
         <div className="flex items-stretch">
           <div className="flex flex-col justify-center px-2 dark:bg-transparent rounded-tl-sm rounded-bl-sm">
             <Image
-              src={getTechLogo(techLogo)}
+              src={getTechLogo(techLogo, theme)}
               alt={techLogo}
               width={32}
               height={32}

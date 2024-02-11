@@ -43,13 +43,7 @@ export const saveStack = authMutation(
 
 export const deleteStack = authMutation(
   async (ctx, { stackId }: { stackId: Id<'stacks'> }) => {
-    await ctx.db.delete(stackId)
-    const allStackLikes = await ctx.db
-      .query('stackLikes')
-      .withIndex('by_stackId', (q) => q.eq('stackId', stackId))
-      .collect()
-
-    return await Promise.all(allStackLikes.map(({ _id }) => ctx.db.delete(_id)))
+    return await ctx.db.delete(stackId)
   }
 )
 

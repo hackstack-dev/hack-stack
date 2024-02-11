@@ -12,6 +12,7 @@ import Likes from '@/app/hs/stacks/components/Likes'
 import UserAvatar from '@/app/hs/components/ui/UserAvatar'
 import { useQuery } from 'convex/react'
 import { api } from '~/convex/_generated/api'
+import { useTheme } from 'next-themes'
 
 interface StackItemsProps {
   items: (Doc<'stacks'> | null)[]
@@ -57,11 +58,11 @@ export default function StackItems({
             />
             <CardFooter className="absolute bg-black/40 bottom-0 z-10 border-t-1 border-default-600 dark:border-default-100">
               <div className="flex flex-grow gap-2 items-center">
-                {first10Blocks.map((block) => {
-                  const logo = getTechLogo(block.data.tech.icon)
+                {first10Blocks.map((block, index) => {
+                  const logo = getTechLogo(block.data.tech.icon, 'dark')
                   return (
                     <Image
-                      key={logo}
+                      key={`${logo}-${index}`}
                       src={logo}
                       className="h-6 w-6"
                       removeWrapper
