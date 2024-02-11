@@ -20,7 +20,7 @@ export default function Home() {
           alt="Welcome Image"
           className="h-full w-full object-cover"
           height="2000"
-          src="/assets/images/bg.png"
+          src="/assets/images/bg.jpg"
           width="3000"
         />
       </div>
