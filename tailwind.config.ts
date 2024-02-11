@@ -44,11 +44,7 @@ const config: Config = {
             primary: {
               DEFAULT: '#000',
               foreground: '#fff'
-            },
-            secondary: {
-              DEFAULT: '#d946ef',
-              400: '#d946ef',
-            },
+            }
           }
         }
       }

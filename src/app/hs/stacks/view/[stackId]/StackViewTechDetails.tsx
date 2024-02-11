@@ -1,7 +1,7 @@
 import React from 'react'
 import { useOnSelectionChange } from 'reactflow'
 import Image from 'next/image'
-import { getTechLogo } from '@/app/lib/utils'
+import { cn, getTechLogo } from '@/app/lib/utils'
 import { useAction } from 'convex/react'
 import { api } from '~/convex/_generated/api'
 import { TechWithRepoData } from '@/app/hs/stacks/components/blocks/Blocks.types'
@@ -10,7 +10,14 @@ import TechGithubData from '@/app/hs/stacks/view/[stackId]/TechGithubData'
 import TechStats from '@/app/hs/stacks/view/[stackId]/TechStats'
 import { useTheme } from 'next-themes'
 
-export default function StackViewTechDetails({ name }: { name?: string }) {
+interface StackViewTechDetailsProps {
+  name?: string
+  embeded?: boolean
+}
+export default function StackViewTechDetails({
+  name,
+  embeded
+}: StackViewTechDetailsProps) {
   const { theme } = useTheme()
   const [techName, setTechName] = React.useState('')
   const [techData, setTechData] = React.useState<TechWithRepoData>(null)
@@ -35,9 +42,14 @@ export default function StackViewTechDetails({ name }: { name?: string }) {
   }, [techName, getTechData])
 
   return (
-    <div className="py-4 h-full w-full bg-default-50 dark:bg-black border-1 dark:border-default-50">
+    <div
+      className={cn(
+        'py-4 h-full w-full bg-default-50 dark:bg-black border-1 dark:border-default-50',
+        embeded && 'bg-white dark:bg-default-50/80 rounded-md shadow-sm'
+      )}
+    >
       {techData && (
-        <div>
+        <>
           <header className="flex flex-col gap-1 pb-4 border-b-1 dark:border-default-50 px-4">
             <div className="flex items-center gap-2">
               {techData?.icon && (
@@ -73,7 +85,7 @@ export default function StackViewTechDetails({ name }: { name?: string }) {
             )}
             {techName && <TechStats techName={techName} />}
           </ScrollShadow>
-        </div>
+        </>
       )}
     </div>
   )

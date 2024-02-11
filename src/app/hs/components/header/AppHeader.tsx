@@ -19,20 +19,20 @@ import { MenuItem } from '@/app/hs/components/header/types'
 
 const menuItems: MenuItem[] = [
   {
-    name: 'Explore',
-    href: '/hs/explore',
-    parentPath: 'explore'
+    name: 'Discover',
+    href: '/hs/discover',
+    parentPath: 'discover'
   },
   {
     name: 'Stacks',
     href: '/hs/stacks',
     parentPath: 'stacks'
   },
-  {
-    name: 'Plan',
-    href: '/hs/plan',
-    parentPath: 'plan'
-  }
+  // {
+  //   name: 'Plan',
+  //   href: '/hs/plan',
+  //   parentPath: 'plan',
+  // }
 ]
 
 export default function AppHeader() {

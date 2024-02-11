@@ -42,11 +42,7 @@ export default function AppNavigation({
               color={color}
               radius="full"
             >
-              <span
-                className={cn(
-                  isActive && 'text-secondary-400',
-                )}
-              >
+              <span className={cn(isActive && 'text-secondary-400')}>
                 {item.name}
               </span>
             </Button>

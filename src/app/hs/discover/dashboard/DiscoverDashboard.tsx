@@ -1,13 +1,13 @@
 'use client'
-import MostUsedTech from '@/app/hs/explore/dashboard/MostUsedTech'
-import MostUsedBlocks from '@/app/hs/explore/dashboard/MostUsedBlocks'
-import MostUsedProjectTypes from '@/app/hs/explore/dashboard/MostUsedProjectTypes'
-import RecentStacks from '@/app/hs/explore/dashboard/RecentStacks'
+import MostUsedTech from '@/app/hs/discover/dashboard/MostUsedTech'
+import MostUsedBlocks from '@/app/hs/discover/dashboard/MostUsedBlocks'
+import MostUsedProjectTypes from '@/app/hs/discover/dashboard/MostUsedProjectTypes'
+import RecentStacks from '@/app/hs/discover/dashboard/RecentStacks'
 import React from 'react'
-import DashboardSection from '@/app/hs/explore/dashboard/components/DashboardSection'
-import RisingStacks from '@/app/hs/explore/dashboard/RisingStacks'
+import DashboardSection from '@/app/hs/discover/dashboard/components/DashboardSection'
+import RisingStacks from '@/app/hs/discover/dashboard/RisingStacks'
 
-export default function ExploreDashboard() {
+export default function DiscoverDashboard() {
   return (
     <>
       <DashboardSection title="Trends">

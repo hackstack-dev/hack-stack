@@ -11,7 +11,6 @@ type RepoData = {
   stargazers_count: number
   open_issues_count: number
   language: string
-  contributors: number
 }
 interface TechGithubDataProps {
   repoData: RepoData
@@ -22,8 +21,7 @@ export default function TechGithubData({ repoData }: TechGithubDataProps) {
     created_at,
     open_issues_count,
     stargazers_count,
-    pushed_at,
-    contributors
+    pushed_at
   } = repoData
   return (
     <div className="flex flex-col space-y-4 border-b-1 dark:border-default-50 pb-4">
@@ -56,11 +54,6 @@ export default function TechGithubData({ repoData }: TechGithubDataProps) {
         <div>
           {open_issues_count}{' '}
           <span className="text-sm text-default-500 ml-1">issues</span>
-        </div>
-        <Divider orientation="vertical" />
-        <div>
-          {contributors}{' '}
-          <span className="text-sm text-default-500 ml-1">contributors</span>
         </div>
       </div>
     </div>

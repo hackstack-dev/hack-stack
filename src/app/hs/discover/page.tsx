@@ -1,12 +1,12 @@
 import ContentContainer from '@/app/hs/components/ui/ContentContainer'
-import ExploreDashboard from '@/app/hs/explore/dashboard/ExploreDashboard'
+import DiscoverDashboard from '@/app/hs/discover/dashboard/DiscoverDashboard'
 import ActionableHeader from '@/app/hs/components/ui/ActionableHeader'
 import { Button } from '@nextui-org/button'
 import Link from 'next/link'
 import {LucideListPlus} from 'lucide-react'
 import React from 'react'
 
-export default function ExplorePage() {
+export default function DiscoverPage() {
   return (
     <ContentContainer>
       <ActionableHeader
@@ -17,7 +17,7 @@ export default function ExplorePage() {
           </Button>
         }
       />
-      <ExploreDashboard />
+      <DiscoverDashboard />
     </ContentContainer>
   )
 }

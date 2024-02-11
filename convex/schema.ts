@@ -61,6 +61,12 @@ export default defineSchema({
     .index('by_name', ['name'])
     .index('by_blockId', ['blockId']),
 
+  techGithubInfo: defineTable({
+    techName: v.string(),
+    lastUpdated: v.number(),
+    data: v.any()
+  }).index('by_techName', ['techName']),
+
   categories: defineTable({
     name: v.string(),
     icon: v.optional(v.string())

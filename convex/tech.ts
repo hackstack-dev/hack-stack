@@ -1,4 +1,9 @@
-import { action, internalQuery, query } from '~/convex/_generated/server'
+import {
+  action,
+  internalMutation,
+  internalQuery,
+  query
+} from '~/convex/_generated/server'
 import { v } from 'convex/values'
 import { getManyFrom, getOneFrom } from 'convex-helpers/server/relationships'
 import { getOwnerAndRepoFromUrl } from '~/convex/utils'
@@ -19,9 +24,34 @@ export const getTechByName = internalQuery({
   }
 })
 
+export const getTechGithubData = internalQuery({
+  args: { name: v.string() },
+  handler: async ({ db }, { name }) => {
+    return await getOneFrom(db, 'techGithubInfo', 'by_techName', name)
+  }
+})
+
+export const updateTechGithubData = internalMutation({
+  args: { id: v.id('techGithubInfo'), techName: v.string(), data: v.any() },
+  handler: async ({ db }, { id, techName, data }) => {
+    return await db.replace(id, { data, techName, lastUpdated: Date.now() })
+  }
+})
+
+export const insertTechGithubData = internalMutation({
+  args: { techName: v.string(), data: v.any() },
+  handler: async ({ db }, { techName, data }) => {
+    return await db.insert('techGithubInfo', {
+      data,
+      techName,
+      lastUpdated: Date.now()
+    })
+  }
+})
+
 export const getTechData = action({
   args: { techName: v.string() },
-  handler: async ({ runQuery }, { techName }) => {
+  handler: async ({ runQuery, runMutation }, { techName }) => {
     const tech = (await runQuery(internal.tech.getTechByName, {
       name: techName
     })) as UnwrapConvex<typeof getTechByName>
@@ -31,11 +61,26 @@ export const getTechData = action({
     }
     try {
       if (tech.githubUrl) {
+        const githubData = (await runQuery(internal.tech.getTechGithubData, {
+          name: techName
+        })) as UnwrapConvex<typeof getTechGithubData>
+
+        // if we have GitHub data, and it's less than 6 hours old, return it
+        if (
+          githubData &&
+          githubData.lastUpdated > Date.now() - 1000 * 60 * 60 * 6
+        ) {
+          return {
+            ...tech,
+            repoData: githubData.data
+          }
+        }
+
         const result = getOwnerAndRepoFromUrl(tech.githubUrl)
         if (!result) {
           return null
         }
-        const dataPromise = fetch(
+        const data = await fetch(
           `https://api.github.com/repos/${result.owner}/${result.repo}`,
           {
             headers: {
@@ -44,27 +89,26 @@ export const getTechData = action({
             }
           }
         )
-        const contributorsPromise = fetch(
-          `https://api.github.com/repos/${result.owner}/${result.repo}/contributors`,
-          {
-            headers: {
-              Accept: 'application/vnd.github+json',
-              'User-Agent': 'convex',
-                Authorization: `Bearer ${process.env.GITHUB_API_TOKEN}`
-            }
-          }
-        )
 
-        const [data, contributors] = await Promise.all([
-          dataPromise,
-          contributorsPromise
-        ])
-        const dataJson = await data.json()
-        const contributorsJson = await contributors.json()
-        console.log('dataJson', dataJson)
+        const githubDataJson = await data.json()
+
+        // save the data to the db
+        if (githubData) {
+          await runMutation(internal.tech.updateTechGithubData, {
+            id: githubData._id,
+            techName,
+            data: githubDataJson
+          })
+        } else {
+          await runMutation(internal.tech.insertTechGithubData, {
+            techName,
+            data: githubDataJson
+          })
+        }
+
         return {
           ...tech,
-          repoData: { ...dataJson, contributors: contributorsJson.length }
+          repoData: githubDataJson
         }
       }
       return tech

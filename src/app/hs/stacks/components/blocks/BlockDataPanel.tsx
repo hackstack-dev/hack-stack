@@ -84,7 +84,7 @@ export default function BlockDataPanel({
             ))}
           </ul>
           <div className="my-6">
-            <StackViewTechDetails name={selectedNode?.data?.tech?.name} />
+            <StackViewTechDetails name={selectedNode?.data?.tech?.name} embeded />
           </div>
         </>
       ) : (
