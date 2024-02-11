@@ -1,7 +1,7 @@
 export default {
   providers: [
     {
-      domain: 'https://assuring-werewolf-59.clerk.accounts.dev',
+      domain: process.env.CLERK_CONVEX_URL,
       applicationID: 'convex'
     }
   ]
