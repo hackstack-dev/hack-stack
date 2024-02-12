@@ -43,9 +43,12 @@ export default function CreateStackWizard() {
     const { template, ...rest } = createStackState
     const templateId = template?._id ?? ''
     const coverImage = getRandomBackground()
-    await saveStack({ stack: { ...rest, templateId, coverImage, isPublic: false } })
+    await saveStack({
+      stack: { ...rest, templateId, coverImage, isPublic: false }
+    })
     router.push('/hs/stacks')
   }
+
 
   return (
     <Wizard

@@ -79,7 +79,10 @@ export default function StackViewTechDetails({
               </Link>
             )}
           </header>
-          <ScrollShadow hideScrollBar className="h-[calc(100vh-308px)] py-4">
+          <ScrollShadow
+            hideScrollBar
+            className={cn('h-[calc(100vh-308px)] py-4', embeded && 'h-full pb-0')}
+          >
             {techData?.repoData && (
               <TechGithubData repoData={techData.repoData} />
             )}

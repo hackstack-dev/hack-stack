@@ -12,8 +12,13 @@ export default function StacksPage() {
       <ActionableHeader
         title="Your stacks"
         action={
-          <Button color="primary" as={Link} href="stacks/create">
-            <LucideListPlus /> Create new Stack
+          <Button
+            color="primary"
+            as={Link}
+            href="stacks/create"
+            className="text-white"
+          >
+            <LucideListPlus strokeWidth={1.5} /> Create new Stack
           </Button>
         }
       />

@@ -2,7 +2,7 @@ import React from 'react'
 import { useOnSelectionChange, Node } from 'reactflow'
 import { BlockNodeData } from '@/app/hs/stacks/components/blocks/Blocks.types'
 import { Input } from '@nextui-org/input'
-import { LucideSearch } from 'lucide-react'
+import { LucideArrowLeft, LucideSearch } from 'lucide-react'
 import { useQuery } from 'convex/react'
 import { api } from '~/convex/_generated/api'
 import Image from 'next/image'
@@ -57,7 +57,7 @@ export default function BlockDataPanel({
                 size="sm"
                 placeholder={'Search technologies'}
                 onValueChange={setSearch}
-                startContent={<LucideSearch />}
+                startContent={<LucideSearch strokeWidth={1} />}
               />
             </div>
           )}
@@ -84,11 +84,21 @@ export default function BlockDataPanel({
             ))}
           </ul>
           <div className="my-6">
-            <StackViewTechDetails name={selectedNode?.data?.tech?.name} embeded />
+            {selectedNode?.data?.tech?.name && (
+              <StackViewTechDetails
+                name={selectedNode.data.tech.name}
+                embeded
+              />
+            )}
           </div>
         </>
       ) : (
-        <p className="text-default-500">Select a block to view details</p>
+        <div className="flex flex-col items-center justify-center w-full h-full">
+          <p className="text-default-400 p-5 border border-dashed border-secondary/50 rounded-medium flex items-center gap-2">
+            <LucideArrowLeft />
+            Select a block to view details
+          </p>
+        </div>
       )}
     </div>
   )

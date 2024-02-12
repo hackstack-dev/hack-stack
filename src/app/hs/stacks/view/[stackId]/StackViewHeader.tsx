@@ -39,7 +39,7 @@ export default function StackViewHeader({ stack }: StackViewHeaderProps) {
               size="sm"
               isIconOnly
             >
-              <LucideGithub size={20} />
+              <LucideGithub size={20} strokeWidth={1} />
             </Button>
           )}
           {websiteUrl && (
@@ -52,7 +52,7 @@ export default function StackViewHeader({ stack }: StackViewHeaderProps) {
               size="sm"
               isIconOnly
             >
-              <LucideHome size={20} />
+              <LucideHome size={20} strokeWidth={1} />
             </Button>
           )}
         </div>

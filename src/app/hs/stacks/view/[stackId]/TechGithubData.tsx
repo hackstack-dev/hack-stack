@@ -43,11 +43,11 @@ export default function TechGithubData({ repoData }: TechGithubDataProps) {
           size="sm"
           isIconOnly
         >
-          <LucideGithub size={20} />
+          <LucideGithub size={20} strokeWidth={1} />
         </Button>
         <Divider orientation="vertical" />
         <div className="flex items-center gap-2">
-          <LucideStar size={14} />
+          <LucideStar size={14} strokeWidth={1} />
           {formatNumber(stargazers_count)}
         </div>
         <Divider orientation="vertical" />

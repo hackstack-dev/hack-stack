@@ -83,7 +83,7 @@ export default defineSchema({
   templates: defineTable({
     name: v.string(),
     description: v.string(),
-    blocks: v.array(v.object({})),
+    blocks: v.array(v.any()),
     icon: v.optional(v.string())
   }),
 

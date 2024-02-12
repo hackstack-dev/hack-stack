@@ -3,16 +3,13 @@ import { Card, CardFooter, CardHeader } from '@nextui-org/card'
 import { Image } from '@nextui-org/image'
 import { getCardBackground, getTechLogo } from '@/app/lib/utils'
 import { useRouter } from 'next/navigation'
-import { Chip } from '@nextui-org/chip'
 import { Doc } from '~/convex/_generated/dataModel'
 import PublicPrivateIndication from '@/app/hs/stacks/components/PublicPrivateIndication'
-import { LucideHeart } from 'lucide-react'
-import { Avatar } from '@nextui-org/react'
+import { LucideSprout, LucideTentTree } from 'lucide-react'
 import Likes from '@/app/hs/stacks/components/Likes'
 import UserAvatar from '@/app/hs/components/ui/UserAvatar'
 import { useQuery } from 'convex/react'
 import { api } from '~/convex/_generated/api'
-import { useTheme } from 'next-themes'
 
 interface StackItemsProps {
   items: (Doc<'stacks'> | null)[]
@@ -24,6 +21,17 @@ export default function StackItems({
 }: StackItemsProps) {
   const myUser = useQuery(api.users.getMyUser)
   const router = useRouter()
+
+  if (items.length === 0) {
+    return (
+      <div className="flex flex-col items-center justify-center w-full h-full">
+        <LucideSprout strokeWidth={1} className="w-8 h-8 text-default-400" />
+        <h1 className="font-light text-small text-center text-default-400">
+          nothing to see here at the moment
+        </h1>
+      </div>
+    )
+  }
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
       {items?.map((stack) => {
@@ -53,7 +61,7 @@ export default function StackItems({
               removeWrapper
               isZoomed
               alt="Relaxing app background"
-              className="z-0 w-full h-full object-cover"
+              className="z-0 w-full h-full object-cover grayscale dark:grayscale-0"
               src={getCardBackground(stack.coverImage)}
             />
             <CardFooter className="absolute bg-black/40 bottom-0 z-10 border-t-1 border-default-600 dark:border-default-100">

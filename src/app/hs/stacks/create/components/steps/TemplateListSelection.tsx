@@ -36,7 +36,7 @@ export default function TemplateListSelection({
   })
   const handleSelectTemplate = (value: string) => {
     const template = templates?.find((t) => t._id === value)
-    onStateChange({ template })
+    onStateChange({ template, stackBlocks: template?.blocks ?? [] })
   }
 
   const filteredTemplates = React.useMemo(
@@ -67,7 +67,7 @@ export default function TemplateListSelection({
               className="mt-12 ml-auto mb-4 max-w-[450px]"
               placeholder={'Search templates'}
               onValueChange={setSearch}
-              startContent={<LucideSearch />}
+              startContent={<LucideSearch strokeWidth={1} />}
             />
           </div>
           <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">

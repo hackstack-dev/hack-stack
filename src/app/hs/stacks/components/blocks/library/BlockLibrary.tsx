@@ -79,7 +79,7 @@ export default function BlockLibrary({
           size="sm"
           placeholder={'Search blocks'}
           onValueChange={setSearch}
-          startContent={<LucideSearch />}
+          startContent={<LucideSearch strokeWidth={1} />}
         />
         <div>
           {queryData?.map(({ category }) => (

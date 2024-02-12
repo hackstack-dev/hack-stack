@@ -33,7 +33,7 @@ export default function MostUsedStats({ title, data }: MostPopularCountProps) {
             key="percent"
             title={
               <div className="flex items-center space-x-2">
-                <LucidePercent size={16} />
+                <LucidePercent size={16} strokeWidth={1} />
               </div>
             }
           />
@@ -41,7 +41,7 @@ export default function MostUsedStats({ title, data }: MostPopularCountProps) {
             key="count"
             title={
               <div className="flex items-center space-x-2">
-                <LucideSigma size={16} />
+                <LucideSigma size={16} strokeWidth={1} />
               </div>
             }
           />

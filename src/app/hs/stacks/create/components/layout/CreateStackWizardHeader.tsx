@@ -33,7 +33,7 @@ export function CreateStackWizardHeader({
           <Button
             variant="flat"
             onClick={previousStep}
-            startContent={<LucideArrowLeft />}
+            startContent={<LucideArrowLeft strokeWidth={1} />}
           >
             Previous
           </Button>
@@ -42,7 +42,7 @@ export function CreateStackWizardHeader({
           <Button
             variant="solid"
             onClick={nextStep}
-            endContent={<LucideArrowRight />}
+            endContent={<LucideArrowRight strokeWidth={1} />}
           >
             Next
           </Button>

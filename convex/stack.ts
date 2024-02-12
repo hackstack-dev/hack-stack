@@ -42,8 +42,15 @@ export const saveStack = authMutation(
 )
 
 export const deleteStack = authMutation(
-  async (ctx, { stackId }: { stackId: Id<'stacks'> }) => {
-    return await ctx.db.delete(stackId)
+  async ({ db }, { stackId }: { stackId: Id<'stacks'> }) => {
+    const stackLikesIds = await getManyFrom(
+      db,
+      'stackLikes',
+      'by_stackId',
+      stackId
+    )
+    await Promise.all(stackLikesIds.map(({ _id }) => db.delete(_id)))
+    return await db.delete(stackId)
   }
 )
 

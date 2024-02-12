@@ -27,7 +27,7 @@ export default function Likes({ stackId }: { stackId: Id<'stacks'> }) {
         {formatNumber(likesCount ?? 0)}
       </span>
       <Button variant="light" radius="full" onClick={handleLike} className="ml-1" isIconOnly>
-        <LucideHeart size={20} color={color} />
+        <LucideHeart size={20} color={color} strokeWidth={1.5} />
       </Button>
     </div>
   )

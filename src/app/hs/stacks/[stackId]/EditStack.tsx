@@ -128,7 +128,7 @@ export default function EditStack({
             key="blocks"
             title={
               <div className="flex items-center space-x-2">
-                <LucideLayers3 size={16} />
+                <LucideLayers3 size={16} strokeWidth={1} />
                 <span>Blocks</span>
               </div>
             }
@@ -137,7 +137,7 @@ export default function EditStack({
             key="details"
             title={
               <div className="flex items-center space-x-2">
-                <LucideFilePenLine size={16} />
+                <LucideFilePenLine size={16} strokeWidth={1} />
                 <span>Details</span>
               </div>
             }
