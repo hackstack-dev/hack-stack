@@ -4,7 +4,7 @@ import React from 'react'
 import { Chip } from '@nextui-org/chip'
 import { Input } from '@nextui-org/input'
 import { LucideSearch } from 'lucide-react'
-import { Spinner } from '@nextui-org/react'
+import {ScrollShadow, Spinner} from '@nextui-org/react'
 import { Button } from '@nextui-org/button'
 import {
   AddBlockProps,
@@ -25,19 +25,19 @@ export default function BlockLibrary({
   const [filteredItems, setFilteredItems] =
     React.useState<typeof queryData>(queryData)
 
-  const applyFilters = () => {
+  const applyFilters = React.useCallback(() => {
     let filteredData = queryData
 
     if (categoryFilter) {
-      filteredData = queryData?.filter(
+      filteredData = filteredData?.filter(
         (item) => item.category.name === categoryFilter
       )
     }
 
     if (search) {
-      filteredData = filteredData?.map((d) => {
+      filteredData = filteredData?.flatMap((d) => {
+        const lowerCasedSearch = search.toLowerCase()
         const blocks = d.blocks.filter((block) => {
-          const lowerCasedSearch = search.toLowerCase()
           return (
             block.name.toLowerCase().includes(lowerCasedSearch) ||
             block.tags.some((tag) =>
@@ -48,11 +48,11 @@ export default function BlockLibrary({
         if (blocks.length) {
           return { ...d, blocks }
         }
-        return d
+        return []
       })
     }
     setFilteredItems(filteredData)
-  }
+  }, [categoryFilter, search, queryData])
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   React.useEffect(() => {
@@ -88,9 +88,7 @@ export default function BlockLibrary({
                 key={category._id}
                 size="sm"
                 variant="flat"
-                color={
-                  categoryFilter === category.name ? 'primary' : 'default'
-                }
+                color={categoryFilter === category.name ? 'primary' : 'default'}
                 onClick={() => handleFilterClick(category.name)}
                 className="w-full"
               >
@@ -106,7 +104,7 @@ export default function BlockLibrary({
             <Spinner color="primary" />
           </div>
         ) : (
-          <div>
+          <ScrollShadow size={10} className="h-[500px] px-6">
             {filteredItems?.map(({ category, blocks }) => (
               <div key={category._id} className="mb-4">
                 <h2 className="w-full pb-2 font-semibold">{category.name}</h2>
@@ -144,7 +142,7 @@ export default function BlockLibrary({
                 </div>
               </div>
             ))}
-          </div>
+          </ScrollShadow>
         )}
       </>
     </div>

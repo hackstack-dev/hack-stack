@@ -61,7 +61,7 @@ export default function StackItems({
               removeWrapper
               isZoomed
               alt="Relaxing app background"
-              className="z-0 w-full h-full object-cover grayscale dark:grayscale-0"
+              className="z-0 w-full h-full object-cover grayscale-[70%] dark:grayscale-0"
               src={getCardBackground(stack.coverImage)}
             />
             <CardFooter className="absolute bg-black/40 bottom-0 z-10 border-t-1 border-default-600 dark:border-default-100">

@@ -24,7 +24,7 @@ export function NewBlockDialog({ onAddBlock }: AddBlockProps) {
         isOpen={isOpen}
         onOpenChange={onOpenChange}
         size="5xl"
-        scrollBehavior="inside"
+        scrollBehavior="outside"
         backdrop="blur"
       >
         <ModalContent>
