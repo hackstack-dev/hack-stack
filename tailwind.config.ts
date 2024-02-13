@@ -35,8 +35,11 @@ const config: Config = {
             },
             secondary: {
               DEFAULT: '#8b5cf6',
-              400: '#22d3ee',
+              400: '#22d3ee'
             },
+            success: {
+              DEFAULT: '#34d399'
+            }
           }
         },
         light: {
@@ -44,6 +47,9 @@ const config: Config = {
             primary: {
               DEFAULT: '#000',
               foreground: '#fff'
+            },
+            success: {
+                DEFAULT: '#2dd4bf'
             }
           }
         }

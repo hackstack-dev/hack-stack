@@ -101,5 +101,22 @@ export default defineSchema({
   })
     .index('by_userId_stackId', ['userId', 'stackId'])
     .index('by_stackId', ['stackId'])
-    .index('by_userId', ['userId'])
+    .index('by_userId', ['userId']),
+
+  suggestions: defineTable({
+    userId: v.string(),
+    suggestion: v.union(
+      v.literal('category'),
+      v.literal('block'),
+      v.literal('tech')
+    ),
+    name: v.string(),
+    description: v.optional(v.string()),
+    category: v.optional(v.id('categories')),
+    tags: v.optional(v.array(v.string())),
+    icon: v.optional(v.string()),
+    githubUrl: v.optional(v.string()),
+    websiteUrl: v.optional(v.string()),
+    blockId: v.optional(v.id('blocks'))
+  }).index('by_userId', ['userId'])
 })

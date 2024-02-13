@@ -11,6 +11,9 @@ import { ModalBody, ModalHeader } from '@nextui-org/modal'
 import { RoughNotation, RoughNotationGroup } from 'react-rough-notation'
 import React from 'react'
 import { Card, CardBody } from '@nextui-org/card'
+import { CategoryForm } from '@/app/hs/stacks/components/suggestions/CategoryForm'
+import { BlockForm } from '@/app/hs/stacks/components/suggestions/BlockForm'
+import { TechForm } from '@/app/hs/stacks/components/suggestions/TechForm'
 
 export function Suggestion() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure()
@@ -68,19 +71,13 @@ export function Suggestion() {
                   onSelectionChange={setSelected}
                 >
                   <Tab key="category" title="Category">
-                    <Card>
-                      <CardBody>Category</CardBody>
-                    </Card>
+                    <CategoryForm />
                   </Tab>
                   <Tab key="block" title="Block">
-                    <Card>
-                      <CardBody>Block</CardBody>
-                    </Card>
+                    <BlockForm />
                   </Tab>
                   <Tab key="tech" title="Tech">
-                    <Card>
-                      <CardBody>Tech</CardBody>
-                    </Card>
+                    <TechForm />
                   </Tab>
                 </Tabs>
               </ModalBody>

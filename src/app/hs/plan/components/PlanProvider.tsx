@@ -1,7 +1,7 @@
 'use client'
 
-import { FancyStepTitle } from '@/app/hs/stacks/create/components/layout/FancyStepTitle'
+import { Suggestion } from '@/app/hs/stacks/components/suggestions/Suggestion'
 
 export default function PlanProvider() {
-  return <FancyStepTitle>Plan your stack</FancyStepTitle>
+  return <Suggestion />
 }
