@@ -4,6 +4,7 @@ import { Modal, ModalContent, useDisclosure } from '@nextui-org/react'
 import { ModalBody, ModalHeader } from '@nextui-org/modal'
 import BlockLibrary from '@/app/hs/stacks/components/blocks/library/BlockLibrary'
 import { AddBlockProps } from '@/app/hs/stacks/components/blocks/Blocks.types'
+import { Suggestion } from '@/app/hs/stacks/components/suggestions/Suggestion'
 
 export function NewBlockDialog({ onAddBlock }: AddBlockProps) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure()
@@ -30,8 +31,11 @@ export function NewBlockDialog({ onAddBlock }: AddBlockProps) {
         <ModalContent>
           {(onClose) => (
             <>
-              <ModalHeader className="flex flex-col gap-1">
+              <ModalHeader className="flex items-center justify-between">
                 Block Library
+                <div className="mt-4 mr-4">
+                  <Suggestion />
+                </div>
               </ModalHeader>
               <ModalBody>
                 <BlockLibrary onAddBlock={onAddBlock} onClose={onClose} />
