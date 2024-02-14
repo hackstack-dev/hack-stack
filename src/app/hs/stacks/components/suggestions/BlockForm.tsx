@@ -11,6 +11,10 @@ import { Listbox, ListboxItem } from '@nextui-org/listbox'
 import { Chip } from '@nextui-org/chip'
 import { toast } from 'sonner'
 import { Id } from '~/convex/_generated/dataModel'
+import {
+  getErrorText,
+  getSuccessText
+} from '@/app/hs/stacks/components/suggestions/Suggestion.utils'
 
 const blockFormSchema = z.object({
   name: z
@@ -62,13 +66,16 @@ export function BlockForm() {
         tags
       })
       reset()
-      toast.success('Block suggestion saved, thank you!', {
-        description:
-          'We will review your suggestion and add it to the list if it fits the criteria.'
+      const successText = getSuccessText('Block')
+      toast.success(successText.message, {
+        description: successText.description
       })
     } catch (error) {
-      console.error('Error saving block suggestion', error)
-      toast.error('Error saving block suggestion')
+      const errorText = getErrorText('block')
+      console.error(errorText.message, error)
+      toast.error(errorText.message, {
+        description: errorText.description
+      })
     }
   }
 

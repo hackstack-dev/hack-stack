@@ -11,6 +11,10 @@ import Image from 'next/image'
 import { Id } from '~/convex/_generated/dataModel'
 import { toast } from 'sonner'
 import { convertFileToBase64 } from '@/app/lib/utils'
+import {
+  getErrorText,
+  getSuccessText
+} from '@/app/hs/stacks/components/suggestions/Suggestion.utils'
 
 const techFormSchema = z.object({
   name: z
@@ -62,13 +66,17 @@ export function TechForm() {
         websiteUrl
       })
       reset()
-      toast.success('Tech suggestion saved, thank you!', {
-        description:
-          'We will review your suggestion and add it to the list if it fits the criteria.'
+      setPreview(undefined)
+      const successText = getSuccessText('Tech')
+      toast.success(successText.message, {
+        description: successText.description
       })
     } catch (error) {
-      console.error('Error saving tech suggestion', error)
-      toast.error('Error saving tech suggestion')
+        const errorText = getErrorText('tech')
+        console.error(errorText.message, error)
+        toast.error(errorText.message, {
+            description: errorText.description
+        })
     }
   }
   return (
@@ -200,11 +208,11 @@ export function TechForm() {
           )}
         />
 
-        <div className="p-4 w-[80px] border border-dashed border-default-300 rounded-medium text-small text-center">
+        <div className="p-2 h-[64px] w-[64px] border border-dashed border-default-300 rounded-medium text-small text-center flex flex-col justify-center">
           {preview ? (
             <Image alt="tech logo" src={preview} width={50} height={50} />
           ) : (
-            <span>Logo preview</span>
+            <span className="text-default-400">Logo</span>
           )}
         </div>
       </div>

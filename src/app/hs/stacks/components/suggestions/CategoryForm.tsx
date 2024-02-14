@@ -7,6 +7,7 @@ import SubmitButton from '@/app/hs/stacks/components/suggestions/SubmitButton'
 import { useAction } from 'convex/react'
 import { api } from '~/convex/_generated/api'
 import { toast } from 'sonner'
+import {getErrorText, getSuccessText} from "@/app/hs/stacks/components/suggestions/Suggestion.utils";
 
 const categoryFormSchema = z.object({
   name: z
@@ -33,13 +34,16 @@ export function CategoryForm() {
         type: 'category'
       })
       reset()
-      toast.success('Category suggestion saved, thank you!', {
-        description:
-          'We will review your suggestion and add it to the list if it fits the criteria.'
+      const successText = getSuccessText('Category')
+      toast.success(successText.message, {
+        description: successText.description
       })
     } catch (error) {
-      console.error('Error saving category suggestion', error)
-      toast.error('Error saving category suggestion')
+      const errorText = getErrorText('category')
+      console.error(errorText.message, error)
+      toast.error(errorText.message, {
+        description: errorText.description
+      })
     }
   }
 
