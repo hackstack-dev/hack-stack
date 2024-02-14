@@ -4,11 +4,13 @@ import { Input, Textarea } from '@nextui-org/input'
 import React from 'react'
 import { z } from 'zod'
 import SubmitButton from '@/app/hs/stacks/components/suggestions/SubmitButton'
-import { useQuery } from 'convex/react'
+import { useAction, useQuery } from 'convex/react'
 import { api } from '~/convex/_generated/api'
 import { ScrollShadow, Select, SelectItem } from '@nextui-org/react'
 import { Listbox, ListboxItem } from '@nextui-org/listbox'
 import { Chip } from '@nextui-org/chip'
+import { toast } from 'sonner'
+import { Id } from '~/convex/_generated/dataModel'
 
 const blockFormSchema = z.object({
   name: z
@@ -29,7 +31,9 @@ const blockFormSchema = z.object({
 type BlockFormState = z.infer<typeof blockFormSchema>
 
 export function BlockForm() {
-  const { control, handleSubmit, setValue, getValues } =
+  const saveBlockSuggestion = useAction(api.suggestions.saveSuggestion)
+
+  const { control, handleSubmit, setValue, getValues, reset } =
     useForm<BlockFormState>({
       resolver: zodResolver(blockFormSchema),
       defaultValues: {
@@ -43,7 +47,30 @@ export function BlockForm() {
   const [tagsInputValue, setTagsInputValue] = React.useState('')
   const categories = useQuery(api.categories.getCategories, {})
 
-  const onSubmit: SubmitHandler<BlockFormState> = (data) => console.log(data)
+  const onSubmit: SubmitHandler<BlockFormState> = async ({
+    name,
+    category,
+    description,
+    tags
+  }) => {
+    try {
+      await saveBlockSuggestion({
+        name,
+        type: 'block',
+        category: category as Id<'categories'>,
+        description,
+        tags
+      })
+      reset()
+      toast.success('Block suggestion saved, thank you!', {
+        description:
+          'We will review your suggestion and add it to the list if it fits the criteria.'
+      })
+    } catch (error) {
+      console.error('Error saving block suggestion', error)
+      toast.error('Error saving block suggestion')
+    }
+  }
 
   const handleAddTag = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
@@ -89,7 +116,7 @@ export function BlockForm() {
             value={field.value}
             onChange={field.onChange}
             isLoading={!categories}
-            description="Which category does this block belong to?"
+            description="Which category does this block belong to? missing a category? suggest it!"
           >
             {(categories ?? []).map((category) => (
               <SelectItem key={category._id} value={category.name}>

@@ -1,4 +1,12 @@
 import { query } from './_generated/server'
+import {authQuery} from "~/convex/utils";
+
+export const getAllBlocks = authQuery({
+  handler: async ({ db, user }, args) => {
+    if (!user) return []
+    return await db.query('blocks').collect()
+  }
+})
 
 export const blocksByCategories = query({
   args: {},

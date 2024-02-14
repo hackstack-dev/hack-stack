@@ -10,7 +10,6 @@ import {
 import { ModalBody, ModalHeader } from '@nextui-org/modal'
 import { RoughNotation, RoughNotationGroup } from 'react-rough-notation'
 import React from 'react'
-import { Card, CardBody } from '@nextui-org/card'
 import { CategoryForm } from '@/app/hs/stacks/components/suggestions/CategoryForm'
 import { BlockForm } from '@/app/hs/stacks/components/suggestions/BlockForm'
 import { TechForm } from '@/app/hs/stacks/components/suggestions/TechForm'
@@ -33,8 +32,8 @@ export function Suggestion() {
       <Modal
         isOpen={isOpen}
         onOpenChange={onOpenChange}
-        size="5xl"
-        scrollBehavior="outside"
+        size="3xl"
+        scrollBehavior="inside"
         backdrop="blur"
       >
         <ModalContent>
@@ -58,9 +57,10 @@ export function Suggestion() {
                 </RoughNotationGroup>
               </ModalHeader>
               <ModalBody>
-                <p className="text-default-500">
+                <p className="text-sm text-default-500">
                   Help us improve the app by suggesting new blocks, categories
-                  or technologies.
+                  or technologies and you might enter our contributors hall of
+                  fame!
                 </p>
                 <h2>I Want to suggest a:</h2>
                 <Tabs

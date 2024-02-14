@@ -10,6 +10,15 @@ export function getIconAsset(icon: string) {
   return `/assets/icons/${icon}.svg`
 }
 
+export function convertFileToBase64(file: File) {
+  return new Promise<string>((resolve, reject) => {
+    const reader = new FileReader()
+    reader.onload = () => resolve(reader.result as string)
+    reader.onerror = (error) => reject(error)
+    reader.readAsDataURL(file)
+  })
+}
+
 export function getTechLogo(tech: string, theme: string | undefined) {
   const techExtension = tech.split('.').pop() ?? 'svg'
   const logoName =

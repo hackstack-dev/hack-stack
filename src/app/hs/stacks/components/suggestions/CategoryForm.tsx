@@ -4,6 +4,9 @@ import { Input } from '@nextui-org/input'
 import React from 'react'
 import { z } from 'zod'
 import SubmitButton from '@/app/hs/stacks/components/suggestions/SubmitButton'
+import { useAction } from 'convex/react'
+import { api } from '~/convex/_generated/api'
+import { toast } from 'sonner'
 
 const categoryFormSchema = z.object({
   name: z
@@ -15,14 +18,30 @@ const categoryFormSchema = z.object({
 type CategoryFormState = z.infer<typeof categoryFormSchema>
 
 export function CategoryForm() {
-  const { control, handleSubmit } = useForm<CategoryFormState>({
+  const saveCategorySuggestion = useAction(api.suggestions.saveSuggestion)
+  const { control, handleSubmit, reset } = useForm<CategoryFormState>({
     resolver: zodResolver(categoryFormSchema),
     defaultValues: {
       name: ''
     }
   })
 
-  const onSubmit: SubmitHandler<CategoryFormState> = (data) => console.log(data)
+  const onSubmit: SubmitHandler<CategoryFormState> = async ({ name }) => {
+    try {
+      await saveCategorySuggestion({
+        name,
+        type: 'category'
+      })
+      reset()
+      toast.success('Category suggestion saved, thank you!', {
+        description:
+          'We will review your suggestion and add it to the list if it fits the criteria.'
+      })
+    } catch (error) {
+      console.error('Error saving category suggestion', error)
+      toast.error('Error saving category suggestion')
+    }
+  }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>

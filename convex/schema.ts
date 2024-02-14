@@ -45,6 +45,23 @@ export const stacksValidator = v.object({
   )
 })
 
+export const suggestionsValidator = v.object({
+  userId: v.id('users'),
+  type: v.union(
+    v.literal('category'),
+    v.literal('block'),
+    v.literal('tech')
+  ),
+  name: v.string(),
+  description: v.optional(v.string()),
+  category: v.optional(v.id('categories')),
+  tags: v.optional(v.array(v.string())),
+  logo: v.optional(v.string()),
+  logoFileName: v.optional(v.string()),
+  githubUrl: v.optional(v.string()),
+  websiteUrl: v.optional(v.string()),
+  blockId: v.optional(v.id('blocks'))
+})
 export default defineSchema({
   plans: defineTable({ name: v.string(), userId: v.id('users') }),
 
@@ -103,20 +120,5 @@ export default defineSchema({
     .index('by_stackId', ['stackId'])
     .index('by_userId', ['userId']),
 
-  suggestions: defineTable({
-    userId: v.string(),
-    suggestion: v.union(
-      v.literal('category'),
-      v.literal('block'),
-      v.literal('tech')
-    ),
-    name: v.string(),
-    description: v.optional(v.string()),
-    category: v.optional(v.id('categories')),
-    tags: v.optional(v.array(v.string())),
-    icon: v.optional(v.string()),
-    githubUrl: v.optional(v.string()),
-    websiteUrl: v.optional(v.string()),
-    blockId: v.optional(v.id('blocks'))
-  }).index('by_userId', ['userId'])
+  suggestions: defineTable(suggestionsValidator).index('by_userId', ['userId'])
 })

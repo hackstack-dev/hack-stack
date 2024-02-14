@@ -7,12 +7,44 @@ import {
   QueryCtx
 } from './_generated/server'
 import {
+  customAction,
   customCtx,
   customMutation,
   customQuery
 } from 'convex-helpers/server/customFunctions'
 import { ConvexError, v } from 'convex/values'
+import { internal } from '~/convex/_generated/api'
+import { UnwrapConvex } from '~/convex/types'
+import { getUserById } from '~/convex/users'
+import { Id } from '~/convex/_generated/dataModel'
 
+export const authAction = customAction(
+  action,
+  customCtx(async (ctx) => {
+    const userId = (await ctx.auth.getUserIdentity())?.subject
+
+    if (!userId) {
+      throw new ConvexError('must be logged in')
+    }
+
+    const user = (await ctx.runQuery(internal.users.getUserById, {
+      userId
+    })) as UnwrapConvex<typeof getUserById>
+
+    if (!user) {
+      throw new ConvexError('user not found')
+    }
+
+    const _id: Id<'users'> = user._id
+
+    return {
+      user: {
+        _id,
+        userId
+      }
+    }
+  })
+)
 export const authQuery = customQuery(
   query,
   customCtx(async (ctx) => {
@@ -51,7 +83,6 @@ export const getUserId = async (ctx: QueryCtx | MutationCtx | ActionCtx) => {
   return (await ctx.auth.getUserIdentity())?.subject
 }
 
-
 export const getOwnerAndRepoFromUrl = (url: string) => {
   const regex = /^https?:\/\/github\.com\/([^\/]+)\/([^\/]+)(\/|$)/
   const match = url.match(regex)
@@ -64,21 +95,3 @@ export const getOwnerAndRepoFromUrl = (url: string) => {
 
   return null
 }
-export const getRepositoryData = action({
-  args: { githubUrl: v.string() },
-  handler: async (_, { githubUrl }) => {
-    try {
-      const result = getOwnerAndRepoFromUrl(githubUrl)
-      if (!result) {
-        return null
-      }
-      const repoData = await fetch(
-        `https://api.github.com/repos/${result.owner}/${result.repo}`
-      )
-      return await repoData.json()
-    } catch (error) {
-      console.error(error)
-      return null
-    }
-  }
-})
