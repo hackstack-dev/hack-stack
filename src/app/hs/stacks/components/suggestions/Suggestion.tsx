@@ -13,21 +13,8 @@ import React from 'react'
 import { CategoryForm } from '@/app/hs/stacks/components/suggestions/CategoryForm'
 import { BlockForm } from '@/app/hs/stacks/components/suggestions/BlockForm'
 import { TechForm } from '@/app/hs/stacks/components/suggestions/TechForm'
+import { colorMap } from '@/app/lib/utils'
 
-type ColorVariant =
-  | 'success'
-  | 'warning'
-  | 'danger'
-  | 'default'
-  | 'primary'
-  | 'secondary'
-  | undefined
-
-const colorMap: Record<string, ColorVariant> = {
-  category: 'secondary',
-  block: 'warning',
-  tech: 'danger'
-}
 export function Suggestion({ item }: { item: 'category' | 'block' | 'tech' }) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure()
   const [selected, setSelected] = React.useState<string>(item)

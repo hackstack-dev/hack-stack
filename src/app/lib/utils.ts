@@ -2,6 +2,22 @@ import { type ClassValue, clsx } from 'clsx'
 import { twMerge } from 'tailwind-merge'
 
 const IMAGEKIT_URL = 'https://ik.imagekit.io/odzx7thry/hack_stack'
+
+export type ColorVariant =
+    | 'success'
+    | 'warning'
+    | 'danger'
+    | 'default'
+    | 'primary'
+    | 'secondary'
+    | undefined
+
+export const colorMap: Record<string, ColorVariant> = {
+  category: 'secondary',
+  block: 'warning',
+  tech: 'danger'
+}
+
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
@@ -34,6 +50,10 @@ export function getRandomBackground() {
 export function getCardBackground(bg: string) {
   return `${IMAGEKIT_URL}/backgrounds/${bg}`
 }
+
+// export function getSuggestionLogo(bg: string) {
+//   return `${IMAGEKIT_URL}/backgrounds/${bg}`
+// }
 
 export function getUniqueHueStyle(str: string) {
   let hash = 0

@@ -64,6 +64,7 @@ export function TechForm() {
       await saveTechSuggestion({
         name,
         type: 'tech',
+        approved: false,
         blockId: blockId as Id<'blocks'>,
         description,
         logo: logoBase64,

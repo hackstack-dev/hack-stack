@@ -16,6 +16,8 @@ import {
 } from '@nextui-org/react'
 import React from 'react'
 import { MenuItem } from '@/app/hs/components/header/types'
+import { useQuery } from 'convex/react'
+import { api } from '~/convex/_generated/api'
 
 const menuItems: MenuItem[] = [
   {
@@ -27,16 +29,31 @@ const menuItems: MenuItem[] = [
     name: 'Stacks',
     href: '/hs/stacks',
     parentPath: 'stacks'
-  },
+  }
   // {
   //   name: 'Plan',
   //   href: '/hs/plan',
   //   parentPath: 'plan',
-  // }
+  // },
+]
+const adminMenuItems: MenuItem[] = [
+  {
+    name: 'Backoffice',
+    href: '/hs/backoffice',
+    parentPath: 'backoffice'
+  }
 ]
 
 export default function AppHeader() {
+  const myUser = useQuery(api.users.getMyUser)
   const [isMenuOpen, setIsMenuOpen] = React.useState(false)
+
+  const menu = React.useMemo(() => {
+    if (myUser?.isAdmin) {
+      return [...menuItems, ...adminMenuItems]
+    }
+    return menuItems
+  }, [myUser])
   return (
     <Navbar onMenuOpenChange={setIsMenuOpen} maxWidth="full" isBordered>
       <NavbarContent>
@@ -53,7 +70,7 @@ export default function AppHeader() {
       </NavbarContent>
 
       <NavbarContent className="hidden sm:flex gap-4" justify="center">
-        <AppNavigation menuItems={menuItems} />
+        <AppNavigation menuItems={menu} />
       </NavbarContent>
       <NavbarContent justify="end">
         <NavbarItem className="hidden lg:flex">

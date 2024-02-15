@@ -16,6 +16,6 @@ export const getErrorText = (type: string) => {
 }
 
 export const commonToastOptions = {
-  duration: 7000,
+  duration: 5000,
   position: 'top-center'
 } as ExternalToast

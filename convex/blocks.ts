@@ -1,5 +1,6 @@
-import { query } from './_generated/server'
-import {authQuery} from "~/convex/utils";
+import { internalMutation, query } from './_generated/server'
+import { authQuery } from '~/convex/utils'
+import { v } from 'convex/values'
 
 export const getAllBlocks = authQuery({
   handler: async ({ db, user }, args) => {
@@ -9,8 +10,7 @@ export const getAllBlocks = authQuery({
 })
 
 export const blocksByCategories = query({
-  args: {},
-  handler: async (ctx, args) => {
+  handler: async (ctx) => {
     // get all categories
     const categories = await ctx.db.query('categories').collect()
     // get all blocks and group them by category
@@ -23,5 +23,22 @@ export const blocksByCategories = query({
           .then((blocks) => ({ category, blocks }))
       })
     )
+  }
+})
+
+export const internalInsertBlock = internalMutation({
+  args: {
+    name: v.string(),
+    description: v.string(),
+    category: v.id('categories'),
+    tags: v.array(v.string())
+  },
+  handler: async ({ db }, args) => {
+    return await db.insert('blocks', {
+      name: args.name,
+      description: args.description,
+      category: args.category,
+      tags: args.tags
+    })
   }
 })

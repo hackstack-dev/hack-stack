@@ -1,5 +1,5 @@
 import PlanProvider from '@/app/hs/plan/components/PlanProvider'
 
-export default async function PlanPage() {
+export default function PlanPage() {
   return <PlanProvider />
 }

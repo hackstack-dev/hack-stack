@@ -153,3 +153,24 @@ export const getTechUsage = query({
     }
   }
 })
+
+export const internalInsertTech = internalMutation({
+  args: {
+    name: v.string(),
+    icon: v.string(),
+    githubUrl: v.optional(v.string()),
+    websiteUrl: v.optional(v.string()),
+    description: v.optional(v.string()),
+    blockId: v.id('blocks')
+  },
+  handler: async ({ db }, args) => {
+    return await db.insert('tech', {
+      name: args.name,
+      icon: args.icon,
+      githubUrl: args.githubUrl,
+      websiteUrl: args.websiteUrl,
+      description: args.description,
+      blockId: args.blockId
+    })
+  }
+})

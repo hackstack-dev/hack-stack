@@ -35,7 +35,8 @@ export function CategoryForm() {
     try {
       await saveCategorySuggestion({
         name,
-        type: 'category'
+        type: 'category',
+        approved: false
       })
       reset()
       const successText = getSuccessText('Category')

@@ -61,6 +61,7 @@ export function BlockForm() {
     try {
       await saveBlockSuggestion({
         name,
+        approved: false,
         type: 'block',
         category: category as Id<'categories'>,
         description,
