@@ -108,7 +108,7 @@ export default function BlockLibrary({
             {filteredItems?.map(({ category, blocks }) => (
               <div key={category._id} className="mb-4">
                 <h2 className="w-full pb-2 font-semibold">{category.name}</h2>
-                <div className="grid grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                   {blocks.map((block) => (
                     <div
                       className="cursor-pointer bg-default-100 dark:bg-black p-4 rounded-md transition-all hover:ring-1 ring-primary"

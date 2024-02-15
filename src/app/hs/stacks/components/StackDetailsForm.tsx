@@ -107,7 +107,7 @@ export default function StackDetailsForm({
             </ScrollShadow>
             {projectTypesErrorMessage && (
               <p className="text-tiny text-danger">
-                {form.getFieldState('projectTypes').error?.message}
+                {projectTypesErrorMessage}
               </p>
             )}
           </div>

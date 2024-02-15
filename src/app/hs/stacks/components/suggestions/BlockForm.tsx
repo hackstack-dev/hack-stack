@@ -12,6 +12,7 @@ import { Chip } from '@nextui-org/chip'
 import { toast } from 'sonner'
 import { Id } from '~/convex/_generated/dataModel'
 import {
+  commonToastOptions,
   getErrorText,
   getSuccessText
 } from '@/app/hs/stacks/components/suggestions/Suggestion.utils'
@@ -19,8 +20,8 @@ import {
 const blockFormSchema = z.object({
   name: z
     .string()
-    .min(2, 'Category name must contain at least 3 characters')
-    .max(50, 'Category name must contain at most 50 characters'),
+    .min(2, 'Block name must contain at least 3 characters')
+    .max(50, 'Block name must contain at most 50 characters'),
   category: z.string(),
   description: z
     .string()
@@ -68,13 +69,15 @@ export function BlockForm() {
       reset()
       const successText = getSuccessText('Block')
       toast.success(successText.message, {
-        description: successText.description
+        description: successText.description,
+        ...commonToastOptions
       })
     } catch (error) {
       const errorText = getErrorText('block')
       console.error(errorText.message, error)
       toast.error(errorText.message, {
-        description: errorText.description
+        description: errorText.description,
+        ...commonToastOptions
       })
     }
   }

@@ -12,6 +12,7 @@ import { Id } from '~/convex/_generated/dataModel'
 import { toast } from 'sonner'
 import { convertFileToBase64 } from '@/app/lib/utils'
 import {
+  commonToastOptions,
   getErrorText,
   getSuccessText
 } from '@/app/hs/stacks/components/suggestions/Suggestion.utils'
@@ -19,11 +20,14 @@ import {
 const techFormSchema = z.object({
   name: z
     .string()
-    .min(2, 'Category name must contain at least 3 characters')
-    .max(50, 'Category name must contain at most 50 characters'),
-  description: z.string(),
+    .min(2, 'Tech name must contain at least 3 characters')
+    .max(50, 'Tech name must contain at most 50 characters'),
+  description: z
+    .string()
+    .min(10, 'Tech description must contain at least 10 characters')
+    .max(500, 'Tech description must contain at most 500 characters'),
   blockId: z.string(),
-  logo: z.custom<File>(),
+  logo: z.custom<File>().refine((file) => !!file.name, 'Tech logo is required'),
   githubUrl: z.string().url().optional().or(z.literal('')),
   websiteUrl: z.string().url().optional().or(z.literal(''))
 })
@@ -31,17 +35,18 @@ const techFormSchema = z.object({
 type TechFormState = z.infer<typeof techFormSchema>
 
 export function TechForm() {
-  const { control, handleSubmit, reset } = useForm<TechFormState>({
-    resolver: zodResolver(techFormSchema),
-    defaultValues: {
-      name: '',
-      description: '',
-      blockId: '',
-      logo: undefined,
-      githubUrl: '',
-      websiteUrl: ''
-    }
-  })
+  const { control, handleSubmit, getFieldState, reset } =
+    useForm<TechFormState>({
+      resolver: zodResolver(techFormSchema),
+      defaultValues: {
+        name: undefined,
+        description: undefined,
+        blockId: undefined,
+        logo: undefined,
+        githubUrl: undefined,
+        websiteUrl: undefined
+      }
+    })
   const saveTechSuggestion = useAction(api.suggestions.saveSuggestion)
 
   const blocksData = useQuery(api.blocks.blocksByCategories, {})
@@ -69,16 +74,20 @@ export function TechForm() {
       setPreview(undefined)
       const successText = getSuccessText('Tech')
       toast.success(successText.message, {
-        description: successText.description
+        description: successText.description,
+        ...commonToastOptions
       })
     } catch (error) {
-        const errorText = getErrorText('tech')
-        console.error(errorText.message, error)
-        toast.error(errorText.message, {
-            description: errorText.description
-        })
+      const errorText = getErrorText('tech')
+      console.error(errorText.message, error)
+      toast.error(errorText.message, {
+        description: errorText.description,
+        ...commonToastOptions
+      })
     }
   }
+
+  const logoErrorMessage = getFieldState('logo').error?.message
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-10">
       <Controller
@@ -156,67 +165,74 @@ export function TechForm() {
           />
         )}
       />
-      <Controller
-        name="githubUrl"
-        control={control}
-        render={({ field, fieldState }) => (
-          <Input
-            isInvalid={fieldState.invalid}
-            errorMessage={fieldState.error?.message}
-            value={field.value}
-            onChange={field.onChange}
-            label="GitHub URL"
-            labelPlacement="outside"
-            variant="bordered"
-          />
-        )}
-      />
-
-      <Controller
-        name="websiteUrl"
-        control={control}
-        render={({ field, fieldState }) => (
-          <Input
-            isInvalid={fieldState.invalid}
-            errorMessage={fieldState.error?.message}
-            value={field.value}
-            onChange={field.onChange}
-            label="Website"
-            labelPlacement="outside"
-            variant="bordered"
-          />
-        )}
-      />
-      <div className="flex flex-col space-y-4">
-        <label className="text-small">Tech logo</label>
+      <div className="grid flex-col space-y-4">
+        <label className="text-small after:content-['*'] after:text-danger after:ml-0.5">
+          Tech logo
+        </label>
         <p className="text-xs text-default-400">
           Strongly prefer svg format, png is also accepted.
         </p>
+        <div className="flex items-center space-x-4">
+          <div className="p-2 h-[64px] w-[64px] border border-dashed border-default-300 rounded-medium text-small text-center flex flex-col justify-center">
+            {preview ? (
+              <Image alt="tech logo" src={preview} width={50} height={50} />
+            ) : (
+              <span className="text-default-400">Logo</span>
+            )}
+          </div>
+          <Controller
+            name="logo"
+            control={control}
+            render={({ field, fieldState }) => (
+              <input
+                accept="image/svg+xml, image/png"
+                type="file"
+                onChange={(event) => {
+                  const file = event.target.files?.[0]
+                  field.onChange(file)
+                  file && setPreview(URL.createObjectURL(file))
+                }}
+              />
+            )}
+          />
+        </div>
+        {logoErrorMessage && (
+          <p className="text-tiny text-danger">{logoErrorMessage}</p>
+        )}
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <Controller
-          name="logo"
+          name="githubUrl"
           control={control}
           render={({ field, fieldState }) => (
-            <input
-              accept="image/svg+xml, image/png"
-              type="file"
-              onChange={(event) => {
-                const file = event.target.files?.[0]
-                field.onChange(file)
-                file && setPreview(URL.createObjectURL(file))
-              }}
+            <Input
+              isInvalid={fieldState.invalid}
+              errorMessage={fieldState.error?.message}
+              value={field.value}
+              onChange={field.onChange}
+              label="GitHub URL"
+              labelPlacement="outside"
+              variant="bordered"
             />
           )}
         />
 
-        <div className="p-2 h-[64px] w-[64px] border border-dashed border-default-300 rounded-medium text-small text-center flex flex-col justify-center">
-          {preview ? (
-            <Image alt="tech logo" src={preview} width={50} height={50} />
-          ) : (
-            <span className="text-default-400">Logo</span>
+        <Controller
+          name="websiteUrl"
+          control={control}
+          render={({ field, fieldState }) => (
+            <Input
+              isInvalid={fieldState.invalid}
+              errorMessage={fieldState.error?.message}
+              value={field.value}
+              onChange={field.onChange}
+              label="Website"
+              labelPlacement="outside"
+              variant="bordered"
+            />
           )}
-        </div>
+        />
       </div>
-
       <SubmitButton />
     </form>
   )

@@ -34,7 +34,7 @@ export function NewBlockDialog({ onAddBlock }: AddBlockProps) {
               <ModalHeader className="flex items-center justify-between">
                 Block Library
                 <div className="mt-4 mr-4">
-                  <Suggestion />
+                  <Suggestion item="block" />
                 </div>
               </ModalHeader>
               <ModalBody>

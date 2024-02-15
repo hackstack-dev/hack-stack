@@ -7,7 +7,11 @@ import SubmitButton from '@/app/hs/stacks/components/suggestions/SubmitButton'
 import { useAction } from 'convex/react'
 import { api } from '~/convex/_generated/api'
 import { toast } from 'sonner'
-import {getErrorText, getSuccessText} from "@/app/hs/stacks/components/suggestions/Suggestion.utils";
+import {
+  commonToastOptions,
+  getErrorText,
+  getSuccessText
+} from '@/app/hs/stacks/components/suggestions/Suggestion.utils'
 
 const categoryFormSchema = z.object({
   name: z
@@ -36,13 +40,15 @@ export function CategoryForm() {
       reset()
       const successText = getSuccessText('Category')
       toast.success(successText.message, {
-        description: successText.description
+        description: successText.description,
+        ...commonToastOptions
       })
     } catch (error) {
       const errorText = getErrorText('category')
       console.error(errorText.message, error)
       toast.error(errorText.message, {
-        description: errorText.description
+        description: errorText.description,
+        ...commonToastOptions
       })
     }
   }

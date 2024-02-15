@@ -39,6 +39,12 @@ const config: Config = {
             },
             success: {
               DEFAULT: '#34d399'
+            },
+            warning: {
+              DEFAULT: '#facc15'
+            },
+            danger: {
+              DEFAULT: '#e11d48'
             }
           }
         },
@@ -49,7 +55,13 @@ const config: Config = {
               foreground: '#fff'
             },
             success: {
-                DEFAULT: '#2dd4bf'
+              DEFAULT: '#4ade80'
+            },
+            warning: {
+              DEFAULT: '#facc15'
+            },
+            danger: {
+              DEFAULT: '#e11d48'
             }
           }
         }
