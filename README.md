@@ -1,36 +1,29 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# HackStack
 
-## Getting Started
+![HackStack Logo](https://hackstack.io/logo.png)
 
-First, run the development server:
+[![License](https://img.shields.io/github/license/hackstackio/hackstack)](https://github.com/hackstackio/hackstack/blob/main/LICENSE)
+[![Stars](https://img.shields.io/github/stars/hackstackio/hackstack)](https://github.com/hackstackio/hackstack/stargazers)
+[![Issues](https://img.shields.io/github/issues/hackstackio/hackstack)](https://github.com/hackstackio/hackstack/issues)
+[![Website](https://img.shields.io/website?up_message=online&url=https%3A%2F%2Fhackstack.io)](https://hackstack.io)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+HackStack is an open source project that helps you find, build and share awesome tech stacks.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Features
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- Explore hundreds of community stacks and see what tools and frameworks they use
+- Build your own stacks and customize them to your needs
+- Share your stacks with other developers and get feedback
+- Get insights on how your stacks perform, how popular they are, and how much they cost
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Why HackStack?
 
-## Learn More
+HackStack is for hackers who love to play with new technologies and share their creations with the world. Whether you are a beginner or a pro, HackStack will help you learn, experiment and collaborate with the latest technologies.
 
-To learn more about Next.js, take a look at the following resources:
+## How to join HackStack?
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+HackStack is free and easy to join. Just visit [hackstack.io](https://hackstack.io) and sign up with your email or GitHub account. You can start browsing, creating and sharing stacks right away. You can also contribute to the HackStack project on [GitHub](https://github.com/hackstackio/hackstack).
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Contact
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+If you have any questions, suggestions or feedback, feel free to contact us at [hello@hackstack.io](mailto:hello@hackstack.io). We would love to hear from you!
