@@ -15,6 +15,7 @@ import { Image } from '@nextui-org/image'
 import { Id } from '~/convex/_generated/dataModel'
 import { toast } from 'sonner'
 import dayjs from 'dayjs'
+import { Suggestion } from '@/app/hs/stacks/components/suggestions/Suggestion'
 
 export default function SuggestionList() {
   const [showPending, setShowPending] = React.useState(true)
@@ -56,7 +57,7 @@ export default function SuggestionList() {
           <Spinner />
         </div>
       )}
-      <div className="my-6">
+      <div className="p-4 flex items-center justify-between">
         <Switch
           size="sm"
           isSelected={showPending}
@@ -64,8 +65,10 @@ export default function SuggestionList() {
         >
           {showPending ? 'Pending approvals' : 'Approved suggestions'}
         </Switch>
+        <Suggestion item="tech" />
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <Divider />
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-8">
         {suggestions
           ?.filter((s) => s.approved !== showPending)
           .map((suggestion) => {

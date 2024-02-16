@@ -44,7 +44,7 @@ export default function StackView({ stackId }: StackViewProps) {
         </div>
       )}
       {stack && (
-        <div className="flex flex-col h-[calc(100vh-98px)]">
+        <div className="flex flex-col h-[calc(100vh-108px)]">
           <StackViewHeader stack={stack} />
           <StackViewBlocks
             nodes={nodes}

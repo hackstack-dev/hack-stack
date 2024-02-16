@@ -18,9 +18,9 @@ import { useMutation } from 'convex/react'
 import { Stack } from '~/convex/types'
 import { toast } from 'sonner'
 import EditStackActions from '@/app/hs/stacks/[stackId]/EditStackActions'
-import PublicPrivateIndication from '@/app/hs/stacks/components/PublicPrivateIndication'
 import Likes from '@/app/hs/stacks/components/Likes'
 import { useRouter } from 'next/navigation'
+import PublicPrivateIndication from '@/app/hs/components/ui/PublicPrivateIndication'
 
 interface EditStackProps {
   stackState: StackStateProps['stackState']

@@ -8,7 +8,7 @@ export default function TechStats({ techName }: { techName: string }) {
     techName ? { techName } : 'skip'
   )
   return (
-    <div className="px-4 grid grid-cols-2 gap-4">
+    <div className="p-4 grid grid-cols-2 gap-4">
       {techUsage?.p ? (
         <div className="rounded-xl border dark:border-default-100">
           <div className="p-6 flex flex-row items-center justify-between space-y-0 pb-2">

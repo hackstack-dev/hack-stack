@@ -4,12 +4,12 @@ import { Image } from '@nextui-org/image'
 import { getCardBackground, getTechLogo } from '@/app/lib/utils'
 import { useRouter } from 'next/navigation'
 import { Doc } from '~/convex/_generated/dataModel'
-import PublicPrivateIndication from '@/app/hs/stacks/components/PublicPrivateIndication'
-import { LucideSprout, LucideTentTree } from 'lucide-react'
+import { LucideSprout } from 'lucide-react'
 import Likes from '@/app/hs/stacks/components/Likes'
 import UserAvatar from '@/app/hs/components/ui/UserAvatar'
 import { useQuery } from 'convex/react'
 import { api } from '~/convex/_generated/api'
+import PublicPrivateIndication from '@/app/hs/components/ui/PublicPrivateIndication'
 
 interface StackItemsProps {
   items: (Doc<'stacks'> | null)[]

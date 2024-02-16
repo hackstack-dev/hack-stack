@@ -1,42 +1,84 @@
-import { mutation, query } from 'convex/_generated/server'
 import { v } from 'convex/values'
-import { authQuery, getUserId } from 'convex/utils'
+import { authMutation, authQuery } from 'convex/utils'
+import { getManyFrom } from 'convex-helpers/server/relationships'
 
 export const getTemplates = authQuery({
   handler: async (ctx, args) => {
     if (!ctx.user) return []
-    return await ctx.db.query('templates').collect()
+    return await ctx.db
+      .query('templates')
+      .filter((q) =>
+        q.or(
+          q.eq(q.field('isPublic'), true),
+          q.eq(q.field('userId'), ctx.user._id)
+        )
+      )
+      .collect()
   }
 })
-export const createTemplate = mutation({
+
+export const getUserTemplates = authQuery({
+  handler: async (ctx, args) => {
+    if (!ctx.user) return []
+    return await getManyFrom(ctx.db, 'templates', 'by_userId', ctx.user._id)
+  }
+})
+
+export const getUserTemplateById = authQuery({
   args: {
-    name: v.string(),
-    description: v.string()
+    templateId: v.id('templates')
   },
   handler: async (ctx, args) => {
-    const userId = await getUserId(ctx)
+    if (!ctx.user) return
+    return await ctx.db
+      .query('templates')
+      .withIndex('by_userId', (q) => q.eq('userId', ctx.user._id))
+      .filter((q) => q.eq(q.field('_id'), args.templateId))
+      .first()
+  }
+})
 
-    if (!userId) {
-      throw new Error('you must be logged in to create a template')
-    }
+export const createTemplate = authMutation({
+  args: {
+    name: v.string(),
+    description: v.string(),
+    isPublic: v.boolean(),
+    blocks: v.array(v.any())
+  },
+  handler: async (ctx, args) => {
     return await ctx.db.insert('templates', {
+      userId: ctx.user._id,
       name: args.name,
       description: args.description,
-      blocks: []
+      blocks: args.blocks,
+      isPublic: args.isPublic
     })
   }
 })
 
-export const deleteTemplate = mutation({
+export const updateTemplate = authMutation({
   args: {
-    id: v.id('templates')
+    templateId: v.id('templates'),
+    name: v.string(),
+    description: v.string(),
+    isPublic: v.boolean(),
+    blocks: v.array(v.any())
   },
   handler: async (ctx, args) => {
-    const userId = await getUserId(ctx)
+    return await ctx.db.patch(args.templateId, {
+      name: args.name,
+      description: args.description,
+      blocks: args.blocks,
+      isPublic: args.isPublic
+    })
+  }
+})
 
-    if (!userId) {
-      throw new Error('you must be logged in to delete a template')
-    }
-    return await ctx.db.delete(args.id)
+export const deleteTemplate = authMutation({
+  args: {
+    templateId: v.id('templates')
+  },
+  handler: async (ctx, args) => {
+    return await ctx.db.delete(args.templateId)
   }
 })

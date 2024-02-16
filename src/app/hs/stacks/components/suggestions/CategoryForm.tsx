@@ -34,7 +34,7 @@ export function CategoryForm() {
   })
 
   const onSubmit: SubmitHandler<CategoryFormState> = async ({ name }) => {
-    setSubmitting
+    setSubmitting(true)
     try {
       await saveCategorySuggestion({
         name,

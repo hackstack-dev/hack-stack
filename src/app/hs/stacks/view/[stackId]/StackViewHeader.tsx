@@ -7,6 +7,7 @@ import UserAvatar from '@/app/hs/components/ui/UserAvatar'
 import { RoughNotation } from 'react-rough-notation'
 import { Button } from '@nextui-org/button'
 import { LucideGithub, LucideHome } from 'lucide-react'
+import { FancyStepTitle } from '@/app/hs/stacks/create/components/layout/FancyStepTitle'
 
 interface StackViewHeaderProps {
   stack: Doc<'stacks'>
@@ -23,12 +24,10 @@ export default function StackViewHeader({ stack }: StackViewHeaderProps) {
   } = stack
 
   return (
-    <header className="pb-4">
+    <header className="p-4">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <RoughNotation type="highlight" color="#d946ef" show>
-            <h1 className="text-2xl px-2 py-1">{name}</h1>
-          </RoughNotation>
+          <FancyStepTitle>{name}</FancyStepTitle>
           {sourceCodeUrl && (
             <Button
               as={'a'}

@@ -4,14 +4,14 @@ import { Divider, Spinner, Radio } from '@nextui-org/react'
 import { Input } from '@nextui-org/input'
 import React from 'react'
 import { Card, CardBody, CardHeader } from '@nextui-org/card'
-import Image from 'next/image'
-import { useColorAppLogo } from '@/app/lib/hooks'
-import { cn, getIconAsset } from '@/app/lib/utils'
+import { cn } from '@/app/lib/utils'
 import { RadioGroup } from '@nextui-org/radio'
 import { LucideSearch } from 'lucide-react'
 import { StackStateProps } from '@/app/hs/stacks/create/create.types'
 import { useWizard } from 'react-use-wizard'
 import { FancyStepTitle } from '@/app/hs/stacks/create/components/layout/FancyStepTitle'
+import { Chip } from '@nextui-org/chip'
+import UserAvatar from '@/app/hs/components/ui/UserAvatar'
 
 export default function TemplateListSelection({
   stackState,
@@ -22,7 +22,6 @@ export default function TemplateListSelection({
   const [search, setSearch] = React.useState('')
   const [error, setError] = React.useState('')
 
-  const { colorLogoByString } = useColorAppLogo({ size: 22 })
   const templates = useQuery(
     api.templates.getTemplates,
     !isAuthenticated ? 'skip' : {}
@@ -79,23 +78,13 @@ export default function TemplateListSelection({
               >
                 <Card
                   className={cn(
-                    'max-w-[450px] h-[140px]',
+                    'max-w-[450px]',
                     stackState.template?._id === t._id && 'ring-1 ring-default'
                   )}
                 >
                   <CardHeader className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                      {t.icon ? (
-                        <Image
-                          src={getIconAsset(t.icon)}
-                          alt={t.name}
-                          width={22}
-                          height={22}
-                          className="invert-0 dark:invert"
-                        />
-                      ) : (
-                        <>{colorLogoByString(`${t.name}${t._id}`)}</>
-                      )}
+                      <UserAvatar userId={t.userId} />
                       <h3 className="text-md">{t.name}</h3>
                     </div>
 
@@ -106,6 +95,20 @@ export default function TemplateListSelection({
                     <p className="text-xs font-light text-default-500">
                       {t.description}
                     </p>
+                    {t.blocks.length > 0 && (
+                      <div className="mt-4 flex items-center gap-2 flex-wrap">
+                        {t.blocks.map((block) => (
+                          <Chip
+                            key={block._id}
+                            size="sm"
+                            color="secondary"
+                            variant="bordered"
+                          >
+                            {block.data.blockName}
+                          </Chip>
+                        ))}
+                      </div>
+                    )}
                   </CardBody>
                 </Card>
               </li>

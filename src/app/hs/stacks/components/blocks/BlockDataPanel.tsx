@@ -1,5 +1,5 @@
 import React from 'react'
-import { useOnSelectionChange, Node } from 'reactflow'
+import { Node } from 'reactflow'
 import { BlockNodeData } from '@/app/hs/stacks/components/blocks/Blocks.types'
 import { Input } from '@nextui-org/input'
 import { LucideArrowLeft, LucideSearch } from 'lucide-react'
@@ -10,7 +10,6 @@ import { cn, getTechLogo } from '@/app/lib/utils'
 import { Doc, Id } from '~/convex/_generated/dataModel'
 import { useTheme } from 'next-themes'
 import StackViewTechDetails from '@/app/hs/stacks/view/[stackId]/StackViewTechDetails'
-import { Divider } from '@nextui-org/react'
 
 interface BlockDataPanelProps {
   nodes: Node[]
@@ -48,7 +47,7 @@ export default function BlockDataPanel({
     <div className="p-4 h-full w-full bg-default-50 dark:bg-black border-l-1 dark:border-default-50">
       {selectedNode ? (
         <>
-          <h2 className="text-2xl dark:text-default-500">
+          <h2 className="text-xl dark:text-default-500">
             {selectedNode?.data?.blockName}
           </h2>
           {tech && tech.length > 20 && (

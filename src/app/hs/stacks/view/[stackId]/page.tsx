@@ -1,8 +1,8 @@
 import ContentContainer from '@/app/hs/components/ui/ContentContainer'
 import React from 'react'
 import { Id } from '~/convex/_generated/dataModel'
-import StackViewProvider from '@/app/hs/stacks/components/StackViewProvider'
 import StackView from '@/app/hs/stacks/view/[stackId]/StackView'
+import FlowProvider from '@/app/hs/components/ui/FlowProvider'
 
 export default function StackPage({
   params
@@ -10,10 +10,8 @@ export default function StackPage({
   const stackId = params.stackId
 
   return (
-    <ContentContainer>
-      <StackViewProvider>
-        <StackView stackId={stackId} />
-      </StackViewProvider>
-    </ContentContainer>
+    <FlowProvider>
+      <StackView stackId={stackId} />
+    </FlowProvider>
   )
 }

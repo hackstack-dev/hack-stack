@@ -29,12 +29,12 @@ const menuItems: MenuItem[] = [
     name: 'Stacks',
     href: '/hs/stacks',
     parentPath: 'stacks'
+  },
+  {
+    name: 'Templates',
+    href: '/hs/templates',
+    parentPath: 'templates'
   }
-  // {
-  //   name: 'Plan',
-  //   href: '/hs/plan',
-  //   parentPath: 'plan',
-  // },
 ]
 const adminMenuItems: MenuItem[] = [
   {
@@ -54,6 +54,7 @@ export default function AppHeader() {
     }
     return menuItems
   }, [myUser])
+
   return (
     <Navbar onMenuOpenChange={setIsMenuOpen} maxWidth="full" isBordered>
       <NavbarContent>

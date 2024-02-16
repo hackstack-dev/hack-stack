@@ -17,19 +17,6 @@ export default function BlockNodeDataDisplay({
   const techLogo = tech?.icon ?? 'icon.svg'
   return (
     <>
-      {/*<NodeToolbar isVisible={undefined} position={Position.Top}>*/}
-      {/*  <ButtonGroup variant="flat" size="sm" radius="lg">*/}
-      {/*    <Button>*/}
-      {/*      <LucideTrash size={16} />*/}
-      {/*    </Button>*/}
-      {/*    <Button>*/}
-      {/*      <LucideCopy size={16} />*/}
-      {/*    </Button>*/}
-      {/*    <Button>*/}
-      {/*      <LucidePackagePlus size={16} />*/}
-      {/*    </Button>*/}
-      {/*  </ButtonGroup>*/}
-      {/*</NodeToolbar>*/}
       <div
         className={cn([
           'min-w-[200px]',

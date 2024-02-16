@@ -96,11 +96,12 @@ export default defineSchema({
   }).index('by_category', ['category']),
 
   templates: defineTable({
+    userId: v.id('users'),
     name: v.string(),
     description: v.string(),
     blocks: v.array(v.any()),
-    icon: v.optional(v.string())
-  }),
+    isPublic: v.boolean()
+  }).index('by_userId', ['userId']),
 
   users: defineTable({
     userId: v.string(),
