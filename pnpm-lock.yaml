@@ -32,6 +32,9 @@ dependencies:
   convex-helpers:
     specifier: ^0.1.15
     version: 0.1.15(convex@1.8.0)(react@18.2.0)(zod@3.22.4)
+  dayjs:
+    specifier: ^1.11.10
+    version: 1.11.10
   framer-motion:
     specifier: ^11.0.3
     version: 11.0.3(react-dom@18.2.0)(react@18.2.0)
@@ -3762,6 +3765,10 @@ packages:
       d3-interpolate: 3.0.1
       d3-selection: 3.0.0
       d3-transition: 3.0.1(d3-selection@3.0.0)
+    dev: false
+
+  /dayjs@1.11.10:
+    resolution: {integrity: sha512-vjAczensTgRcqDERK0SR2XMwsF/tSvnvlv6VcF2GIhg6Sx4yOIt/irsr1RDJsKiIyBzJDpCoXiWWq28MqH2cnQ==}
     dev: false
 
   /deepmerge@4.2.2:

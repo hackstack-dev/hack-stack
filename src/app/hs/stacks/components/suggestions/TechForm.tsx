@@ -35,6 +35,7 @@ const techFormSchema = z.object({
 type TechFormState = z.infer<typeof techFormSchema>
 
 export function TechForm() {
+  const [submitting, setSubmitting] = React.useState(false)
   const { control, handleSubmit, getFieldState, reset } =
     useForm<TechFormState>({
       resolver: zodResolver(techFormSchema),
@@ -59,6 +60,7 @@ export function TechForm() {
     githubUrl,
     websiteUrl
   }) => {
+    setSubmitting(true)
     try {
       const logoBase64 = await convertFileToBase64(logo)
       await saveTechSuggestion({
@@ -85,6 +87,8 @@ export function TechForm() {
         description: errorText.description,
         ...commonToastOptions
       })
+    } finally {
+      setSubmitting(false)
     }
   }
 
@@ -234,7 +238,7 @@ export function TechForm() {
           )}
         />
       </div>
-      <SubmitButton />
+      <SubmitButton submitting={submitting} />
     </form>
   )
 }

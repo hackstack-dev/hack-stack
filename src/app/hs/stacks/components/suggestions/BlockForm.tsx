@@ -36,6 +36,8 @@ const blockFormSchema = z.object({
 type BlockFormState = z.infer<typeof blockFormSchema>
 
 export function BlockForm() {
+  const [submitting, setSubmitting] = React.useState(false)
+
   const saveBlockSuggestion = useAction(api.suggestions.saveSuggestion)
 
   const { control, handleSubmit, setValue, getValues, reset } =
@@ -58,6 +60,7 @@ export function BlockForm() {
     description,
     tags
   }) => {
+    setSubmitting(true)
     try {
       await saveBlockSuggestion({
         name,
@@ -80,6 +83,8 @@ export function BlockForm() {
         description: errorText.description,
         ...commonToastOptions
       })
+    } finally {
+      setSubmitting(false)
     }
   }
 
@@ -197,7 +202,7 @@ export function BlockForm() {
           Name between 1 and 5 popular technologies that belong to this block
         </p>
       </ScrollShadow>
-      <SubmitButton />
+      <SubmitButton submitting={submitting} />
     </form>
   )
 }

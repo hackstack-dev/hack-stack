@@ -16,24 +16,25 @@ export const saveSuggestion = authAction(
     { user, runMutation, runAction },
     suggestion: SuggestionWithoutUser
   ) => {
-    let logos = {
-      logo: '',
-      darkLogo: ''
+    const userId = user._id
+    let newSuggestion = {
+      ...suggestion,
+      userId
     }
+
     if (suggestion.logo) {
-      logos = await runAction(internal.imageKit.upload, {
+      const logos = await runAction(internal.imageKit.upload, {
         logo: suggestion.logo,
         name: suggestion.name
       })
+      newSuggestion = {
+        ...newSuggestion,
+        logo: logos.logo,
+        darkLogo: logos.darkLogo,
+        logoIds: logos.logoIds
+      }
     }
 
-    const userId = user._id
-    const newSuggestion = {
-      ...suggestion,
-      userId,
-      logo: logos.logo,
-      darkLogo: logos.darkLogo
-    }
     await runMutation(internal.suggestions.insertSuggestion, newSuggestion)
   }
 )
@@ -115,6 +116,38 @@ export const approveSuggestion = adminAuthAction({
       suggestionId: args.suggestionId
     })
 
+    return true
+  }
+})
+
+export const internalDeleteSuggestion = internalMutation({
+  args: {
+    suggestionId: v.id('suggestions')
+  },
+  handler: async ({ db }, args) => {
+    return await db.delete(args.suggestionId)
+  }
+})
+
+export const deleteSuggestion = adminAuthAction({
+  args: {
+    suggestionId: v.id('suggestions')
+  },
+  handler: async (ctx, args) => {
+    const suggestion = await ctx.runQuery(
+      internal.suggestions.getSuggestionById,
+      {
+        suggestionId: args.suggestionId
+      }
+    )
+    if (suggestion?.logoIds) {
+      await ctx.runAction(internal.imageKit.deleteSuggestionLogo, {
+        logoIds: suggestion.logoIds
+      })
+    }
+    await ctx.runMutation(internal.suggestions.internalDeleteSuggestion, {
+      suggestionId: args.suggestionId
+    })
     return true
   }
 })

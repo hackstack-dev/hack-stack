@@ -23,6 +23,8 @@ const categoryFormSchema = z.object({
 type CategoryFormState = z.infer<typeof categoryFormSchema>
 
 export function CategoryForm() {
+  const [submitting, setSubmitting] = React.useState(false)
+
   const saveCategorySuggestion = useAction(api.suggestions.saveSuggestion)
   const { control, handleSubmit, reset } = useForm<CategoryFormState>({
     resolver: zodResolver(categoryFormSchema),
@@ -32,6 +34,7 @@ export function CategoryForm() {
   })
 
   const onSubmit: SubmitHandler<CategoryFormState> = async ({ name }) => {
+    setSubmitting
     try {
       await saveCategorySuggestion({
         name,
@@ -51,6 +54,8 @@ export function CategoryForm() {
         description: errorText.description,
         ...commonToastOptions
       })
+    } finally {
+      setSubmitting(false)
     }
   }
 
@@ -72,7 +77,7 @@ export function CategoryForm() {
           />
         )}
       />
-      <SubmitButton />
+      <SubmitButton submitting={submitting} />
     </form>
   )
 }

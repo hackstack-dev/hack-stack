@@ -28,10 +28,20 @@ export const upload = internalAction({
       folder: '/hack_stack/logos'
     })
 
-    return { logo: defaultLogo.url, darkLogo: darkLogo.url }
+    return {
+      logo: defaultLogo.url,
+      darkLogo: darkLogo.url,
+      logoIds: [defaultLogo.fileId, darkLogo.fileId]
+    }
   }
 })
 
+export const deleteSuggestionLogo = internalAction({
+  args: { logoIds: v.array(v.string()) },
+  handler: async (_, args) => {
+    return imageKit.bulkDeleteFiles(args.logoIds)
+  }
+})
 export const approveSuggestionLogo = internalAction({
   args: { logo: v.string(), darkLogo: v.string(), newName: v.string() },
   handler: async (_, args) => {

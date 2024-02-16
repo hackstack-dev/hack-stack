@@ -14,17 +14,21 @@ import SuggestionListRow from '@/app/hs/backoffice/suggestions/SuggestionListRow
 import { Image } from '@nextui-org/image'
 import { Id } from '~/convex/_generated/dataModel'
 import { toast } from 'sonner'
+import dayjs from 'dayjs'
 
 export default function SuggestionList() {
   const [showPending, setShowPending] = React.useState(true)
   const suggestions = useQuery(api.suggestions.getSuggestions, {})
   const categories = useQuery(api.categories.getCategories, {})
   const blocks = useQuery(api.blocks.getAllBlocks, {})
-  const [approving, setApproving] = React.useState('')
+
+  const [currentAction, setCurrentAction] = React.useState('')
+
   const approveSuggestion = useAction(api.suggestions.approveSuggestion)
+  const deleteSuggestion = useAction(api.suggestions.deleteSuggestion)
 
   const handleApprove = async (suggestionId: Id<'suggestions'>) => {
-    setApproving(suggestionId)
+    setCurrentAction(suggestionId)
     try {
       await approveSuggestion({ suggestionId })
       toast.success('Suggestion approved')
@@ -32,7 +36,17 @@ export default function SuggestionList() {
       console.error(error)
       toast.error('Problem approving suggestion')
     } finally {
-      setApproving('')
+      setCurrentAction('')
+    }
+  }
+
+  const handleDelete = async (suggestionId: Id<'suggestions'>) => {
+    try {
+      await deleteSuggestion({ suggestionId })
+      toast.success('Suggestion deleted')
+    } catch (error) {
+      console.error(error)
+      toast.error('Problem deleting suggestion')
     }
   }
   return (
@@ -70,6 +84,9 @@ export default function SuggestionList() {
                 <Divider />
                 <CardBody>
                   <h2 className="text-lg font-semibold">{suggestion.name}</h2>
+                  <time className="text-xs text-default-400">
+                    {dayjs(suggestion._creationTime).format('DD/MM/YYYY HH:mm')}
+                  </time>
                   <div className="mt-6">
                     {category?.name && (
                       <SuggestionListRow
@@ -98,22 +115,20 @@ export default function SuggestionList() {
                         value={suggestion.websiteUrl}
                       />
                     )}
-                    {suggestion?.logo && (
-                      <SuggestionListRow
-                        label="Logo"
-                        value={
-                          <Image
-                            alt="tech logo"
-                            src={suggestion.logo}
-                            width={40}
-                            height={40}
-                          />
-                        }
-                      />
-                    )}
                     <p className="text-sm text-default-400">
                       {suggestion.description}
                     </p>
+
+                    {suggestion?.logo && (
+                      <div className="mt-4 flex justify-center">
+                        <Image
+                          alt="tech logo"
+                          src={suggestion.logo}
+                          width={80}
+                          height={80}
+                        />
+                      </div>
+                    )}
                   </div>
                 </CardBody>
                 <Divider />
@@ -129,7 +144,7 @@ export default function SuggestionList() {
                       color="success"
                       variant="flat"
                       onClick={() => handleApprove(suggestion._id)}
-                      isLoading={approving === suggestion._id}
+                      isLoading={currentAction === suggestion._id}
                     >
                       Approve
                     </Button>
@@ -137,9 +152,11 @@ export default function SuggestionList() {
 
                   {!suggestion.approved && (
                     <Button
+                      onClick={() => handleDelete(suggestion._id)}
                       color="danger"
                       variant="light"
                       radius="full"
+                      isLoading={currentAction === suggestion._id}
                       isIconOnly
                     >
                       <LucideTrash size={16} strokeWidth={2} />

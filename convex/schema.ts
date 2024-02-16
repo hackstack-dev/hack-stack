@@ -55,6 +55,7 @@ export const suggestionsValidator = v.object({
   tags: v.optional(v.array(v.string())),
   logo: v.optional(v.string()),
   darkLogo: v.optional(v.string()),
+  logoIds: v.optional(v.array(v.string())),
   githubUrl: v.optional(v.string()),
   websiteUrl: v.optional(v.string()),
   blockId: v.optional(v.id('blocks'))
