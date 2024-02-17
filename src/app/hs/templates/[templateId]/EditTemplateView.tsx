@@ -7,6 +7,7 @@ import { Id } from '~/convex/_generated/dataModel'
 import EditStack from '@/app/hs/stacks/[stackId]/EditStack'
 import { Spinner } from '@nextui-org/react'
 import TemplateForm from '@/app/hs/templates/components/TemplateForm'
+import PageDataLoading from "@/app/hs/components/ui/PageDataLoading";
 
 interface EditTemplateViewProps {
   templateId: Id<'templates'>
@@ -24,9 +25,7 @@ export default function EditTemplateView({
   return (
     <>
       {!template && (
-        <div className="mt-24 flex flex-col items-center">
-          <Spinner />
-        </div>
+          <PageDataLoading />
       )}
       {template && (
         <TemplateForm

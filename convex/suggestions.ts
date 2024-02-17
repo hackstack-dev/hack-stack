@@ -43,8 +43,8 @@ export const getSuggestionById = internalQuery({
   args: {
     suggestionId: v.id('suggestions')
   },
-  handler: async ({ db }, args) => {
-    return await db.get(args.suggestionId)
+  handler: async ({ db }, { suggestionId }) => {
+    return await db.get(suggestionId)
   }
 })
 
@@ -58,8 +58,8 @@ export const internalApproveSuggestion = internalMutation({
   args: {
     suggestionId: v.id('suggestions')
   },
-  handler: async ({ db }, args) => {
-    return await db.patch(args.suggestionId, { approved: true })
+  handler: async ({ db }, { suggestionId }) => {
+    return await db.patch(suggestionId, { approved: true })
   }
 })
 
@@ -67,25 +67,22 @@ export const approveSuggestion = adminAuthAction({
   args: {
     suggestionId: v.id('suggestions')
   },
-  handler: async (ctx, args) => {
-    const suggestion = await ctx.runQuery(
-      internal.suggestions.getSuggestionById,
-      {
-        suggestionId: args.suggestionId
-      }
-    )
+  handler: async ({ runQuery, runMutation, runAction }, { suggestionId }) => {
+    const suggestion = await runQuery(internal.suggestions.getSuggestionById, {
+      suggestionId
+    })
 
     const newLogoName =
       suggestion?.name?.replaceAll(' ', '')?.toLowerCase() ?? 'logo'
 
     if (suggestion?.type === 'category') {
-      await ctx.runMutation(internal.categories.internalInsertCategory, {
+      await runMutation(internal.categories.internalInsertCategory, {
         name: suggestion.name
       })
     }
 
     if (suggestion?.type === 'block' && suggestion.category) {
-      await ctx.runMutation(internal.blocks.internalInsertBlock, {
+      await runMutation(internal.blocks.internalInsertBlock, {
         name: suggestion.name,
         description: suggestion.description ?? '',
         category: suggestion.category,
@@ -94,7 +91,7 @@ export const approveSuggestion = adminAuthAction({
     }
 
     if (suggestion?.type === 'tech' && suggestion.blockId) {
-      await ctx.runMutation(internal.tech.internalInsertTech, {
+      await runMutation(internal.tech.internalInsertTech, {
         name: suggestion.name,
         icon: `${newLogoName}.svg`,
         githubUrl: suggestion.githubUrl ?? '',
@@ -105,15 +102,15 @@ export const approveSuggestion = adminAuthAction({
     }
 
     if (suggestion?.logo && suggestion.darkLogo) {
-      await ctx.runAction(internal.imageKit.approveSuggestionLogo, {
+      await runAction(internal.imageKit.approveSuggestionLogo, {
         logo: suggestion.logo,
         darkLogo: suggestion.darkLogo,
         newName: newLogoName
       })
     }
     // update suggestion to approved
-    await ctx.runMutation(internal.suggestions.internalApproveSuggestion, {
-      suggestionId: args.suggestionId
+    await runMutation(internal.suggestions.internalApproveSuggestion, {
+      suggestionId
     })
 
     return true
@@ -124,8 +121,8 @@ export const internalDeleteSuggestion = internalMutation({
   args: {
     suggestionId: v.id('suggestions')
   },
-  handler: async ({ db }, args) => {
-    return await db.delete(args.suggestionId)
+  handler: async ({ db }, { suggestionId }) => {
+    return await db.delete(suggestionId)
   }
 })
 
@@ -133,20 +130,17 @@ export const deleteSuggestion = adminAuthAction({
   args: {
     suggestionId: v.id('suggestions')
   },
-  handler: async (ctx, args) => {
-    const suggestion = await ctx.runQuery(
-      internal.suggestions.getSuggestionById,
-      {
-        suggestionId: args.suggestionId
-      }
-    )
+  handler: async ({ runQuery, runMutation, runAction }, { suggestionId }) => {
+    const suggestion = await runQuery(internal.suggestions.getSuggestionById, {
+      suggestionId
+    })
     if (suggestion?.logoIds) {
-      await ctx.runAction(internal.imageKit.deleteSuggestionLogo, {
+      await runAction(internal.imageKit.deleteSuggestionLogo, {
         logoIds: suggestion.logoIds
       })
     }
-    await ctx.runMutation(internal.suggestions.internalDeleteSuggestion, {
-      suggestionId: args.suggestionId
+    await runMutation(internal.suggestions.internalDeleteSuggestion, {
+      suggestionId
     })
     return true
   }

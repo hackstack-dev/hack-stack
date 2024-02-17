@@ -11,7 +11,7 @@ export default function EditTemplatePage({
 }: { params: { templateId: Id<'templates'> } }) {
   const templateId = params.templateId
   return (
-    <div className="w-full px-4 pt-4 flex flex-col h-[calc(100vh-76px)]">
+    <div className="w-full flex flex-col h-[calc(100vh-76px)]">
       <FlowProvider>
         <EditTemplateView templateId={templateId} />
       </FlowProvider>

@@ -61,7 +61,7 @@ export default function StackDetailsForm({
               Need inspiration? How about{' '}
               <span
                 onClick={handleNameSuggestionClick}
-                className="cursor-pointer text-primary"
+                className="cursor-pointer text-secondary dark:text-primary"
               >
                 {nameSuggestion}
               </span>

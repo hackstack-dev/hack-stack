@@ -11,13 +11,23 @@ import { useQuery } from 'convex/react'
 import { api } from '~/convex/_generated/api'
 import PublicPrivateIndication from '@/app/hs/components/ui/PublicPrivateIndication'
 
+const cardSize = {
+  sm: 'h-40',
+  md: 'h-60',
+  lg: 'h-80'
+}
+
 interface StackItemsProps {
   items: (Doc<'stacks'> | null)[]
+  size?: 'sm' | 'md' | 'lg'
   isPublicItems?: boolean
+  withAvatar?: boolean
 }
 export default function StackItems({
   items,
-  isPublicItems = false
+  size = 'md',
+  isPublicItems = false,
+  withAvatar = true
 }: StackItemsProps) {
   const myUser = useQuery(api.users.getMyUser)
   const router = useRouter()
@@ -47,13 +57,13 @@ export default function StackItems({
             isFooterBlurred
             isPressable
             onPress={() => router.push(stackUrl)}
-            className="h-[300px]"
+            className={`${cardSize[size]}`}
           >
             <CardHeader className="absolute z-10 top-1 flex items-center justify-between">
               <h4 className="text-white/90 font-medium text-xl drop-shadow">
                 {stack.name}
               </h4>
-              {isPublicItems && (
+              {isPublicItems && withAvatar && (
                 <UserAvatar userId={stack.userId} withName={false} />
               )}
             </CardHeader>

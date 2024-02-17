@@ -10,8 +10,16 @@ import PublicPrivateIndication from '@/app/hs/components/ui/PublicPrivateIndicat
 
 interface TemplateItemsProps {
   items: (Doc<'templates'> | null)[]
+  isPressable?: boolean
+  withAvatar?: boolean
+  withPublicPrivateIndication?: boolean
 }
-export default function TemplateItems({ items }: TemplateItemsProps) {
+export default function TemplateItems({
+  items,
+  isPressable = false,
+  withAvatar = false,
+  withPublicPrivateIndication = false
+}: TemplateItemsProps) {
   const router = useRouter()
 
   if (items.length === 0) {
@@ -25,15 +33,17 @@ export default function TemplateItems({ items }: TemplateItemsProps) {
         return (
           <Card
             key={template._id}
-            isPressable
+            isPressable={isPressable}
             onPress={() => router.push(templateUrl)}
           >
             <CardHeader className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <UserAvatar userId={template.userId} />
+                {withAvatar && <UserAvatar userId={template.userId} />}
                 <h3 className="text-md">{template.name}</h3>
               </div>
-              <PublicPrivateIndication isPublic={template.isPublic} />
+              {withPublicPrivateIndication && (
+                <PublicPrivateIndication isPublic={template.isPublic} />
+              )}
             </CardHeader>
             <Divider />
             <CardBody>

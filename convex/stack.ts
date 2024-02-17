@@ -2,13 +2,22 @@ import { query } from '~/convex/_generated/server'
 import { authMutation, authQuery, getUserId } from '~/convex/utils'
 import { Stack } from '~/convex/types'
 import { Doc, Id } from '~/convex/_generated/dataModel'
-import { ConvexError } from 'convex/values'
+import { ConvexError, v } from 'convex/values'
 import { getManyFrom } from 'convex-helpers/server/relationships'
 
-export const getUserStacks = authQuery({
+export const getMyUserStacks = authQuery({
   handler: async ({ db, user }) => {
     if (!user) return []
     return await getManyFrom(db, 'stacks', 'by_userId', user._id)
+  }
+})
+
+export const getOtherUserStacks = authQuery({
+  args: {
+    userId: v.id('users')
+  },
+  handler: async ({ db }, { userId }) => {
+    return await getManyFrom(db, 'stacks', 'by_userId', userId)
   }
 })
 
@@ -23,21 +32,21 @@ export const getPublicStack = query({
 })
 // get stack by id
 export const getUserStack = authQuery({
-  handler: async (ctx, { stackId }: { stackId: Id<'stacks'> }) => {
-    if (!ctx.user) return {} as Doc<'stacks'>
+  handler: async ({ db, user }, { stackId }: { stackId: Id<'stacks'> }) => {
+    if (!user) return {} as Doc<'stacks'>
     // get stack by id and userId
-    return await ctx.db
+    return await db
       .query('stacks')
-      .withIndex('by_userId', (q) => q.eq('userId', ctx.user._id))
+      .withIndex('by_userId', (q) => q.eq('userId', user._id))
       .filter((q) => q.eq(q.field('_id'), stackId))
       .first()
   }
 })
 
 export const saveStack = authMutation(
-  async (ctx, { stack }: { stack: Stack }) => {
-    const newStack = { ...stack, userId: ctx.user._id }
-    return ctx.db.insert('stacks', newStack)
+  async ({ db, user }, { stack }: { stack: Stack }) => {
+    const newStack = { ...stack, userId: user._id }
+    return db.insert('stacks', newStack)
   }
 )
 
@@ -55,9 +64,12 @@ export const deleteStack = authMutation(
 )
 
 export const updateStack = authMutation(
-  async (ctx, { stackId, stack }: { stackId: Id<'stacks'>; stack: Stack }) => {
-    const updatedStack = { ...stack, userId: ctx.user._id }
-    return await ctx.db.patch(stackId, updatedStack)
+  async (
+    { db, user },
+    { stackId, stack }: { stackId: Id<'stacks'>; stack: Stack }
+  ) => {
+    const updatedStack = { ...stack, userId: user._id }
+    return await db.patch(stackId, updatedStack)
   }
 )
 

@@ -3,17 +3,14 @@ import ReactFlow, {
   Node,
   OnNodesChange,
   Background,
-  BackgroundVariant
+  BackgroundVariant,
+  NodeChange
 } from 'reactflow'
 
 import 'reactflow/dist/style.css'
 import { useTheme } from 'next-themes'
 import BlockNode from '@/app/hs/stacks/components/blocks/BlockNode'
 import useSetCenter from '@/app/hs/stacks/components/blocks/hooks/useSetCenter'
-
-const viewOnlyProps = {
-  deleteKeyCode: undefined
-}
 
 const nodeTypes = {
   blockNode: BlockNode
@@ -32,19 +29,21 @@ export default function Flow({
 }: FlowProps) {
   const { theme } = useTheme()
   const backgroundColor = theme === 'light' ? '#1f2937' : '#8b5cf6'
-  const interactiveProps = viewOnly ? viewOnlyProps : {}
   useSetCenter()
 
+  const handleNodesChangechanges = (changes: NodeChange[]) => {
+    if (viewOnly && changes.some((c) => c.type === 'remove')) return
+    onNodesChange(changes)
+  }
   return (
     <ReactFlow
       nodes={nodes}
       edges={[]}
       nodeTypes={nodeTypes}
-      onNodesChange={onNodesChange}
+      onNodesChange={handleNodesChangechanges}
       proOptions={{ hideAttribution: true }}
       fitViewOptions={{ maxZoom: 1 }}
       fitView
-      {...interactiveProps}
     >
       <Background color={backgroundColor} variant={BackgroundVariant.Dots} />
     </ReactFlow>

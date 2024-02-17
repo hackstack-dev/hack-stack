@@ -56,7 +56,7 @@ export default function AppHeader() {
   }, [myUser])
 
   return (
-    <Navbar onMenuOpenChange={setIsMenuOpen} maxWidth="full" isBordered>
+    <Navbar onMenuOpenChange={setIsMenuOpen} maxWidth="full" className="border-b-1 border-b-default-50" isBordered>
       <NavbarContent>
         <NavbarMenuToggle
           aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}

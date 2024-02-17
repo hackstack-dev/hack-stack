@@ -12,17 +12,17 @@ export const imageKit = new ImageKit({
 
 export const upload = internalAction({
   args: { logo: v.string(), name: v.string() },
-  handler: async (_, args) => {
-    const fileName = args.name.replaceAll(' ', '').toLowerCase()
+  handler: async (_, { name, logo }) => {
+    const fileName = name.replaceAll(' ', '').toLowerCase()
     const defaultLogo = await imageKit.upload({
-      file: args.logo,
+      file: logo,
       fileName: `${fileName}.svg`,
       useUniqueFileName: true,
       folder: '/hack_stack/logos'
     })
 
     const darkLogo = await imageKit.upload({
-      file: args.logo,
+      file: logo,
       fileName: `${fileName}.dark.svg`,
       useUniqueFileName: true,
       folder: '/hack_stack/logos'
@@ -38,25 +38,25 @@ export const upload = internalAction({
 
 export const deleteSuggestionLogo = internalAction({
   args: { logoIds: v.array(v.string()) },
-  handler: async (_, args) => {
-    return imageKit.bulkDeleteFiles(args.logoIds)
+  handler: async (_, { logoIds }) => {
+    return imageKit.bulkDeleteFiles(logoIds)
   }
 })
 export const approveSuggestionLogo = internalAction({
   args: { logo: v.string(), darkLogo: v.string(), newName: v.string() },
-  handler: async (_, args) => {
-    const logoName = args.logo.split('/').pop() as string
-    const darkLogoName = args.darkLogo.split('/').pop() as string
+  handler: async (_, { logo, darkLogo, newName }) => {
+    const logoName = logo.split('/').pop() as string
+    const darkLogoName = darkLogo.split('/').pop() as string
 
     await imageKit.renameFile({
       filePath: `/hack_stack/logos/${logoName}`,
-      newFileName: `${args.newName}.svg`,
+      newFileName: `${newName}.svg`,
       purgeCache: true
     })
 
     await imageKit.renameFile({
       filePath: `/hack_stack/logos/${darkLogoName}`,
-      newFileName: `${args.newName}.dark.svg`,
+      newFileName: `${newName}.dark.svg`,
       purgeCache: true
     })
   }

@@ -4,11 +4,11 @@ import { getManyFrom } from 'convex-helpers/server/relationships'
 
 export const likeStack = authMutation({
   args: { stackId: v.id('stacks') },
-  handler: async (ctx, args) => {
-    const targetStack = await ctx.db
+  handler: async ({ db, user }, { stackId }) => {
+    const targetStack = await db
       .query('stackLikes')
       .withIndex('by_userId_stackId', (q) =>
-        q.eq('userId', ctx.user._id).eq('stackId', args.stackId)
+        q.eq('userId', user._id).eq('stackId', stackId)
       )
       .first()
 
@@ -16,19 +16,19 @@ export const likeStack = authMutation({
       throw new ConvexError('you already like this stack')
     }
 
-    await ctx.db.insert('stackLikes', {
-      stackId: args.stackId,
-      userId: ctx.user._id
+    await db.insert('stackLikes', {
+      stackId,
+      userId: user._id
     })
   }
 })
 export const removeLike = authMutation({
   args: { stackId: v.id('stacks') },
-  handler: async (ctx, args) => {
-    const targetStack = await ctx.db
+  handler: async ({ db, user }, { stackId }) => {
+    const targetStack = await db
       .query('stackLikes')
       .withIndex('by_userId_stackId', (q) =>
-        q.eq('userId', ctx.user._id).eq('stackId', args.stackId)
+        q.eq('userId', user._id).eq('stackId', stackId)
       )
       .first()
 
@@ -36,7 +36,7 @@ export const removeLike = authMutation({
       throw new ConvexError('you already removed like from this stack')
     }
 
-    await ctx.db.delete(targetStack._id)
+    await db.delete(targetStack._id)
   }
 })
 
@@ -52,12 +52,12 @@ export const getStackLikesCount = authQuery({
 // get user like status for a stack
 export const getUserLikeStatus = authQuery({
   args: { stackId: v.id('stacks') },
-  handler: async (ctx, args) => {
-    if (!ctx.user) return false
-    const targetStack = await ctx.db
+  handler: async ({ db, user }, { stackId }) => {
+    if (!user) return false
+    const targetStack = await db
       .query('stackLikes')
       .withIndex('by_userId_stackId', (q) =>
-        q.eq('userId', ctx.user._id).eq('stackId', args.stackId)
+        q.eq('userId', user._id).eq('stackId', stackId)
       )
       .first()
 

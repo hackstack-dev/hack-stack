@@ -16,6 +16,7 @@ import { Id } from '~/convex/_generated/dataModel'
 import { toast } from 'sonner'
 import dayjs from 'dayjs'
 import { Suggestion } from '@/app/hs/stacks/components/suggestions/Suggestion'
+import PageDataLoading from "@/app/hs/components/ui/PageDataLoading";
 
 export default function SuggestionList() {
   const [showPending, setShowPending] = React.useState(true)
@@ -53,9 +54,7 @@ export default function SuggestionList() {
   return (
     <>
       {!suggestions && (
-        <div className="mt-24 flex flex-col items-center">
-          <Spinner />
-        </div>
+          <PageDataLoading />
       )}
       <div className="p-4 flex items-center justify-between">
         <Switch

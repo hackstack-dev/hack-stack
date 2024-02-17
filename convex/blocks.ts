@@ -10,13 +10,13 @@ export const getAllBlocks = authQuery({
 })
 
 export const blocksByCategories = query({
-  handler: async (ctx) => {
+  handler: async ({ db }) => {
     // get all categories
-    const categories = await ctx.db.query('categories').collect()
+    const categories = await db.query('categories').collect()
     // get all blocks and group them by category
     return Promise.all(
       categories.map((category) => {
-        return ctx.db
+        return db
           .query('blocks')
           .withIndex('by_category', (q) => q.eq('category', category._id))
           .collect()

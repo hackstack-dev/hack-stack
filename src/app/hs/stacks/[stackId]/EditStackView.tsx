@@ -9,6 +9,7 @@ import type { Node } from 'reactflow'
 import { BlockNodeData } from '@/app/hs/stacks/components/blocks/Blocks.types'
 import EditStack from '@/app/hs/stacks/[stackId]/EditStack'
 import { Spinner } from '@nextui-org/react'
+import PageDataLoading from "@/app/hs/components/ui/PageDataLoading";
 
 interface StackViewProps {
   stackId: Id<'stacks'>
@@ -45,9 +46,7 @@ export default function EditStackView({ stackId }: StackViewProps) {
   return (
     <>
       {!editStackState.name && (
-        <div className="mt-24 flex flex-col items-center">
-          <Spinner />
-        </div>
+          <PageDataLoading />
       )}
       {editStackState.name && stack && (
         <EditStack stackId={stackId} stack={stack} stackState={editStackState} />

@@ -3,11 +3,11 @@
 import React from 'react'
 import { Doc } from '~/convex/_generated/dataModel'
 import Likes from '@/app/hs/stacks/components/Likes'
-import UserAvatar from '@/app/hs/components/ui/UserAvatar'
 import { RoughNotation } from 'react-rough-notation'
 import { Button } from '@nextui-org/button'
 import { LucideGithub, LucideHome } from 'lucide-react'
 import { FancyStepTitle } from '@/app/hs/stacks/create/components/layout/FancyStepTitle'
+import UserProfileLink from '@/app/hs/components/ui/UserProfileLink'
 
 interface StackViewHeaderProps {
   stack: Doc<'stacks'>
@@ -57,7 +57,7 @@ export default function StackViewHeader({ stack }: StackViewHeaderProps) {
         </div>
 
         <div className="flex items-center flex-row-reverse gap-2">
-          <UserAvatar userId={userId} withName />
+          <UserProfileLink userId={userId} withName />
           <Likes stackId={_id} />
         </div>
       </div>

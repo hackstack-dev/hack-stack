@@ -4,21 +4,18 @@ import { authQuery } from '~/convex/utils'
 
 export const getUserById = internalQuery({
   args: { userId: v.string() },
-  handler: async (ctx, args) => {
-    const user = await ctx.db
+  handler: async ({ db }, { userId }) => {
+    return await db
       .query('users')
-      .withIndex('by_userId', (q) => q.eq('userId', args.userId))
+      .withIndex('by_userId', (q) => q.eq('userId', userId))
       .first()
-
-    return user
   }
 })
 
 export const getProfile = query({
   args: { userId: v.id('users') },
-  handler: async (ctx, args) => {
-    const user = await ctx.db.get(args.userId)
-
+  handler: async ({ db }, { userId }) => {
+    const user = await db.get(userId)
     return {
       name: user?.name,
       profileImage: user?.profileImage
@@ -33,45 +30,47 @@ export const createUser = internalMutation({
     name: v.string(),
     profileImage: v.string()
   },
-  handler: async (ctx, args) => {
-    const user = await ctx.db
+  handler: async ({ db }, args) => {
+    const { email, userId, profileImage, name } = args
+    const user = await db
       .query('users')
-      .withIndex('by_userId', (q) => q.eq('userId', args.userId))
+      .withIndex('by_userId', (q) => q.eq('userId', userId))
       .first()
 
     if (user) return
 
-    await ctx.db.insert('users', {
-      email: args.email,
-      userId: args.userId,
-      profileImage: args.profileImage,
-      name: args.name
+    await db.insert('users', {
+      email,
+      userId,
+      profileImage,
+      name
     })
   }
 })
 
 export const updateUser = internalMutation({
   args: { userId: v.string(), name: v.string(), profileImage: v.string() },
-  handler: async (ctx, args) => {
-    const user = await ctx.db
+  handler: async ({ db }, args) => {
+    const { userId, profileImage, name } = args
+
+    const user = await db
       .query('users')
-      .withIndex('by_userId', (q) => q.eq('userId', args.userId))
+      .withIndex('by_userId', (q) => q.eq('userId', userId))
       .first()
 
     if (!user) {
       throw new ConvexError('user not found')
     }
 
-    await ctx.db.patch(user._id, {
-      name: args.name,
-      profileImage: args.profileImage
+    await db.patch(user._id, {
+      name,
+      profileImage
     })
   }
 })
 
 export const getMyUser = authQuery({
-  args: {},
-  async handler(ctx, args) {
-    return ctx.user
+  async handler({ user }) {
+    return user
   }
 })

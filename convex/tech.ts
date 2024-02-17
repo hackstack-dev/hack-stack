@@ -164,13 +164,14 @@ export const internalInsertTech = internalMutation({
     blockId: v.id('blocks')
   },
   handler: async ({ db }, args) => {
+    const { name, icon, githubUrl, websiteUrl, description, blockId } = args
     return await db.insert('tech', {
-      name: args.name,
-      icon: args.icon,
-      githubUrl: args.githubUrl,
-      websiteUrl: args.websiteUrl,
-      description: args.description,
-      blockId: args.blockId
+      name,
+      icon,
+      githubUrl,
+      websiteUrl,
+      description,
+      blockId
     })
   }
 })

@@ -7,6 +7,8 @@ import { Spinner } from '@nextui-org/react'
 import { Button } from '@nextui-org/button'
 import Link from 'next/link'
 import BackofficeNavigation from '@/app/hs/backoffice/BackofficeNavigation'
+import PageDataLoading from "@/app/hs/components/ui/PageDataLoading";
+import React from "react";
 
 export default function BackOfficeLayout({
   children
@@ -20,9 +22,7 @@ export default function BackOfficeLayout({
   }
   if (!myUser?.isAdmin) {
     return (
-      <div className="h-screen w-full flex flex-col justify-center">
-        <Spinner />
-      </div>
+        <PageDataLoading />
     )
   }
   return (

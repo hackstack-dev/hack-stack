@@ -7,12 +7,12 @@ const http = httpRouter()
 http.route({
   path: '/clerk',
   method: 'POST',
-  handler: httpAction(async (ctx, request) => {
+  handler: httpAction(async ({runAction, runMutation}, request) => {
     const payloadString = await request.text()
     const headerPayload = request.headers
 
     try {
-      const result = await ctx.runAction(internal.clerk.fulfill, {
+      const result = await runAction(internal.clerk.fulfill, {
         payload: payloadString,
         headers: {
           'svix-id': headerPayload.get('svix-id'),
@@ -21,11 +21,9 @@ http.route({
         }
       })
 
-      console.log(result.data)
-
       switch (result.type) {
         case 'user.created':
-          await ctx.runMutation(internal.users.createUser, {
+          await runMutation(internal.users.createUser, {
             email: result.data.email_addresses[0]?.email_address,
             userId: result.data.id,
             name: `${result.data.first_name} ${result.data.last_name}`,
@@ -33,7 +31,7 @@ http.route({
           })
           break
         case 'user.updated':
-          await ctx.runMutation(internal.users.updateUser, {
+          await runMutation(internal.users.updateUser, {
             userId: result.data.id,
             profileImage: result.data.image_url,
             name: `${result.data.first_name} ${result.data.last_name}`

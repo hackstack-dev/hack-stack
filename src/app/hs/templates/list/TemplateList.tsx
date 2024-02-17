@@ -1,26 +1,29 @@
 'use client'
 
-import { Spinner } from '@nextui-org/react'
 import React from 'react'
 import { useConvexAuth, useQuery } from 'convex/react'
 import { api } from '~/convex/_generated/api'
 import TemplateItems from '@/app/hs/templates/list/TemplateItems'
+import PageDataLoading from '@/app/hs/components/ui/PageDataLoading'
 
 export default function TemplateList() {
   const { isAuthenticated } = useConvexAuth()
-  const stacks = useQuery(
-    api.templates.getUserTemplates,
+  const templates = useQuery(
+    api.templates.getMyUserTemplates,
     !isAuthenticated ? 'skip' : {}
   )
 
   return (
     <>
-      {!stacks && (
-        <div className="mt-24 flex flex-col items-center">
-          <Spinner />
-        </div>
+      {!templates && <PageDataLoading />}
+      {templates && (
+        <TemplateItems
+          items={templates}
+          isPressable
+          withAvatar
+          withPublicPrivateIndication
+        />
       )}
-      {stacks && <TemplateItems items={stacks} />}
     </>
   )
 }

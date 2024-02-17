@@ -43,7 +43,7 @@ export default function BlockNodeDataDisplay({
           <div className="border-l-2 border-secondary py-2 px-4">
             <h3 className="text-default-500 text-sm">{blockName}</h3>
 
-            <span>{tech?.name ?? 'Not selected'}</span>
+            <span>{tech?.name ?? '____________'}</span>
           </div>
         </div>
       </div>

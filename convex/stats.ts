@@ -25,8 +25,8 @@ const getUsedStats = (data: { countBy: string; icon?: string }[]) => {
 }
 
 export const getMostUsedTech = query({
-  handler: async (ctx, args) => {
-    const stacks = await ctx.db.query('stacks').collect()
+  handler: async ({ db }) => {
+    const stacks = await db.query('stacks').collect()
     const techs = stacks.flatMap((stack) =>
       stack.stackBlocks.flatMap((block) => ({
         countBy: block.data.tech.name,
@@ -38,8 +38,8 @@ export const getMostUsedTech = query({
 })
 
 export const getMostUsedBlocks = query({
-  handler: async (ctx, args) => {
-    const stacks = await ctx.db.query('stacks').collect()
+  handler: async ({ db }) => {
+    const stacks = await db.query('stacks').collect()
     const blocks = stacks.flatMap((stack) =>
       stack.stackBlocks.flatMap((block) => ({
         countBy: block.data.blockName,
@@ -51,8 +51,8 @@ export const getMostUsedBlocks = query({
 })
 
 export const getMostUsedProjectTypes = query({
-  handler: async (ctx, args) => {
-    const stacks = await ctx.db.query('stacks').collect()
+  handler: async ({ db }) => {
+    const stacks = await db.query('stacks').collect()
     const projectTypes = stacks.flatMap((stack) =>
       stack.projectTypes.flatMap((type) => ({
         countBy: type,
