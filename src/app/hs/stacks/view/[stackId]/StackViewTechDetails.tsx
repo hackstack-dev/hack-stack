@@ -44,7 +44,7 @@ export default function StackViewTechDetails({
   return (
     <div
       className={cn(
-        'py-4 h-full w-full bg-default-50 dark:bg-black border-1 dark:border-default-50',
+        'py-4 h-full w-full bg-default-50 dark:bg-black border-l-1 border-r-1 dark:border-default-50',
         embeded && 'bg-white dark:bg-default-50/80 rounded-md shadow-sm'
       )}
     >

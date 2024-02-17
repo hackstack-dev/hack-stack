@@ -18,6 +18,8 @@ import React from 'react'
 import { MenuItem } from '@/app/hs/components/header/types'
 import { useQuery } from 'convex/react'
 import { api } from '~/convex/_generated/api'
+import { LucideMoreVertical } from 'lucide-react'
+import AppSettings from '@/app/hs/components/header/AppSettings'
 
 const menuItems: MenuItem[] = [
   {
@@ -45,7 +47,7 @@ const adminMenuItems: MenuItem[] = [
 ]
 
 export default function AppHeader() {
-  const myUser = useQuery(api.users.getMyUser)
+  const myUser = useQuery(api.users.getMyUser, {})
   const [isMenuOpen, setIsMenuOpen] = React.useState(false)
 
   const menu = React.useMemo(() => {
@@ -56,7 +58,12 @@ export default function AppHeader() {
   }, [myUser])
 
   return (
-    <Navbar onMenuOpenChange={setIsMenuOpen} maxWidth="full" className="border-b-1 border-b-default-50" isBordered>
+    <Navbar
+      onMenuOpenChange={setIsMenuOpen}
+      maxWidth="full"
+      className="border-b-1 border-b-default-200 dark:border-b-default-50"
+      isBordered
+    >
       <NavbarContent>
         <NavbarMenuToggle
           aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
@@ -80,6 +87,11 @@ export default function AppHeader() {
         <NavbarItem>
           <AppUser />
         </NavbarItem>
+        {myUser && (
+          <NavbarItem>
+            <AppSettings user={myUser} />
+          </NavbarItem>
+        )}
       </NavbarContent>
       <NavbarMenu>
         <NavbarMenuItem className="mb-4">

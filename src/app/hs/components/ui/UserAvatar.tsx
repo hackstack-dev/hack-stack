@@ -15,7 +15,7 @@ export default function UserAvatar({
   userId,
   size = 'sm',
   className = '',
-  nameClassName = 'text-sm',
+  nameClassName = 'mt-2 text-xs',
   withName = false
 }: UserAvatarProps) {
   const user = useQuery(api.users.getProfile, { userId })

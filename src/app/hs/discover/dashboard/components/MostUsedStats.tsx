@@ -2,27 +2,34 @@ import { Card, CardBody, CardHeader } from '@nextui-org/card'
 import { Progress, Spinner, Tab, Tabs } from '@nextui-org/react'
 import { MostUsedStatsData } from '~/convex/types'
 import Image from 'next/image'
-import { getTechLogo } from '@/app/lib/utils'
+import {cn, getTechLogo} from '@/app/lib/utils'
 import React from 'react'
 import { LucidePercent, LucideSigma } from 'lucide-react'
 import { useTheme } from 'next-themes'
 interface MostPopularCountProps {
   title: string
   data?: MostUsedStatsData
+    withFilter?: boolean
 }
-export default function MostUsedStats({ title, data }: MostPopularCountProps) {
+export default function MostUsedStats({
+  title,
+  data,
+                                          withFilter
+}: MostPopularCountProps) {
   const { theme } = useTheme()
 
   const [view, setView] = React.useState<string | number>('percent')
   const subTitle = view === 'percent' ? '% from overall' : 'Total count'
   return (
-    <Card className="p-2">
+    <Card className="p-2" classNames={{
+        base: cn(withFilter && 'rounded-t-none'),
+
+    }}>
       <CardHeader className="flex items-center justify-between">
         <div>
           <h3 className="font-semibold">{title}</h3>
           <p className="text-default-500 text-xs">{subTitle}</p>
         </div>
-
         <Tabs
           aria-label="Options"
           variant="bordered"

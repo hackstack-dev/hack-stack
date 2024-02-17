@@ -1,4 +1,5 @@
 import { query } from '~/convex/_generated/server'
+import { v } from 'convex/values'
 
 const getUsedStats = (data: { countBy: string; icon?: string }[]) => {
   const allCount = data.reduce(
@@ -60,5 +61,21 @@ export const getMostUsedProjectTypes = query({
       }))
     )
     return getUsedStats(projectTypes)
+  }
+})
+
+export const getMostUsedTechByBlockName = query({
+  args: { blockIds: v.array(v.string()) },
+  handler: async ({ db }, { blockIds }) => {
+    const stacks = await db.query('stacks').collect()
+    const techs = stacks.flatMap((stack) =>
+      stack.stackBlocks
+        .filter((sb) => blockIds.includes(sb.data.id))
+        .flatMap((block) => ({
+          countBy: block.data.tech.name,
+          icon: block.data.tech.icon
+        }))
+    )
+    return getUsedStats(techs)
   }
 })

@@ -13,7 +13,7 @@ export default function ThemeSwitch(props: React.PropsWithChildren) {
     getBaseProps,
     getInputProps,
     getWrapperProps
-  } = useSwitch(props)
+  } = useSwitch({...props})
 
   const { setTheme } = useTheme()
 

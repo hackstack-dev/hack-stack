@@ -9,7 +9,7 @@ import { BlockNodeData } from '@/app/hs/stacks/components/blocks/Blocks.types'
 import { Spinner } from '@nextui-org/react'
 import StackViewHeader from '@/app/hs/stacks/view/[stackId]/StackViewHeader'
 import StackViewBlocks from '@/app/hs/stacks/view/[stackId]/StackViewBlocks'
-import PageDataLoading from "@/app/hs/components/ui/PageDataLoading";
+import PageDataLoading from '@/app/hs/components/ui/PageDataLoading'
 
 interface StackViewProps {
   stackId: Id<'stacks'>
@@ -39,16 +39,16 @@ export default function StackView({ stackId }: StackViewProps) {
 
   return (
     <>
-      {!stack && (
-          <PageDataLoading />
-      )}
+      {!stack && <PageDataLoading />}
       {stack && (
-        <div className="flex flex-col h-[calc(100vh-108px)]">
+        <div className="flex flex-col h-[calc(100vh-70px)]">
           <StackViewHeader stack={stack} />
           <StackViewBlocks
             nodes={nodes}
             setNodes={setNodes}
             onNodesChange={onNodesChange}
+            userId={stack.userId}
+            stackId={stackId}
           />
         </div>
       )}

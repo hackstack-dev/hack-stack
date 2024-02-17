@@ -14,19 +14,17 @@ interface StackViewHeaderProps {
 }
 export default function StackViewHeader({ stack }: StackViewHeaderProps) {
   const {
-    _id,
     name,
     sourceCodeUrl,
     websiteUrl,
     projectTypes,
     description,
-    userId
+
   } = stack
 
   return (
     <header className="p-4">
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2">
+      <div className="flex items-center gap-2">
           <FancyStepTitle>{name}</FancyStepTitle>
           {sourceCodeUrl && (
             <Button
@@ -54,12 +52,6 @@ export default function StackViewHeader({ stack }: StackViewHeaderProps) {
               <LucideHome size={20} strokeWidth={1} />
             </Button>
           )}
-        </div>
-
-        <div className="flex items-center flex-row-reverse gap-2">
-          <UserProfileLink userId={userId} withName />
-          <Likes stackId={_id} />
-        </div>
       </div>
       {projectTypes.map((type) => (
         <RoughNotation key={type} type="underline" color="#22d3ee" show>
