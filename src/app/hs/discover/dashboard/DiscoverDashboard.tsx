@@ -10,6 +10,7 @@ import MostUsedByBlocks from '@/app/hs/discover/dashboard/MostUsedByBlocks'
 import { useQuery } from 'convex/react'
 import { api } from '~/convex/_generated/api'
 
+
 export default function DiscoverDashboard() {
   const blocks = useQuery(api.blocks.getAllBlocks, {})
   const blockOptions =
@@ -28,9 +29,15 @@ export default function DiscoverDashboard() {
       </DashboardSection>
       <DashboardSection title="Trends of your choice">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-          <MostUsedByBlocks filters={new Set([])} options={blockOptions} />
-          <MostUsedByBlocks filters={new Set([])} options={blockOptions} />
-          <MostUsedByBlocks filters={new Set([])} options={blockOptions} />
+          <MostUsedByBlocks
+            options={blockOptions}
+          />
+          <MostUsedByBlocks
+            options={blockOptions}
+          />
+          <MostUsedByBlocks
+            options={blockOptions}
+          />
         </div>
       </DashboardSection>
 
