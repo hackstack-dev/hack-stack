@@ -9,7 +9,24 @@ const config: Config = {
     './node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}'
   ],
   theme: {
-    extend: {}
+    extend: {
+      keyframes: {
+        grad: {
+          '0%': {
+            backgroundPosition: '0% 50%',
+            backgroundSize: '400% 400%'
+          },
+          '50%': {
+            backgroundPosition: '100% 50%',
+            backgroundSize: '400% 400%'
+          },
+          '100%': { backgroundPosition: '0% 50%', backgroundSize: '400% 400%' }
+        }
+      },
+      animation: {
+        grad: 'grad 30s ease infinite'
+      }
+    }
   },
   plugins: [
     nextui({

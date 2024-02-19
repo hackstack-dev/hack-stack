@@ -25,10 +25,10 @@ export default function StackView({ stackId }: StackViewProps) {
 
   React.useEffect(() => {
     if (stack) {
-      // make last block selected
+      // make first block selected
       setNodes(
         stack.stackBlocks.map((block, index, items) => {
-          if (index === items.length - 1) {
+          if (index === 0 && items.every((item) => !item.selected)) {
             return { ...block, selected: true }
           }
           return block

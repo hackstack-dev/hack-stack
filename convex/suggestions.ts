@@ -1,9 +1,15 @@
-import { adminAuthAction, adminAuthQuery, authAction } from '~/convex/utils'
+import {
+  adminAuthAction,
+  adminAuthQuery,
+  authAction,
+  pointsPerSuggestionType
+} from '~/convex/utils'
 import { Suggestion, SuggestionWithoutUser, UnwrapConvex } from '~/convex/types'
 import { internalMutation, internalQuery } from '~/convex/_generated/server'
 import { internal } from '~/convex/_generated/api'
 import { Id } from '~/convex/_generated/dataModel'
 import { v } from 'convex/values'
+import { internalAddNotification } from '~/convex/notifications'
 
 export const insertSuggestion = internalMutation({
   handler: async ({ db }, newSuggestion: Suggestion) => {
@@ -112,6 +118,19 @@ export const approveSuggestion = adminAuthAction({
     await runMutation(internal.suggestions.internalApproveSuggestion, {
       suggestionId
     })
+    // insert new notification for user who suggested
+    if (suggestion) {
+      await runMutation(internal.notifications.internalAddNotification, {
+        userId: suggestion.userId,
+        title: 'Your suggestion has been approved',
+        details: `Your suggestion for <b>${
+            suggestion.name
+        }</b> has been approved and is now live on the platform. You have earned <b>${
+            pointsPerSuggestionType[suggestion.type]
+        }</b> points for your suggestion!`,
+        type: 'suggestion'
+      })
+    }
 
     return true
   }

@@ -119,5 +119,12 @@ export default defineSchema({
     .index('by_stackId', ['stackId'])
     .index('by_userId', ['userId']),
 
-  suggestions: defineTable(suggestionsValidator).index('by_userId', ['userId'])
+  suggestions: defineTable(suggestionsValidator).index('by_userId', ['userId']),
+  notifications: defineTable({
+    userId: v.id('users'),
+    type: v.union(v.literal('suggestion'), v.literal('achivement')),
+    title: v.string(),
+    details: v.string(),
+    isRead: v.boolean()
+  }).index('by_userId', ['userId'])
 })

@@ -46,6 +46,7 @@ export default function StackDetailsForm({
             control={form.control}
             render={({ field, fieldState }) => (
               <Input
+                isRequired
                 variant="bordered"
                 label="Stack name"
                 labelPlacement="outside"
@@ -77,8 +78,8 @@ export default function StackDetailsForm({
               projectTypesInvalid && 'border-medium border-danger'
             )}
           >
-            <p className="text-small text-default-500 p-2">
-              This stack is used in:
+            <p className="text-small text-default-500 p-2 after:content-['*'] after:text-danger after:ml-0.5">
+              This stack is used in
             </p>
             <ScrollShadow className="max-h-[300px]">
               <Controller
@@ -119,38 +120,41 @@ export default function StackDetailsForm({
             ))}
           </div>
         </div>
-        <Controller
-          name="sourceCodeUrl"
-          control={form.control}
-          render={({ field, fieldState }) => (
-            <Input
-              isInvalid={fieldState.invalid}
-              errorMessage={fieldState.error?.message}
-              value={field.value}
-              onChange={field.onChange}
-              label="Source code URL"
-              labelPlacement="outside"
-              variant="bordered"
-            />
-          )}
-        />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <Controller
+            name="sourceCodeUrl"
+            control={form.control}
+            render={({ field, fieldState }) => (
+              <Input
+                isInvalid={fieldState.invalid}
+                errorMessage={fieldState.error?.message}
+                value={field.value}
+                onChange={field.onChange}
+                label="Source code URL"
+                labelPlacement="outside"
+                variant="bordered"
+                description="Link to the source control repository"
+              />
+            )}
+          />
 
-        <Controller
-          name="websiteUrl"
-          control={form.control}
-          render={({ field, fieldState }) => (
-            <Input
-              isInvalid={fieldState.invalid}
-              errorMessage={fieldState.error?.message}
-              value={field.value}
-              onChange={field.onChange}
-              label="Website"
-              labelPlacement="outside"
-              variant="bordered"
-            />
-          )}
-        />
-
+          <Controller
+            name="websiteUrl"
+            control={form.control}
+            render={({ field, fieldState }) => (
+              <Input
+                isInvalid={fieldState.invalid}
+                errorMessage={fieldState.error?.message}
+                value={field.value}
+                onChange={field.onChange}
+                label="Website"
+                labelPlacement="outside"
+                variant="bordered"
+                description="Link to the project's website or demo"
+              />
+            )}
+          />
+        </div>
         <Controller
           name="description"
           control={form.control}
@@ -163,6 +167,7 @@ export default function StackDetailsForm({
               placeholder="Describe your stack"
               variant="bordered"
               maxLength={500}
+              description="A brief description of the stack"
             />
           )}
         />

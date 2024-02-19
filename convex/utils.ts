@@ -154,3 +154,10 @@ export const getOwnerAndRepoFromUrl = (url: string) => {
 
   return null
 }
+
+export const pointsPerSuggestionType = {
+  category: 2,
+  template: 5,
+  block: 5,
+  tech: 10
+}

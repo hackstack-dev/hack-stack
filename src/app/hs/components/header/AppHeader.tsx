@@ -18,8 +18,8 @@ import React from 'react'
 import { MenuItem } from '@/app/hs/components/header/types'
 import { useQuery } from 'convex/react'
 import { api } from '~/convex/_generated/api'
-import { LucideMoreVertical } from 'lucide-react'
 import AppSettings from '@/app/hs/components/header/AppSettings'
+import AppNotifications from '@/app/hs/components/header/notifications/AppNotifications'
 
 const menuItems: MenuItem[] = [
   {
@@ -81,6 +81,9 @@ export default function AppHeader() {
         <AppNavigation menuItems={menu} />
       </NavbarContent>
       <NavbarContent justify="end">
+        <NavbarItem className="hidden lg:flex">
+          <AppNotifications />
+        </NavbarItem>
         <NavbarItem className="hidden lg:flex">
           <ThemeSwitch />
         </NavbarItem>

@@ -4,13 +4,13 @@ import { twMerge } from 'tailwind-merge'
 const IMAGEKIT_URL = 'https://ik.imagekit.io/odzx7thry/hack_stack'
 
 export type ColorVariant =
-    | 'success'
-    | 'warning'
-    | 'danger'
-    | 'default'
-    | 'primary'
-    | 'secondary'
-    | undefined
+  | 'success'
+  | 'warning'
+  | 'danger'
+  | 'default'
+  | 'primary'
+  | 'secondary'
+  | undefined
 
 export const colorMap: Record<string, ColorVariant> = {
   category: 'secondary',
@@ -152,9 +152,9 @@ export const formatNumber = (num: number) => {
   return `${(num / 1000000).toFixed(0)}M`
 }
 
-export const timeAgo = (dateString: string, includeTime = false) => {
+export const timeAgo = (date: string | number, includeTime = false) => {
   const currentDate = new Date()
-  const inputDate = new Date(dateString)
+  const inputDate = new Date(date)
 
   const timeDifference = currentDate.getTime() - inputDate.getTime()
 

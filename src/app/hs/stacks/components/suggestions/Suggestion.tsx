@@ -15,17 +15,28 @@ import { BlockForm } from '@/app/hs/stacks/components/suggestions/BlockForm'
 import { TechForm } from '@/app/hs/stacks/components/suggestions/TechForm'
 import { colorMap } from '@/app/lib/utils'
 
-export function Suggestion({ item }: { item: 'category' | 'block' | 'tech' }) {
+const iconSize: Record<string, number> = {
+  sm: 12,
+  md: 16,
+  lg: 20
+}
+
+interface SuggestionsProps {
+  item: 'category' | 'block' | 'tech'
+  size?: 'sm' | 'md' | 'lg'
+}
+export function Suggestion({ item, size = 'md' }: SuggestionsProps) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure()
   const [selected, setSelected] = React.useState<string>(item)
 
   return (
     <>
       <Button
+        size={size}
         color="success"
         variant="light"
         radius="full"
-        startContent={<LucideHand size={16} strokeWidth={2} />}
+        startContent={<LucideHand size={iconSize[size]} strokeWidth={2} />}
         onPress={onOpen}
       >
         <span className="hidden md:inline-block">Suggest new {item}</span>
