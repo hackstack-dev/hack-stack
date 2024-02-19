@@ -29,7 +29,7 @@ export default function StackItems({
   isPublicItems = false,
   withAvatar = true
 }: StackItemsProps) {
-  const myUser = useQuery(api.users.getMyUser)
+  const myUser = useQuery(api.users.getMyUser, {})
   const router = useRouter()
 
   if (items.length === 0) {
@@ -60,7 +60,7 @@ export default function StackItems({
             className={`${cardSize[size]}`}
           >
             <CardHeader className="absolute z-10 top-1 flex items-center justify-between">
-              <h4 className="text-white/90 font-medium text-xl drop-shadow">
+              <h4 className="text-white/90 font-medium text-lg drop-shadow-[2px_3px_4px rgba(0,0,0,1)]">
                 {stack.name}
               </h4>
               {isPublicItems && withAvatar && (
@@ -71,7 +71,7 @@ export default function StackItems({
               removeWrapper
               isZoomed
               alt="Relaxing app background"
-              className="z-0 w-full h-full object-cover grayscale-[70%] dark:grayscale-0"
+              className="z-0 w-full h-full object-cover"
               src={getCardBackground(stack.coverImage)}
             />
             <CardFooter className="absolute bg-black/40 bottom-0 z-10 border-t-1 border-default-600 dark:border-default-100">

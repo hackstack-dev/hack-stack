@@ -21,6 +21,7 @@ import EditStackActions from '@/app/hs/stacks/[stackId]/EditStackActions'
 import Likes from '@/app/hs/stacks/components/Likes'
 import { useRouter } from 'next/navigation'
 import PublicPrivateIndication from '@/app/hs/components/ui/PublicPrivateIndication'
+import EditStackCoverImage from '@/app/hs/stacks/[stackId]/EditStackCoverImage'
 
 interface EditStackProps {
   stackState: StackStateProps['stackState']
@@ -156,6 +157,7 @@ export default function EditStack({
 
       <div className={cn(viewMode === 'blocks' && 'hidden')}>
         <StackDetailsForm form={form} />
+        <EditStackCoverImage stack={stack} stackId={stackId} />
       </div>
     </div>
   )

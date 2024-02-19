@@ -2,7 +2,7 @@
 
 import { useAction, useQuery } from 'convex/react'
 import { api } from '~/convex/_generated/api'
-import { Divider, Spinner, Switch } from '@nextui-org/react'
+import { Divider, Switch } from '@nextui-org/react'
 import React from 'react'
 import { Card, CardBody, CardFooter, CardHeader } from '@nextui-org/card'
 import { colorMap } from '@/app/lib/utils'
@@ -16,7 +16,8 @@ import { Id } from '~/convex/_generated/dataModel'
 import { toast } from 'sonner'
 import dayjs from 'dayjs'
 import { Suggestion } from '@/app/hs/stacks/components/suggestions/Suggestion'
-import PageDataLoading from "@/app/hs/components/ui/PageDataLoading";
+import PageDataLoading from '@/app/hs/components/ui/PageDataLoading'
+
 
 export default function SuggestionList() {
   const [showPending, setShowPending] = React.useState(true)
@@ -53,9 +54,7 @@ export default function SuggestionList() {
   }
   return (
     <>
-      {!suggestions && (
-          <PageDataLoading />
-      )}
+      {!suggestions && <PageDataLoading />}
       <div className="p-4 flex items-center justify-between">
         <Switch
           size="sm"

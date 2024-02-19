@@ -10,6 +10,7 @@ import { internal } from '~/convex/_generated/api'
 import { Id } from '~/convex/_generated/dataModel'
 import { v } from 'convex/values'
 import { internalAddNotification } from '~/convex/notifications'
+import {uploadLogo} from "~/convex/imageKit";
 
 export const insertSuggestion = internalMutation({
   handler: async ({ db }, newSuggestion: Suggestion) => {
@@ -29,7 +30,7 @@ export const saveSuggestion = authAction(
     }
 
     if (suggestion.logo) {
-      const logos = await runAction(internal.imageKit.upload, {
+      const logos = await runAction(internal.imageKit.uploadLogo, {
         logo: suggestion.logo,
         name: suggestion.name
       })

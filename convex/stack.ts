@@ -1,9 +1,10 @@
-import { query } from '~/convex/_generated/server'
-import { authMutation, authQuery, getUserId } from '~/convex/utils'
-import { Stack } from '~/convex/types'
+import { internalMutation, query } from '~/convex/_generated/server'
+import { authAction, authMutation, authQuery, getUserId } from '~/convex/utils'
+import { Stack, Suggestion } from '~/convex/types'
 import { Doc, Id } from '~/convex/_generated/dataModel'
 import { ConvexError, v } from 'convex/values'
 import { getManyFrom } from 'convex-helpers/server/relationships'
+import { internal } from '~/convex/_generated/api'
 
 export const getMyUserStacks = authQuery({
   handler: async ({ db, user }) => {
@@ -118,4 +119,31 @@ export const risingStacks = query(async (ctx) => {
   return await Promise.all(
     sortedStacks.map(([stackId]) => ctx.db.get(stackId as Id<'stacks'>))
   )
+})
+
+export const internalUpdateCoverImage = internalMutation({
+  args: {
+    stackId: v.id('stacks'),
+    coverImage: v.string()
+  },
+  handler: async ({ db }, { stackId, coverImage }) => {
+    return await db.patch(stackId, { coverImage })
+  }
+})
+
+export const updateStackCoverImage = authAction({
+  args: {
+    stackId: v.id('stacks'),
+    coverImage: v.string()
+  },
+  handler: async ({ runAction, runMutation }, { stackId, coverImage }) => {
+    const coverImageUrl = await runAction(internal.imageKit.uploadCoverImage, {
+      coverImage,
+      name: stackId
+    })
+    await runMutation(internal.stack.internalUpdateCoverImage, {
+      stackId,
+      coverImage: coverImageUrl
+    })
+  }
 })

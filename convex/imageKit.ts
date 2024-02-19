@@ -16,7 +16,7 @@ export const imageKit = new ImageKit({
   urlEndpoint: process.env.IMAGEKIT_URL_ENDPOINT as string
 })
 
-export const upload = internalAction({
+export const uploadLogo = internalAction({
   args: { logo: v.string(), name: v.string() },
   handler: async (_, { name, logo }) => {
     const fileName = name.replaceAll(' ', '').toLowerCase()
@@ -81,5 +81,18 @@ export const approveSuggestionLogo = internalAction({
         })
       }
     }
+  }
+})
+
+export const uploadCoverImage = internalAction({
+  args: { coverImage: v.string(), name: v.string() },
+  handler: async (_, { name, coverImage }) => {
+    const coverImageResponse = await imageKit.upload({
+      file: coverImage,
+      fileName: `${name}.jpg`,
+      useUniqueFileName: true,
+      folder: '/hack_stack/backgrounds'
+    })
+    return coverImageResponse.name
   }
 })

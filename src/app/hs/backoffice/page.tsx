@@ -1,4 +1,3 @@
-import PlanProvider from '@/app/hs/templates/components/PlanProvider'
 import { LucideLayers3 } from 'lucide-react'
 
 export default function BackOfficePage() {
