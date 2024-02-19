@@ -13,6 +13,7 @@ import { useMutation, useQuery } from 'convex/react'
 import { api } from '~/convex/_generated/api'
 import { Id } from '~/convex/_generated/dataModel'
 import NotificationList from '@/app/hs/components/header/notifications/NotificationList'
+import EmptyData from '@/app/hs/components/ui/EmptyData'
 
 export default function AppNotifications() {
   const notifications =
@@ -95,6 +96,11 @@ export default function AppNotifications() {
                 </div>
               }
             >
+              {notifications.length < 1 && (
+                <div className="mt-4">
+                  <EmptyData />
+                </div>
+              )}
               <NotificationList
                 notifications={notifications}
                 markAsRead={handleMarkAsRead}
@@ -111,6 +117,11 @@ export default function AppNotifications() {
                 </div>
               }
             >
+              {unreadNotifications.length < 1 && (
+                <div className="mt-4">
+                  <EmptyData />
+                </div>
+              )}
               <NotificationList
                 notifications={unreadNotifications}
                 markAsRead={handleMarkAsRead}
