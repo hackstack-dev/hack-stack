@@ -1,6 +1,5 @@
 'use client'
 
-import { Spinner } from '@nextui-org/react'
 import React from 'react'
 import { useConvexAuth, useQuery } from 'convex/react'
 import { api } from '~/convex/_generated/api'

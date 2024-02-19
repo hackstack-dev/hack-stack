@@ -1,5 +1,5 @@
 import AppHeader from '@/app/hs/components/header/AppHeader'
-import { Suspense } from 'react'
+import React from 'react'
 
 export default function HackStackLayout({
   children

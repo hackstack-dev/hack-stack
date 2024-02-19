@@ -1,5 +1,4 @@
 import { Card, CardBody, CardHeader } from '@nextui-org/card'
-import { LucideBlocks } from 'lucide-react'
 import UserProfileLink from '@/app/hs/components/ui/UserProfileLink'
 import { Id } from '~/convex/_generated/dataModel'
 import React from 'react'

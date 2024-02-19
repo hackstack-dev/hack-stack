@@ -1,7 +1,5 @@
 'use client'
 import React from 'react'
-import TemplateForm from '@/app/hs/templates/components/TemplateForm'
-import { ReactFlowProvider } from 'reactflow'
 import { Id } from '~/convex/_generated/dataModel'
 import FlowProvider from '@/app/hs/components/ui/FlowProvider'
 import EditTemplateView from '@/app/hs/templates/[templateId]/EditTemplateView'

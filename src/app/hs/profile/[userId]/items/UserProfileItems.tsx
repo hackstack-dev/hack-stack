@@ -1,15 +1,7 @@
-import { useQuery } from 'convex/react'
-import { api } from '~/convex/_generated/api'
 import { Id } from '~/convex/_generated/dataModel'
-import PageDataLoading from '@/app/hs/components/ui/PageDataLoading'
 import React from 'react'
-import StackItems from '@/app/hs/stacks/list/StackItems'
 import { Tab, Tabs } from '@nextui-org/react'
-import {
-  LucideFilePenLine,
-  LucideLayers3,
-  LucideLayoutTemplate
-} from 'lucide-react'
+import { LucideLayers3, LucideLayoutTemplate } from 'lucide-react'
 import UserProfileStacks from '@/app/hs/profile/[userId]/items/UserProfileStacks'
 import UserProfileTemplates from '@/app/hs/profile/[userId]/items/UserProfileTemplates'
 

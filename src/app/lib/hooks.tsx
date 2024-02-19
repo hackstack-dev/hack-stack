@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import {cn, getUniqueHueStyle} from '@/app/lib/utils'
+import { getUniqueHueStyle } from '@/app/lib/utils'
 
 export function useAppLogo({ size }: { size: number }) {
   return (
@@ -13,7 +13,7 @@ export function useAppLogo({ size }: { size: number }) {
 }
 
 export function useColorAppLogo({ size }: { size: number }) {
-  const colorLogoByString = (str:string) => {
+  const colorLogoByString = (str: string) => {
     return (
       <Image
         src="/assets/icons/logo.svg"

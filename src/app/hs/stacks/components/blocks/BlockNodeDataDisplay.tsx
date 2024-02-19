@@ -1,4 +1,3 @@
-import { NodeProps } from 'reactflow'
 import { cn, getTechLogo } from '@/app/lib/utils'
 
 import Image from 'next/image'

@@ -1,5 +1,4 @@
 import { StackForm } from '@/app/hs/stacks/create/create.types'
-import { v } from 'convex/values'
 
 export const projectTypes: StackForm['projectTypes'] = [
   'In an open source project',

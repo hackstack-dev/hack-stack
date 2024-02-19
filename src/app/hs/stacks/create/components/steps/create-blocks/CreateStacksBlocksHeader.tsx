@@ -1,7 +1,6 @@
 import React from 'react'
 import { StackState } from '@/app/hs/stacks/create/create.types'
 import { BreadcrumbItem, Breadcrumbs } from '@nextui-org/react'
-import { Button } from '@nextui-org/button'
 import { useWizard } from 'react-use-wizard'
 import { Suggestion } from '@/app/hs/stacks/components/suggestions/Suggestion'
 

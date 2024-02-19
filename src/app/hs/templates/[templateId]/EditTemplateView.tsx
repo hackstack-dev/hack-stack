@@ -4,8 +4,6 @@ import React from 'react'
 import { useConvexAuth, useQuery } from 'convex/react'
 import { api } from '~/convex/_generated/api'
 import { Id } from '~/convex/_generated/dataModel'
-import EditStack from '@/app/hs/stacks/[stackId]/EditStack'
-import { Spinner } from '@nextui-org/react'
 import TemplateForm from '@/app/hs/templates/components/TemplateForm'
 import PageDataLoading from "@/app/hs/components/ui/PageDataLoading";
 

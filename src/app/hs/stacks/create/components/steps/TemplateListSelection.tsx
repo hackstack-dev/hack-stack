@@ -1,6 +1,6 @@
 import { useConvexAuth, useQuery } from 'convex/react'
 import { api } from '~/convex/_generated/api'
-import { Divider, Spinner, Radio } from '@nextui-org/react'
+import { Divider, Radio } from '@nextui-org/react'
 import { Input } from '@nextui-org/input'
 import React from 'react'
 import { Card, CardBody, CardHeader } from '@nextui-org/card'

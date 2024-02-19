@@ -1,4 +1,3 @@
-import ContentContainer from '@/app/hs/components/ui/ContentContainer'
 import React from 'react'
 import { Id } from '~/convex/_generated/dataModel'
 import StackView from '@/app/hs/stacks/view/[stackId]/StackView'

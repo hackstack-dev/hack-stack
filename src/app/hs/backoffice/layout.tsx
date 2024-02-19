@@ -3,12 +3,9 @@
 import { useRouter } from 'next/navigation'
 import { useQuery } from 'convex/react'
 import { api } from '~/convex/_generated/api'
-import { Spinner } from '@nextui-org/react'
-import { Button } from '@nextui-org/button'
-import Link from 'next/link'
 import BackofficeNavigation from '@/app/hs/backoffice/BackofficeNavigation'
-import PageDataLoading from "@/app/hs/components/ui/PageDataLoading";
-import React from "react";
+import PageDataLoading from '@/app/hs/components/ui/PageDataLoading'
+import React from 'react'
 
 export default function BackOfficeLayout({
   children
@@ -16,14 +13,12 @@ export default function BackOfficeLayout({
   children: React.ReactNode
 }) {
   const router = useRouter()
-  const myUser = useQuery(api.users.getMyUser)
+  const myUser = useQuery(api.users.getMyUser, {})
   if (myUser && !myUser.isAdmin) {
     router.push('/hs/404')
   }
   if (!myUser?.isAdmin) {
-    return (
-        <PageDataLoading />
-    )
+    return <PageDataLoading />
   }
   return (
     <section className="flex w-full h-[calc(100vh-66px)] border border-default-100 border-t-0">

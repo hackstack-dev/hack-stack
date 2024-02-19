@@ -6,7 +6,6 @@ import CreateStackDetails from '@/app/hs/stacks/create/components/steps/create-b
 import React from 'react'
 import { CreateStackWizardHeader } from '@/app/hs/stacks/create/components/layout/CreateStackWizardHeader'
 import { StackState } from '@/app/hs/stacks/create/create.types'
-import StackBlocks from '@/app/hs/stacks/components/blocks/StackBlocks'
 import { StepContainer } from '@/app/hs/stacks/create/components/layout/StepContainer'
 import { Doc } from '~/convex/_generated/dataModel'
 import { ReactFlowProvider } from 'reactflow'
@@ -48,7 +47,6 @@ export default function CreateStackWizard() {
     })
     router.push('/hs/stacks')
   }
-
 
   return (
     <Wizard

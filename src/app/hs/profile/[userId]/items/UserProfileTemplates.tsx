@@ -3,7 +3,6 @@ import { api } from '~/convex/_generated/api'
 import { Id } from '~/convex/_generated/dataModel'
 import PageDataLoading from '@/app/hs/components/ui/PageDataLoading'
 import React from 'react'
-import StackItems from '@/app/hs/stacks/list/StackItems'
 import TemplateItems from '@/app/hs/templates/list/TemplateItems'
 
 interface UserProfileTemplatesProps {
