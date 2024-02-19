@@ -4,12 +4,12 @@ import { Image } from '@nextui-org/image'
 import { getCardBackground, getTechLogo } from '@/app/lib/utils'
 import { useRouter } from 'next/navigation'
 import { Doc } from '~/convex/_generated/dataModel'
-import { LucideSprout } from 'lucide-react'
 import Likes from '@/app/hs/stacks/components/Likes'
 import UserAvatar from '@/app/hs/components/ui/UserAvatar'
 import { useQuery } from 'convex/react'
 import { api } from '~/convex/_generated/api'
 import PublicPrivateIndication from '@/app/hs/components/ui/PublicPrivateIndication'
+import EmptyData from '@/app/hs/components/ui/EmptyData'
 
 const cardSize = {
   sm: 'h-40',
@@ -33,14 +33,7 @@ export default function StackItems({
   const router = useRouter()
 
   if (items.length === 0) {
-    return (
-      <div className="flex flex-col items-center justify-center w-full h-full">
-        <LucideSprout strokeWidth={1} className="w-8 h-8 text-default-400" />
-        <h1 className="font-light text-small text-center text-default-400">
-          nothing to see here at the moment
-        </h1>
-      </div>
-    )
+    return <EmptyData />
   }
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">

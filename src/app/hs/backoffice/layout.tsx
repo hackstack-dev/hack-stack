@@ -21,7 +21,7 @@ export default function BackOfficeLayout({
     return <PageDataLoading />
   }
   return (
-    <section className="flex w-full h-[calc(100vh-66px)] border border-default-100 border-t-0">
+    <section className="grid grid-cols-1 md:grid-cols-[220px_1fr] w-full h-[calc(100vh-66px)] border border-default-100 border-t-0">
       <BackofficeNavigation />
       {children}
     </section>

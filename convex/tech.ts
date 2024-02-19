@@ -6,9 +6,10 @@ import {
 } from '~/convex/_generated/server'
 import { v } from 'convex/values'
 import { getManyFrom, getOneFrom } from 'convex-helpers/server/relationships'
-import { getOwnerAndRepoFromUrl } from '~/convex/utils'
+import {authQuery, getOwnerAndRepoFromUrl} from '~/convex/utils'
 import { internal } from '~/convex/_generated/api'
 import { UnwrapConvex } from '~/convex/types'
+import dayjs from 'dayjs'
 
 export const findTechByBlock = query({
   args: { blockId: v.id('blocks') },
@@ -154,6 +155,37 @@ export const getTechUsage = query({
   }
 })
 
+export const getTechUseagePerDay = authQuery({
+  args: { techName: v.string(), daysBack: v.number() },
+  handler: async ({ db }, { techName, daysBack }) => {
+    // count tech useage per month for daysBack
+    const daysAgo = dayjs().subtract(daysBack, 'day').unix()
+    const stacks = await db
+      .query('stacks')
+      .filter((q) => q.gte(q.field('_creationTime'), daysAgo))
+      .collect()
+
+    // filter stacks that use this tech
+    const techs = stacks.filter((stack) =>
+      stack.stackBlocks.some((block) => block.data.tech.name === techName)
+    )
+
+    // count tech useage per day
+    const useagePerDay = techs.reduce(
+      (acc, stack) => {
+        const day = dayjs(stack._creationTime).format('DD/MM/YYYY')
+        acc[day] = (acc[day] || 0) + 1
+        return acc
+      },
+      {} as Record<string, number>
+    )
+    // return as array of days and array of useage
+    return {
+      labels: Object.keys(useagePerDay),
+      data: Object.values(useagePerDay)
+    }
+  }
+})
 export const internalInsertTech = internalMutation({
   args: {
     name: v.string(),
