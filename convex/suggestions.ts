@@ -10,7 +10,8 @@ import { internal } from '~/convex/_generated/api'
 import { Id } from '~/convex/_generated/dataModel'
 import { v } from 'convex/values'
 import { internalAddNotification } from '~/convex/notifications'
-import {uploadLogo} from "~/convex/imageKit";
+import { uploadLogo } from '~/convex/imageKit'
+import { paginationOptsValidator } from 'convex/server'
 
 export const insertSuggestion = internalMutation({
   handler: async ({ db }, newSuggestion: Suggestion) => {
@@ -56,8 +57,15 @@ export const getSuggestionById = internalQuery({
 })
 
 export const getSuggestions = adminAuthQuery({
-  handler: async ({ db }) => {
-    return await db.query('suggestions').collect()
+  args: {
+    approved: v.boolean(),
+    paginationOpts: paginationOptsValidator
+  },
+  handler: async ({ db }, { paginationOpts, approved }) => {
+    return await db
+      .query('suggestions')
+      .filter((q) => q.eq(q.field('approved'), approved))
+      .paginate(paginationOpts)
   }
 })
 
@@ -125,9 +133,9 @@ export const approveSuggestion = adminAuthAction({
         userId: suggestion.userId,
         title: 'Your suggestion has been approved',
         details: `Your suggestion for <b>${
-            suggestion.name
+          suggestion.name
         }</b> has been approved and is now live on the platform. You have earned <b>${
-            pointsPerSuggestionType[suggestion.type]
+          pointsPerSuggestionType[suggestion.type]
         }</b> points for your suggestion!`,
         type: 'suggestion'
       })
