@@ -81,7 +81,7 @@ export default function StackDetailsForm({
             <p className="text-small text-default-500 p-2 after:content-['*'] after:text-danger after:ml-0.5">
               This stack is used in
             </p>
-            <ScrollShadow className="max-h-[300px]">
+            <ScrollShadow className="max-h-[310px]">
               <Controller
                 name="projectTypes"
                 control={form.control}
@@ -96,7 +96,7 @@ export default function StackDetailsForm({
                       field.onChange(Array.from(keys) as string[])
                     }
                     classNames={{
-                      list: 'max-h-[300px] overflow-scroll'
+                      list: 'max-h-[300px] overflow-y-scroll overflow-x-hidden'
                     }}
                   >
                     {projectTypes.map((type) => (

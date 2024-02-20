@@ -10,7 +10,7 @@ export default function StackPage({
   const stackId = params.stackId
 
   return (
-    <ContentContainer>
+    <ContentContainer fullScreen>
       <FlowProvider>
         <EditStackView stackId={stackId} />
       </FlowProvider>

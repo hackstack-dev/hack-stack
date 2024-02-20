@@ -120,7 +120,7 @@ export default function EditStackCoverImage({
             removeWrapper
             isZoomed
             alt="Relaxing app background"
-            className="z-0 w-full h-full object-cover grayscale-[70%] dark:grayscale-0"
+            className="z-0 w-full h-full object-cover"
             src={imgSrc}
           />
 
