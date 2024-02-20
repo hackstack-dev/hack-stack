@@ -1,3 +1,5 @@
+'use client'
+
 import React from 'react'
 import { MoonIcon, SunIcon } from 'lucide-react'
 import { useTheme } from 'next-themes'
@@ -18,11 +20,7 @@ export default function ThemeSwitch(props: React.PropsWithChildren) {
       radius="full"
       isIconOnly
     >
-      {theme === 'dark' ? (
-        <SunIcon size={20} stroke="#fde047" />
-      ) : (
-        <MoonIcon size={20} />
-      )}
+      {theme === 'dark' ? <SunIcon size={20} stroke="#fde047" /> : <MoonIcon size={20} />}
     </Button>
   )
 }

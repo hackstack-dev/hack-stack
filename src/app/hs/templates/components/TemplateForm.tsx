@@ -104,7 +104,7 @@ export default function TemplateForm({
     }
   }
   return (
-    <div className="grid grid-col-1 grow md:grid-cols-[1fr_400px] border dark:border-default-50 border-t-0 rounded-large">
+    <div className="grid grid-col-1 grow md:grid-cols-[1fr_400px] border dark:border-default-50 rounded-large">
       <div className="border-r dark:border-default-50 relative">
         <TemplateBlocks initialNodes={initialNodes} />
       </div>
