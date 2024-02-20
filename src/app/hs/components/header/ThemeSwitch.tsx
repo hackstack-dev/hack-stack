@@ -1,41 +1,28 @@
-'use client'
-
 import React from 'react'
-import { VisuallyHidden, useSwitch } from '@nextui-org/react'
 import { MoonIcon, SunIcon } from 'lucide-react'
 import { useTheme } from 'next-themes'
+import { Button } from '@nextui-org/button'
 
 export default function ThemeSwitch(props: React.PropsWithChildren) {
-  const {
-    Component,
-    slots,
-    isSelected,
-    getBaseProps,
-    getInputProps,
-    getWrapperProps
-  } = useSwitch({...props})
+  const { theme, setTheme } = useTheme()
 
-  const { setTheme } = useTheme()
-
-  React.useEffect(() => {
-    setTheme(!isSelected ? 'dark' : 'light')
-  }, [isSelected, setTheme])
+  const handleThemeChange = () => {
+    setTheme(theme === 'dark' ? 'light' : 'dark')
+  }
 
   return (
-    <div className="flex flex-col gap-2">
-      <Component {...getBaseProps()}>
-        <VisuallyHidden>
-          <input {...getInputProps()} />
-        </VisuallyHidden>
-        <div
-          {...getWrapperProps()}
-          className={slots.wrapper({
-            class: ['w-7 h-7', 'flex items-center justify-center']
-          })}
-        >
-          {isSelected ? <SunIcon size={16} /> : <MoonIcon size={16} />}
-        </div>
-      </Component>
-    </div>
+    <Button
+      onClick={handleThemeChange}
+      size="sm"
+      variant="light"
+      radius="full"
+      isIconOnly
+    >
+      {theme === 'dark' ? (
+        <SunIcon size={20} stroke="#fde047" />
+      ) : (
+        <MoonIcon size={20} />
+      )}
+    </Button>
   )
 }

@@ -17,11 +17,7 @@ export default function ClientProviders({ children }: React.PropsWithChildren) {
   const router = useRouter()
   return (
     <ConvexProviderWithClerk client={convex} useAuth={useAuth}>
-      <ThemeProvider
-        attribute="class"
-        defaultTheme="dark"
-        disableTransitionOnChange
-      >
+      <ThemeProvider attribute="class" defaultTheme="dark">
         <NextUIProvider navigate={router.push}>
           <AppToaster />
           {children}
