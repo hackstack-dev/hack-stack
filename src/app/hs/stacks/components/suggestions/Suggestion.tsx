@@ -24,8 +24,13 @@ const iconSize: Record<string, number> = {
 interface SuggestionsProps {
   item: 'category' | 'block' | 'tech'
   size?: 'sm' | 'md' | 'lg'
+  variant?: 'solid' | 'light' | 'flat' | 'faded' | 'shadow' | 'ghost'
 }
-export function Suggestion({ item, size = 'md' }: SuggestionsProps) {
+export function Suggestion({
+  item,
+  size = 'md',
+  variant = 'light'
+}: SuggestionsProps) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure()
   const [selected, setSelected] = React.useState<string>(item)
 
@@ -34,7 +39,7 @@ export function Suggestion({ item, size = 'md' }: SuggestionsProps) {
       <Button
         size={size}
         color="success"
-        variant="light"
+        variant={variant}
         radius="full"
         startContent={<LucideHand size={iconSize[size]} strokeWidth={2} />}
         onPress={onOpen}

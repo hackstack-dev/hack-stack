@@ -9,6 +9,7 @@ import BlockDataPanel from '@/app/hs/stacks/components/blocks/BlockDataPanel'
 import { BlockNodeData } from '@/app/hs/stacks/components/blocks/Blocks.types'
 import useNewBlockPosition from '@/app/hs/stacks/components/blocks/hooks/useNewBlockPosition'
 import { cn } from '@/app/lib/utils'
+import { Suggestion } from '@/app/hs/stacks/components/suggestions/Suggestion'
 
 interface StackBlocksProps {
   initialNodes: Node<BlockNodeData, string | undefined>[]
@@ -70,6 +71,9 @@ export default function StackBlocks({
               setNodes={setNodes}
               onNodesChange={onNodesChange}
             />
+            <div className="absolute top-6 right-6 z-10">
+              <Suggestion item="tech" variant="flat" />
+            </div>
           </section>
         </Panel>
         <PanelResizeHandle className="relative">

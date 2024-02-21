@@ -9,18 +9,23 @@ import {
   TableRow
 } from '@nextui-org/react'
 import UserProfileLink from '@/app/hs/components/ui/UserProfileLink'
-import {LucideFlower, LucideStar, LucideTrophy} from 'lucide-react'
+import {
+  LucideAward,
+  LucideCrown,
+  LucideFlower,
+  LucideStar
+} from 'lucide-react'
 import React from 'react'
 import ContribDataItem from '@/app/hs/discover/dashboard/components/ContribDataItem'
 
 export const getIconByIndex = (index: number) => {
   switch (index) {
     case 0:
-      return <LucideTrophy stroke="#f59e0b" />
+      return <LucideCrown stroke="#f59e0b" />
     case 1:
-      return <LucideTrophy stroke="#94a3b8" />
+      return <LucideAward stroke="#94a3b8" />
     case 2:
-      return <LucideTrophy stroke="#b45309" />
+      return <LucideAward stroke="#b45309" />
     default:
       return <LucideFlower stroke="#c084fc" />
   }
