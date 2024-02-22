@@ -19,7 +19,8 @@ export const getDetailsNode = (stack: Stack) => {
         borderWidth: 1,
         borderRadius: 4,
         descriptionColor: '',
-        descriptionFontSize: 0
+        descriptionFontSize: 0,
+        boxShadow: 'none'
       }
     }
   }
