@@ -22,7 +22,7 @@ export default function DetailsControls({ setNodes }: ControlsProps) {
       borderColor: '#000000',
       borderWidth: 1,
       borderRadius: 4,
-      boxShadow: 'none'
+      boxShadow: 'unset'
     })
 
   React.useEffect(() => {

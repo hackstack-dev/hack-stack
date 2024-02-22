@@ -14,8 +14,7 @@ export default function ShareStackButton({ stack }: ShareStackButtonProps) {
   return (
     <>
       <Button
-        color="success"
-        variant="solid"
+        variant="faded"
         radius="full"
         size="sm"
         onPress={onOpen}

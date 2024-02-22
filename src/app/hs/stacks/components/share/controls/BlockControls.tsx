@@ -23,7 +23,7 @@ export default function BlockControls({ setNodes }: ControlsProps) {
       borderColor: '#8b5cf6',
       borderWidth: 2,
       borderRadius: 5,
-      boxShadow: 'none'
+      boxShadow: 'unset'
     })
 
   React.useEffect(() => {
