@@ -26,6 +26,7 @@ import type * as stats from "../stats.js";
 import type * as suggestions from "../suggestions.js";
 import type * as tech from "../tech.js";
 import type * as templates from "../templates.js";
+import type * as twilio from "../twilio.js";
 import type * as types from "../types.js";
 import type * as users from "../users.js";
 import type * as utils from "../utils.js";
@@ -51,6 +52,7 @@ declare const fullApi: ApiFromModules<{
   suggestions: typeof suggestions;
   tech: typeof tech;
   templates: typeof templates;
+  twilio: typeof twilio;
   types: typeof types;
   users: typeof users;
   utils: typeof utils;

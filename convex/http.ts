@@ -7,7 +7,7 @@ const http = httpRouter()
 http.route({
   path: '/clerk',
   method: 'POST',
-  handler: httpAction(async ({runAction, runMutation}, request) => {
+  handler: httpAction(async ({ runAction, runMutation }, request) => {
     const payloadString = await request.text()
     const headerPayload = request.headers
 
@@ -28,6 +28,9 @@ http.route({
             userId: result.data.id,
             name: `${result.data.first_name} ${result.data.last_name}`,
             profileImage: result.data.image_url
+          })
+          await runAction(internal.twilio.sendNotification, {
+            eventType: 'newUser'
           })
           break
         case 'user.updated':

@@ -4,11 +4,6 @@ import { internalAction } from '~/convex/_generated/server'
 import { v } from 'convex/values'
 import ImageKit from 'imagekit'
 
-interface ImageKitError extends Error {
-  help: string
-  message: string
-  reason: string
-}
 
 export const imageKit = new ImageKit({
   publicKey: process.env.IMAGEKIT_PUBLIC_KEY as string,

@@ -42,7 +42,9 @@ export const saveSuggestion = authAction(
         logoIds: logos.logoIds
       }
     }
-
+    await runAction(internal.twilio.sendNotification, {
+      eventType: 'suggestion'
+    })
     await runMutation(internal.suggestions.insertSuggestion, newSuggestion)
   }
 )
