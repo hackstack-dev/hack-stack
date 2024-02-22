@@ -22,6 +22,7 @@ export interface ShareSettings {
   borderColor: string
   borderWidth: number
   borderRadius: number
+  boxShadow: string
 }
 
 export interface ShareStackDetailsSettings extends ShareSettings {

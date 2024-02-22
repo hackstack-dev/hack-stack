@@ -5,6 +5,7 @@ import ControlsRow from '@/app/hs/stacks/components/share/components/ControlRow'
 import { Slider, Tab, Tabs } from '@nextui-org/react'
 import ColorControl from '@/app/hs/stacks/components/share/controls/ColorControl'
 import { BackgroundVariant } from 'reactflow'
+import BackgroundControl from '@/app/hs/stacks/components/share/controls/BackgroundControl'
 
 export default function CanvasControls({
   canvasSettings,
@@ -13,6 +14,19 @@ export default function CanvasControls({
   return (
     <ControlsSection title="Canvas">
       <div className="flex flex-col space-y-4 mt-4">
+        <ControlsRow label="Background">
+          <BackgroundControl
+            value={canvasSettings.style}
+            onChange={(background) => {
+              setCanvasSettings((prev) => ({
+                ...prev,
+                style: {
+                  background
+                }
+              }))
+            }}
+          />
+        </ControlsRow>
         <ControlsRow label="Pattern">
           <Tabs
             size="sm"

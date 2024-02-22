@@ -7,18 +7,23 @@ import ControlsSection from '@/app/hs/stacks/components/share/components/Control
 import ControlsRow from '@/app/hs/stacks/components/share/components/ControlRow'
 import { Slider } from '@nextui-org/react'
 import ColorControl from '@/app/hs/stacks/components/share/controls/ColorControl'
+import { useTheme } from 'next-themes'
+import BackgroundControl from '@/app/hs/stacks/components/share/controls/BackgroundControl'
+import ShadowControl from '@/app/hs/stacks/components/share/controls/ShadowControl'
 
 export default function BlockControls({ setNodes }: ControlsProps) {
+  const { theme } = useTheme()
   const [shareBlockSettings, setShareBlockSettings] =
     React.useState<ShareStackBlockSettings>({
-      background: '#ffffff',
-      color: '#000000',
+      background: theme === 'dark' ? '#111' : '#fff',
+      color: theme === 'dark' ? '#fff' : '#000',
       fontSize: 12,
-      techColor: '#fff',
+      techColor: theme === 'dark' ? '#aaa' : '#ccc',
       techFontSize: 16,
-      borderColor: '#000000',
-      borderWidth: 1,
-      borderRadius: 4
+      borderColor: '#8b5cf6',
+      borderWidth: 2,
+      borderRadius: 5,
+      boxShadow: 'none'
     })
 
   React.useEffect(() => {
@@ -37,7 +42,8 @@ export default function BlockControls({ setNodes }: ControlsProps) {
                 techFontSize: shareBlockSettings.techFontSize,
                 borderColor: shareBlockSettings.borderColor,
                 borderWidth: shareBlockSettings.borderWidth,
-                borderRadius: shareBlockSettings.borderRadius
+                borderRadius: shareBlockSettings.borderRadius,
+                boxShadow: shareBlockSettings.boxShadow
               }
             }
           }
@@ -50,16 +56,15 @@ export default function BlockControls({ setNodes }: ControlsProps) {
   return (
     <ControlsSection title="Block">
       <div className="flex flex-col space-y-4 mt-4">
-        <ControlsRow label="Background color">
-          <input
-            type="color"
-            value={shareBlockSettings.background}
-            onChange={(e) =>
+        <ControlsRow label="Background">
+          <BackgroundControl
+            value={{ background: shareBlockSettings.background }}
+            onChange={(background) => {
               setShareBlockSettings((prev) => ({
                 ...prev,
-                background: e.target.value
+                background
               }))
-            }
+            }}
           />
         </ControlsRow>
         <ControlsRow label="Font color block">
@@ -153,6 +158,17 @@ export default function BlockControls({ setNodes }: ControlsProps) {
               }))
             }
             value={shareBlockSettings.borderRadius}
+          />
+        </ControlsRow>
+        <ControlsRow label="Shadow">
+          <ShadowControl
+            value={shareBlockSettings.boxShadow}
+            onChange={(value) => {
+              setShareBlockSettings((prev) => ({
+                ...prev,
+                boxShadow: value
+              }))
+            }}
           />
         </ControlsRow>
       </div>

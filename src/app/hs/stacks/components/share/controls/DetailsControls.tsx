@@ -7,6 +7,8 @@ import ControlsSection from '@/app/hs/stacks/components/share/components/Control
 import ControlsRow from '@/app/hs/stacks/components/share/components/ControlRow'
 import { Slider, Tab, Tabs } from '@nextui-org/react'
 import ColorControl from '@/app/hs/stacks/components/share/controls/ColorControl'
+import BackgroundControl from '@/app/hs/stacks/components/share/controls/BackgroundControl'
+import ShadowControl from '@/app/hs/stacks/components/share/controls/ShadowControl'
 
 export default function DetailsControls({ setNodes }: ControlsProps) {
   const [shareDetailsSettings, setShareDetailsSettings] =
@@ -19,7 +21,8 @@ export default function DetailsControls({ setNodes }: ControlsProps) {
       descriptionFontSize: 12,
       borderColor: '#000000',
       borderWidth: 1,
-      borderRadius: 4
+      borderRadius: 4,
+      boxShadow: 'none'
     })
 
   React.useEffect(() => {
@@ -32,14 +35,15 @@ export default function DetailsControls({ setNodes }: ControlsProps) {
               ...n.data,
               show: shareDetailsSettings.showDetails,
               style: {
-                backgroundColor: shareDetailsSettings.background,
+                background: shareDetailsSettings.background,
                 color: shareDetailsSettings.color,
                 fontSize: shareDetailsSettings.fontSize,
                 descriptionColor: shareDetailsSettings.descriptionColor,
                 descriptionFontSize: shareDetailsSettings.descriptionFontSize,
                 borderColor: shareDetailsSettings.borderColor,
                 borderWidth: shareDetailsSettings.borderWidth,
-                borderRadius: shareDetailsSettings.borderRadius
+                borderRadius: shareDetailsSettings.borderRadius,
+                boxShadow: shareDetailsSettings.boxShadow
               }
             }
           }
@@ -69,16 +73,15 @@ export default function DetailsControls({ setNodes }: ControlsProps) {
       </ControlsRow>
       {shareDetailsSettings.showDetails && (
         <div className="flex flex-col space-y-4 mt-4">
-          <ControlsRow label="Background color">
-            <input
-              type="color"
-              value={shareDetailsSettings.background}
-              onChange={(e) =>
+          <ControlsRow label="Background">
+            <BackgroundControl
+              onChange={(background) => {
                 setShareDetailsSettings((prev) => ({
                   ...prev,
-                  background: e.target.value
+                  background
                 }))
-              }
+              }}
+              value={{ background: shareDetailsSettings.background }}
             />
           </ControlsRow>
           <ControlsRow label="Name color">
@@ -134,15 +137,15 @@ export default function DetailsControls({ setNodes }: ControlsProps) {
             />
           </ControlsRow>
           <ControlsRow label="Border color">
-              <ColorControl
-                  value={shareDetailsSettings.borderColor}
-                  onChange={(value) => {
-                      setShareDetailsSettings((prev) => ({
-                          ...prev,
-                          borderColor: value
-                      }))
-                  }}
-              />
+            <ColorControl
+              value={shareDetailsSettings.borderColor}
+              onChange={(value) => {
+                setShareDetailsSettings((prev) => ({
+                  ...prev,
+                  borderColor: value
+                }))
+              }}
+            />
           </ControlsRow>
           <ControlsRow label="Border width">
             <Slider
@@ -172,6 +175,17 @@ export default function DetailsControls({ setNodes }: ControlsProps) {
                 }))
               }
               value={shareDetailsSettings.borderRadius}
+            />
+          </ControlsRow>
+          <ControlsRow label="Shadow">
+            <ShadowControl
+              value={shareDetailsSettings.boxShadow}
+              onChange={(value) => {
+                setShareDetailsSettings((prev) => ({
+                  ...prev,
+                  boxShadow: value
+                }))
+              }}
             />
           </ControlsRow>
         </div>

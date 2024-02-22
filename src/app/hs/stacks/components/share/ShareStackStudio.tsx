@@ -14,12 +14,14 @@ import BlockControls from '@/app/hs/stacks/components/share/controls/BlockContro
 import CanvasControls from '@/app/hs/stacks/components/share/controls/CanvasControls'
 import { Button } from '@nextui-org/button'
 import { toPng, toSvg, toJpeg } from 'html-to-image'
+import { useTheme } from 'next-themes'
 
 interface ShareStackStudioProps {
   stack: Stack
 }
 
 export default function ShareStackStudio({ stack }: ShareStackStudioProps) {
+  const { theme } = useTheme()
   const exportRef = React.useRef<HTMLDivElement>(null)
   const [nodes, setNodes, onNodesChange] = useNodesState([
     getDetailsNode(stack),
@@ -30,11 +32,12 @@ export default function ShareStackStudio({ stack }: ShareStackStudioProps) {
   ] as Node[])
 
   const [canvasSettings, setCanvasSettings] = React.useState<BackgroundProps>({
-    color: '#000000',
-    gap: 5,
-    size: 2,
-    offset: 2,
-    lineWidth: 2,
+    style: {
+      background: '#000'
+    },
+    color: theme === 'light' ? '#1f2937' : '#8b5cf6',
+    gap: 15,
+    size: 1,
     variant: BackgroundVariant.Dots,
     className: 'border-1 rounded-2xl dark:border-default-100'
   })
