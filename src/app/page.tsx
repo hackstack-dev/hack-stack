@@ -8,8 +8,7 @@ export default function Home() {
       <div className="flex flex-col justify-center items-center w-full md:w-1/2 p-6 space-y-6">
         <h1 className="text-6xl font-bold text-center">HackStack</h1>
         <p className="text-lg text-gray-600 dark:text-gray-400 max-w-80">
-          Uncover, Share, Plan and unlock the Collective Genius: HackStack is
-          Your Tech Stack Hub
+            Community driven tech stacks
         </p>
         <Button href="hs/discover" as={Link} color="primary" variant="solid" className="w-full md:w-1/2">
           Get Started
