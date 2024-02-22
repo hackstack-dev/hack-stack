@@ -14,14 +14,14 @@ export default function ShareStackButton({ stack }: ShareStackButtonProps) {
   return (
     <>
       <Button
-
+        color="success"
         variant="solid"
         radius="full"
         size="sm"
         onPress={onOpen}
         isIconOnly
       >
-        <LucideShare2 size={16} strokeWidth={1.5} />
+        <LucideShare2 size={18} strokeWidth={2} />
       </Button>
       <Modal
         isOpen={isOpen}
@@ -35,7 +35,9 @@ export default function ShareStackButton({ stack }: ShareStackButtonProps) {
           {(onClose) => (
             <>
               <ModalHeader className="flex items-center justify-between">
-                  <h1 className="pt-6 pb-2">Share your stack and design it as you want</h1>
+                <h1 className="pt-6 pb-2">
+                  Share your stack and design it as you want
+                </h1>
               </ModalHeader>
               <ModalBody>
                 <FlowProvider>
