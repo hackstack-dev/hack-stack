@@ -1,5 +1,6 @@
 import { Doc } from '~/convex/_generated/dataModel'
 import { WithoutSystemFields } from 'convex/server'
+import { ShareStackBlockSettings} from '@/app/hs/stacks/components/share/ShareStack.types'
 
 export type TechWithoutSystemFields = WithoutSystemFields<Doc<'tech'>>
 
@@ -7,6 +8,7 @@ export type BlockNodeData = {
   id: string
   blockName: string
   tech: TechWithoutSystemFields
+  style?: ShareStackBlockSettings
 }
 
 export interface AddBlockProps {

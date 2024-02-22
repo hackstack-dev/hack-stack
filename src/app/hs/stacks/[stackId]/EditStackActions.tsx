@@ -80,6 +80,7 @@ export default function EditStackActions({
           selectionMode="single"
           onSelectionChange={setSelectedOption}
           className="max-w-[300px]"
+          variant="light"
         >
           <DropdownItem key="save" description={descriptionsMap.save}>
             {labelsMap.save}
@@ -87,7 +88,7 @@ export default function EditStackActions({
           <DropdownItem key="publish" description={descriptionsMap.publish}>
             {labelsMap.publish}
           </DropdownItem>
-          <DropdownItem key="delete" description={descriptionsMap.delete}>
+          <DropdownItem key="delete" description={descriptionsMap.delete} color="danger">
             {labelsMap.delete}
           </DropdownItem>
         </DropdownMenu>

@@ -1,5 +1,5 @@
 import { StackStateProps } from '@/app/hs/stacks/create/create.types'
-import BlockNodeDataDisplay from '@/app/hs/stacks/components/blocks/BlockNodeDataDisplay'
+import BlockNodeDataDisplay from '@/app/hs/stacks/components/blocks/node-types/BlockNodeDataDisplay'
 import { RoughNotation, RoughNotationGroup } from 'react-rough-notation'
 import PageTitle from '@/app/hs/components/ui/PageTitle'
 

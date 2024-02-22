@@ -4,16 +4,21 @@ import ReactFlow, {
   OnNodesChange,
   Background,
   BackgroundVariant,
+  BackgroundProps,
   NodeChange
 } from 'reactflow'
 
 import 'reactflow/dist/style.css'
 import { useTheme } from 'next-themes'
-import BlockNode from '@/app/hs/stacks/components/blocks/BlockNode'
+import BlockNode from '@/app/hs/stacks/components/blocks/node-types/BlockNode'
 import useSetCenter from '@/app/hs/stacks/components/blocks/hooks/useSetCenter'
+import CustomBlockNode from '@/app/hs/stacks/components/blocks/node-types/CustomBlockNode'
+import StackDetailsNode from '@/app/hs/stacks/components/blocks/node-types/StackDetailsNode'
 
 const nodeTypes = {
-  blockNode: BlockNode
+  blockNode: BlockNode,
+  customBlockNode: CustomBlockNode,
+  stackDetailsNode: StackDetailsNode
 }
 
 interface FlowProps {
@@ -21,14 +26,27 @@ interface FlowProps {
   setNodes: (nodes: Node[]) => void
   onNodesChange: OnNodesChange
   viewOnly?: boolean
+  background?: BackgroundProps
 }
 export default function Flow({
   nodes,
   onNodesChange,
-  viewOnly = false
+  viewOnly = false,
+  background
 }: FlowProps) {
   const { theme } = useTheme()
-  const backgroundColor = theme === 'light' ? '#1f2937' : '#8b5cf6'
+
+  const bgProps = React.useMemo(
+    () =>
+      background
+        ? background
+        : {
+            color: theme === 'light' ? '#1f2937' : '#8b5cf6',
+            variant: BackgroundVariant.Dots
+          },
+    [background, theme]
+  )
+
   useSetCenter()
 
   const handleNodesChangechanges = (changes: NodeChange[]) => {
@@ -45,7 +63,7 @@ export default function Flow({
       fitViewOptions={{ maxZoom: 1 }}
       fitView
     >
-      <Background color={backgroundColor} variant={BackgroundVariant.Dots} />
+      <Background {...bgProps} />
     </ReactFlow>
   )
 }

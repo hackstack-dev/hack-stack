@@ -9,7 +9,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import StackDetailsForm from '@/app/hs/stacks/components/StackDetailsForm'
 import useBlockNodes from '@/app/hs/stacks/components/blocks/hooks/useBlockNodes'
 import { BreadcrumbItem, Breadcrumbs, Tab, Tabs } from '@nextui-org/react'
-import { LucideFilePenLine, LucideLayers3 } from 'lucide-react'
+import { LucideFilePenLine, LucideLayers3, LucideShare2 } from 'lucide-react'
 import StackBlocks from '@/app/hs/stacks/components/blocks/StackBlocks'
 import { cn } from '@/app/lib/utils'
 import { api } from '~/convex/_generated/api'
@@ -99,7 +99,7 @@ export default function EditStack({
 
   return (
     <div className="flex flex-col h-[calc(100vh-98px)]">
-      <header className="pb-6 flex items-center justify-between">
+      <header className="py-4 flex items-center justify-between border-b dark:border-default-50">
         <Breadcrumbs>
           <BreadcrumbItem href="/hs/stacks">
             <span>Stacks</span>
@@ -115,7 +115,7 @@ export default function EditStack({
         </div>
       </header>
 
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between mt-4">
         <Tabs
           aria-label="Options"
           variant="bordered"
@@ -152,10 +152,10 @@ export default function EditStack({
       </div>
       <StackBlocks
         initialNodes={stackState.stackBlocks ?? []}
-        hidden={viewMode === 'details'}
+        hidden={viewMode !== 'blocks'}
       />
 
-      <div className={cn(viewMode === 'blocks' && 'hidden')}>
+      <div className={cn(viewMode !== 'details' && 'hidden')}>
         <StackDetailsForm form={form} />
         <EditStackCoverImage stack={stack} stackId={stackId} />
       </div>

@@ -10,6 +10,7 @@ import { useQuery } from 'convex/react'
 import { api } from '~/convex/_generated/api'
 import PublicPrivateIndication from '@/app/hs/components/ui/PublicPrivateIndication'
 import EmptyData from '@/app/hs/components/ui/EmptyData'
+import ShareStackButton from '@/app/hs/stacks/components/share/ShareStackButton'
 
 const cardSize = {
   sm: 'h-40',
@@ -59,6 +60,7 @@ export default function StackItems({
               {isPublicItems && withAvatar && (
                 <UserAvatar userId={stack.userId} withName={false} />
               )}
+              {!isPublicItems && <ShareStackButton stack={stack} />}
             </CardHeader>
             <Image
               removeWrapper
