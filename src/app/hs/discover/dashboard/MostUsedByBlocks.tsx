@@ -11,13 +11,9 @@ function getRandomFilter(options: { label: string; value: string }[]) {
 }
 
 interface MostUsedByBlocksProps {
-  filters?: Selection
   options: { label: string; value: string }[]
 }
-export default function MostUsedByBlocks({
-  filters,
-  options
-}: MostUsedByBlocksProps) {
+export default function MostUsedByBlocks({ options }: MostUsedByBlocksProps) {
   const [blockIds, setBlockIds] = React.useState<Selection>(new Set())
   const mostUsedLanguage = useQuery(api.stats.getMostUsedTechByBlockName, {
     blockIds: Array.from(blockIds) as string[]

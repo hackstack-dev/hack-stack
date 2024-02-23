@@ -10,10 +10,16 @@ export const client = twilio(
 )
 
 export const sendNotification = internalAction({
-  args: { eventType: v.union(v.literal('suggestion'), v.literal('newUser')) },
-  handler: async (_, { eventType }) => {
+  args: {
+    user: v.string(),
+    eventType: v.union(v.literal('suggestion'), v.literal('newUser'))
+  },
+  handler: async (_, { user, eventType }) => {
     return client.messages.create({
-      body: eventType === 'newUser' ? 'A new user has joined the platform!' : 'A new suggestion is pending approval!',
+      body:
+        eventType === 'newUser'
+          ? `A new user has joined the platform! - ${user}`
+          : `A new suggestion is pending approval! - ${user}`,
       from: 'whatsapp:+14155238886',
       to: 'whatsapp:+972528198448'
     })

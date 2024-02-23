@@ -23,20 +23,24 @@ http.route({
       })
 
       switch (result.type) {
-        case 'user.created':
+        case 'user.created': {
+          const name = resolverUsername(
+            result.data.first_name,
+            result.data.last_name
+          )
+          const email = result.data.email_addresses[0]?.email_address
           await runMutation(internal.users.createUser, {
-            email: result.data.email_addresses[0]?.email_address,
+            email,
             userId: result.data.id,
-            name: resolverUsername(
-              result.data.first_name,
-              result.data.last_name
-            ),
+            name,
             profileImage: result.data.image_url
           })
           await runAction(internal.twilio.sendNotification, {
+            user: `${name} - ${email}`,
             eventType: 'newUser'
           })
           break
+        }
         case 'user.updated':
           await runMutation(internal.users.updateUser, {
             userId: result.data.id,
