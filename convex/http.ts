@@ -1,6 +1,7 @@
 import { httpRouter } from 'convex/server'
 import { internal } from './_generated/api'
 import { httpAction } from './_generated/server'
+import { resolverUsername } from '~/convex/utils'
 
 const http = httpRouter()
 
@@ -26,7 +27,10 @@ http.route({
           await runMutation(internal.users.createUser, {
             email: result.data.email_addresses[0]?.email_address,
             userId: result.data.id,
-            name: `${result.data.first_name} ${result.data.last_name}`,
+            name: resolverUsername(
+              result.data.first_name,
+              result.data.last_name
+            ),
             profileImage: result.data.image_url
           })
           await runAction(internal.twilio.sendNotification, {

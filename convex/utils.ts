@@ -17,6 +17,7 @@ import { internal } from '~/convex/_generated/api'
 import { UnwrapConvex } from '~/convex/types'
 import { getUserById } from '~/convex/users'
 import { Id } from '~/convex/_generated/dataModel'
+import { generateUsername } from 'friendly-username-generator'
 
 export const authAction = customAction(
   action,
@@ -140,6 +141,15 @@ export const adminAuthMutation = customMutation(
 
 export const getUserId = async (ctx: QueryCtx | MutationCtx | ActionCtx) => {
   return (await ctx.auth.getUserIdentity())?.subject
+}
+
+export const resolverUsername = (firstName: string, lastName: string) => {
+  if (firstName === 'null' && lastName === 'null') {
+    return generateUsername()
+  }
+  return `${firstName === 'null' ? '' : firstName} ${
+    lastName === 'null' ? '' : lastName
+  }`
 }
 
 export const getOwnerAndRepoFromUrl = (url: string) => {

@@ -38,6 +38,9 @@ dependencies:
   framer-motion:
     specifier: ^11.0.3
     version: 11.0.3(react-dom@18.2.0)(react@18.2.0)
+  friendly-username-generator:
+    specifier: ^2.0.4
+    version: 2.0.4
   html-to-image:
     specifier: ^1.11.11
     version: 1.11.11
@@ -4012,6 +4015,10 @@ packages:
       tslib: 2.6.2
     optionalDependencies:
       '@emotion/is-prop-valid': 0.8.8
+    dev: false
+
+  /friendly-username-generator@2.0.4:
+    resolution: {integrity: sha512-718y2+j8A28eEsR3AOK4Tp0U/69svwnE6CMtXAvleXHubDim/CsOc2EU4MGBkShB1WzMTO4iO/10JrKaiCc2Sw==}
     dev: false
 
   /fsevents@2.3.3:
