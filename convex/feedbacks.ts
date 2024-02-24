@@ -42,18 +42,23 @@ export const createFeedback = authMutation({
     feedback: v.string()
   },
   handler: async ({ db, user }, { stackId, feedback }) => {
-    await db.insert('feedbacks', {
+    const insertResult = await db.insert('feedbacks', {
       stackId,
       fromUserId: user._id,
       feedback
     })
+    // notify unless the user is giving feedback to their own stack
     const stack = await db.get(stackId)
-    if (!stack) return null
+    if (!stack || stack.userId === user._id) return insertResult
     return db.insert('notifications', {
       sourceUserId: user._id,
       targetUserId: stack.userId,
-      title: 'New feedback',
-      details: `You received a new feedback for stack <a href="hs/stacks/view/${stack._id}">${stack.name}</a>`,
+      data: {
+        stackName: stack.name,
+        stackId: stack._id,
+        username: user.name,
+        userProfileImage: user.profileImage
+      },
       type: 'feedback',
       isRead: false
     })
@@ -66,19 +71,26 @@ export const createReply = authMutation({
     reply: v.string()
   },
   handler: async ({ db, user }, { feedbackId, reply }) => {
-    await db.insert('feedbackReplies', {
+    const insertResult = await db.insert('feedbackReplies', {
       feedbackId,
       fromUserId: user._id,
       reply
     })
+    // notify unless the user is replying to their own feedback
     const feedback = await db.get(feedbackId)
-    if (!feedback) return null
+    if (!feedback || feedback?.fromUserId === user._id) return insertResult
+    const stack = await db.get(feedback.stackId)
+    if (!stack) return insertResult
     return db.insert('notifications', {
       sourceUserId: user._id,
       targetUserId: feedback.fromUserId,
-      title: 'New reply to feedback',
-      details: 'You received a new reply to your feedback',
-      type: 'feedback',
+      data: {
+        stackId: stack._id,
+        stackName: stack.name,
+        username: user.name,
+        userProfileImage: user.profileImage
+      },
+      type: 'feedbackReply',
       isRead: false
     })
   }
@@ -110,13 +122,21 @@ export const getFeedbacksByStackId = authQuery({
             const user = await db.get(reply.fromUserId)
             return {
               ...reply,
-              user: { name: user?.name, profileImage: user?.profileImage }
+              user: {
+                id: user?._id,
+                name: user?.name,
+                profileImage: user?.profileImage
+              }
             }
           })
         )
         return {
           ...feedback,
-          user: { name: user?.name, profileImage: user?.profileImage },
+          user: {
+            id: user?._id,
+            name: user?.name,
+            profileImage: user?.profileImage
+          },
           feedbackReplies
         }
       })

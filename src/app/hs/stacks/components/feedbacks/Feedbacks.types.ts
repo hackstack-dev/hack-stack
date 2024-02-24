@@ -1,6 +1,7 @@
 import { Id } from '~/convex/_generated/dataModel'
 
 export type FeedbackUser = {
+  id: Id<'users'>
   name?: string
   profileImage?: string
 }

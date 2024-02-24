@@ -1,4 +1,3 @@
-import { pointsPerSuggestionType } from '~/convex/utils'
 
 export type SuggestionApprovedData = {
   suggestion: string
@@ -7,13 +6,8 @@ export type SuggestionApprovedData = {
 }
 
 export type NewFeedbackData = {
-  suggestion: string
-  type: string
-  points: number
-}
-
-export type NewReplyToFeedbackData = {
-  suggestion: string
-  type: string
-  points: number
+  username: string
+  userProfileImage: string
+  stackName: string
+  stackId: string
 }

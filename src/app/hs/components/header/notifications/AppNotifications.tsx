@@ -86,27 +86,6 @@ export default function AppNotifications() {
             }}
           >
             <Tab
-              key="all"
-              title={
-                <div className="flex items-center space-x-2">
-                  <span>All</span>
-                  <Chip size="sm" variant="flat">
-                    {allNotificationsCount}
-                  </Chip>
-                </div>
-              }
-            >
-              {notifications.length < 1 && (
-                <div className="mt-4">
-                  <EmptyData />
-                </div>
-              )}
-              <NotificationList
-                notifications={notifications}
-                markAsRead={handleMarkAsRead}
-              />
-            </Tab>
-            <Tab
               key="unread"
               title={
                 <div className="flex items-center space-x-2">
@@ -124,6 +103,27 @@ export default function AppNotifications() {
               )}
               <NotificationList
                 notifications={unreadNotifications}
+                markAsRead={handleMarkAsRead}
+              />
+            </Tab>
+            <Tab
+              key="all"
+              title={
+                <div className="flex items-center space-x-2">
+                  <span>All</span>
+                  <Chip size="sm" variant="flat">
+                    {allNotificationsCount}
+                  </Chip>
+                </div>
+              }
+            >
+              {notifications.length < 1 && (
+                <div className="mt-4">
+                  <EmptyData />
+                </div>
+              )}
+              <NotificationList
+                notifications={notifications}
                 markAsRead={handleMarkAsRead}
               />
             </Tab>

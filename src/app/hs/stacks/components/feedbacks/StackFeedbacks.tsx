@@ -6,6 +6,7 @@ import { Divider, ScrollShadow } from '@nextui-org/react'
 import { LucideMessageCircleOff } from 'lucide-react'
 import FeedbackInput from '@/app/hs/stacks/components/feedbacks/FeedbackInput'
 import FeedbackList from '@/app/hs/stacks/components/feedbacks/FeedbackList'
+import { cn } from '@/app/lib/utils'
 
 interface StackFeedbacksProps {
   isOpenForFeedbacks?: boolean
@@ -71,7 +72,9 @@ export default function StackFeedbacks({
         </>
       )}
       {isOpenForFeedbacks && (
-        <ScrollShadow className="h-[calc(100vh-420px)]">
+        <ScrollShadow
+          className={cn(feedbackSettings ? 'feedbacks-sm' : 'feedbacks-lg')}
+        >
           <FeedbackInput stackId={stackId} />
           <FeedbackList stackId={stackId} />
         </ScrollShadow>

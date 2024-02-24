@@ -14,6 +14,13 @@ body {
 }
 
 @layer components {
+    .feedbacks-sm {
+        height: calc(100vh - 420px);
+    }
+
+    .feedbacks-lg {
+        height: calc(100vh - 270px);
+    }
 }
 
 @layer utilities {
