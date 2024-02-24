@@ -6,7 +6,12 @@ import { internalMutation } from '~/convex/_generated/server'
 export const getMyUserNotifications = authQuery({
   handler: async ({ db, user }) => {
     if (!user) return []
-    return await getManyFrom(db, 'notifications', 'by_userId', user._id)
+    return db
+      .query('notifications')
+      .withIndex('by_targetUserId', (q) => q.eq('targetUserId', user._id))
+      .order('desc')
+      .collect()
+    // return await getManyFrom(db, 'notifications', 'by_targetUserId', user._id)
   }
 })
 
@@ -24,7 +29,7 @@ export const markAllAsRead = authMutation({
     const notifications = await getManyFrom(
       db,
       'notifications',
-      'by_userId',
+      'by_targetUserId',
       user._id
     )
     await Promise.all(
@@ -35,15 +40,20 @@ export const markAllAsRead = authMutation({
 
 export const internalAddNotification = internalMutation({
   args: {
-    userId: v.id('users'),
-    title: v.string(),
-    details: v.string(),
-    type: v.union(v.literal('suggestion'), v.literal('achivement')),
+    targetUserId: v.id('users'),
+    type: v.union(
+      v.literal('suggestionApproved'),
+        v.literal('suggestionRejected'),
+      v.literal('achivement'),
+      v.literal('feedback'),
+      v.literal('feedbackReply')
+    ),
+    data: v.any()
   },
   handler: async ({ db }, args) => {
     return await db.insert('notifications', {
       ...args,
-      isRead: false,
+      isRead: false
     })
   }
 })

@@ -48,6 +48,7 @@ export default function StackView({ stackId }: StackViewProps) {
             onNodesChange={onNodesChange}
             userId={stack.userId}
             stackId={stackId}
+            isOpenForFeedbacks={stack.isOpenForFeedbacks}
           />
         </div>
       )}

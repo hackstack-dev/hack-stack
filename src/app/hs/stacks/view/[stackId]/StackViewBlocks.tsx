@@ -7,6 +7,7 @@ import StackViewTechDetails from '@/app/hs/stacks/view/[stackId]/StackViewTechDe
 import UserProfileLink from '@/app/hs/components/ui/UserProfileLink'
 import Likes from '@/app/hs/stacks/components/Likes'
 import { Id } from '~/convex/_generated/dataModel'
+import StackViewSidebar from '@/app/hs/stacks/view/[stackId]/StackViewSidebar'
 
 interface StackViewBlocksProps {
   nodes: Node[]
@@ -14,18 +15,20 @@ interface StackViewBlocksProps {
   onNodesChange: OnNodesChange
   userId?: Id<'users'>
   stackId?: Id<'stacks'>
+  isOpenForFeedbacks?: boolean
 }
 export default function StackViewBlocks({
   nodes,
   setNodes,
   onNodesChange,
   userId,
-  stackId
+  stackId,
+  isOpenForFeedbacks
 }: StackViewBlocksProps) {
   return (
     <div className="grow border-1 rounded dark:border-default-50">
       <PanelGroup direction="horizontal">
-        <Panel minSize={70}>
+        <Panel minSize={35} defaultSize={65}>
           <section className="h-full w-full relative">
             {userId && stackId && (
               <div className="absolute top-4 left-4 z-10">
@@ -46,8 +49,8 @@ export default function StackViewBlocks({
         <PanelResizeHandle className="relative">
           <ResizeHandle />
         </PanelResizeHandle>
-        <Panel defaultSize={30} minSize={0}>
-          <StackViewTechDetails />
+        <Panel defaultSize={35} minSize={0}>
+          <StackViewSidebar userId={userId} stackId={stackId} isOpenForFeedbacks={isOpenForFeedbacks} />
         </Panel>
       </PanelGroup>
     </div>

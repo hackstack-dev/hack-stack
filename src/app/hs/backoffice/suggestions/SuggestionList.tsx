@@ -78,7 +78,7 @@ export default function SuggestionList() {
           return (
             <Card key={suggestion._id}>
               <CardHeader className="flex items-center justify-between">
-                <Chip variant="bordered" color={colorMap[suggestion.type]}>
+                <Chip variant="flat" color={colorMap[suggestion.type]}>
                   {suggestion.type}
                 </Chip>
                 <UserAvatar userId={suggestion.userId} withName />

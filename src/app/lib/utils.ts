@@ -203,5 +203,5 @@ export const timeAgo = (date: string | number, includeTime = false) => {
     }
   }
 
-  return result || 'Just now'
+  return result ? `${result} ago` : 'Just now'
 }

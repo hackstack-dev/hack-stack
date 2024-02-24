@@ -9,7 +9,11 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import StackDetailsForm from '@/app/hs/stacks/components/StackDetailsForm'
 import useBlockNodes from '@/app/hs/stacks/components/blocks/hooks/useBlockNodes'
 import { BreadcrumbItem, Breadcrumbs, Tab, Tabs } from '@nextui-org/react'
-import { LucideFilePenLine, LucideLayers3, LucideShare2 } from 'lucide-react'
+import {
+  LucideFilePenLine,
+  LucideLayers3,
+  LucideMessageCircle
+} from 'lucide-react'
 import StackBlocks from '@/app/hs/stacks/components/blocks/StackBlocks'
 import { cn } from '@/app/lib/utils'
 import { api } from '~/convex/_generated/api'
@@ -22,6 +26,7 @@ import Likes from '@/app/hs/stacks/components/Likes'
 import { useRouter } from 'next/navigation'
 import PublicPrivateIndication from '@/app/hs/components/ui/PublicPrivateIndication'
 import EditStackCoverImage from '@/app/hs/stacks/[stackId]/EditStackCoverImage'
+import StackFeedbackSettings from '@/app/hs/stacks/[stackId]/StackFeedbackSettings'
 
 interface EditStackProps {
   stackState: StackStateProps['stackState']
@@ -141,14 +146,25 @@ export default function EditStack({
               </div>
             }
           />
+          <Tab
+            key="feedback"
+            title={
+              <div className="flex items-center space-x-2">
+                <LucideMessageCircle size={16} strokeWidth={1} />
+                <span>Feedback</span>
+              </div>
+            }
+          />
         </Tabs>
 
-        <EditStackActions
-          onSaveChanges={handleSaveChanges}
-          onPublicChange={handlePublicChange}
-          onStackDelete={handleDeleteStack}
-          isPublic={stack.isPublic}
-        />
+        {viewMode !== 'feedback' && (
+          <EditStackActions
+            onSaveChanges={handleSaveChanges}
+            onPublicChange={handlePublicChange}
+            onStackDelete={handleDeleteStack}
+            isPublic={stack.isPublic}
+          />
+        )}
       </div>
       <StackBlocks
         initialNodes={stackState.stackBlocks ?? []}
@@ -158,6 +174,9 @@ export default function EditStack({
       <div className={cn(viewMode !== 'details' && 'hidden')}>
         <StackDetailsForm form={form} />
         <EditStackCoverImage stack={stack} stackId={stackId} />
+      </div>
+      <div className={cn(viewMode !== 'feedback' && 'hidden')}>
+        <StackFeedbackSettings stack={stack} stackId={stackId} />
       </div>
     </div>
   )

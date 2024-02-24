@@ -133,14 +133,13 @@ export const approveSuggestion = adminAuthAction({
     // insert new notification for user who suggested
     if (suggestion) {
       await runMutation(internal.notifications.internalAddNotification, {
-        userId: suggestion.userId,
-        title: 'Your suggestion has been approved',
-        details: `Your suggestion for <b>${
-          suggestion.name
-        }</b> has been approved and is now live on the platform. You have earned <b>${
-          pointsPerSuggestionType[suggestion.type]
-        }</b> points for your suggestion!`,
-        type: 'suggestion'
+        targetUserId: suggestion.userId,
+        data: {
+          suggestion: suggestion.name,
+          type: suggestion.type,
+          points: pointsPerSuggestionType[suggestion.type]
+        },
+        type: 'suggestionApproved'
       })
     }
 

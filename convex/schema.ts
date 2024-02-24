@@ -5,6 +5,7 @@ export const stacksValidator = v.object({
   name: v.string(),
   userId: v.id('users'),
   isPublic: v.boolean(),
+  isOpenForFeedbacks: v.optional(v.boolean()),
   projectTypes: v.array(v.string()),
   templateId: v.string(),
   coverImage: v.string(),
@@ -121,10 +122,43 @@ export default defineSchema({
 
   suggestions: defineTable(suggestionsValidator).index('by_userId', ['userId']),
   notifications: defineTable({
-    userId: v.id('users'),
-    type: v.union(v.literal('suggestion'), v.literal('achivement')),
-    title: v.string(),
-    details: v.string(),
+    sourceUserId: v.optional(v.id('users')),
+    targetUserId: v.id('users'),
+    type: v.union(
+      v.literal('suggestionApproved'),
+        v.literal('suggestionRejected'),
+      v.literal('achivement'),
+      v.literal('feedback'),
+      v.literal('feedbackReply')
+    ),
+    data: v.any(),
     isRead: v.boolean()
-  }).index('by_userId', ['userId'])
+  })
+    .index('by_targetUserId', ['targetUserId'])
+    .index('by_sourceUserId', ['sourceUserId']),
+
+  feedbackSettings: defineTable({
+    userId: v.id('users'),
+    stackId: v.id('stacks'),
+    focusAreas: v.optional(v.array(v.string())),
+    additionalInfo: v.optional(v.string())
+  })
+    .index('by_userId', ['userId'])
+    .index('by_stackId', ['stackId']),
+
+  feedbacks: defineTable({
+    stackId: v.id('stacks'),
+    fromUserId: v.id('users'),
+    feedback: v.string()
+  })
+    .index('by_userId', ['fromUserId'])
+    .index('by_stackId', ['stackId']),
+
+  feedbackReplies: defineTable({
+    feedbackId: v.id('feedbacks'),
+    fromUserId: v.id('users'),
+    reply: v.string()
+  })
+    .index('by_feedbackId', ['feedbackId'])
+    .index('by_userId', ['fromUserId'])
 })

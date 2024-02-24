@@ -44,7 +44,6 @@ export default function StackViewTechDetails({
   return (
     <div
       className={cn(
-        'py-4 h-full w-full bg-default-50 dark:bg-black border-l-1 border-r-1 dark:border-default-50',
         embeded && 'bg-white dark:bg-default-50/80 rounded-md shadow-sm'
       )}
     >
@@ -81,7 +80,10 @@ export default function StackViewTechDetails({
           </header>
           <ScrollShadow
             hideScrollBar
-            className={cn('h-[calc(100vh-338px)] py-4', embeded && 'h-full pb-0')}
+            className={cn(
+              'h-[calc(100vh-338px)] py-4',
+              embeded && 'h-full pb-0'
+            )}
           >
             {techData?.repoData && (
               <TechGithubData repoData={techData.repoData} />

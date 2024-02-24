@@ -27,11 +27,11 @@ export default function TechGithubData({ repoData }: TechGithubDataProps) {
     <div className="flex flex-col space-y-4 border-b-1 dark:border-default-50 pb-4">
       <p className="text-xs px-4">
         <span className="text-default-500 mr-2">Created:</span>
-        <span>{timeAgo(created_at)} ago</span>
+        <span>{timeAgo(created_at)}</span>
       </p>
       <p className="text-xs px-4">
         <span className="text-default-500 mr-2">Updated:</span>
-        <span>{timeAgo(pushed_at, true)} ago</span>
+        <span>{timeAgo(pushed_at, true)}</span>
       </p>
       <div className="flex h-5 items-center space-x-4 text-small px-4">
         <Button

@@ -114,7 +114,7 @@ export default function StackDetailsForm({
           </div>
           <div className="text-small flex items-center gap-2 flex-wrap self-start">
             {projectTypesValue.map((v) => (
-              <Chip key={v} size="sm" color="primary" variant="bordered">
+              <Chip key={v} size="sm" color="primary" variant="flat">
                 {v}
               </Chip>
             ))}

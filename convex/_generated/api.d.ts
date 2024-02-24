@@ -17,6 +17,7 @@ import type {
 import type * as blocks from "../blocks.js";
 import type * as categories from "../categories.js";
 import type * as clerk from "../clerk.js";
+import type * as feedbacks from "../feedbacks.js";
 import type * as http from "../http.js";
 import type * as imageKit from "../imageKit.js";
 import type * as likes from "../likes.js";
@@ -43,6 +44,7 @@ declare const fullApi: ApiFromModules<{
   blocks: typeof blocks;
   categories: typeof categories;
   clerk: typeof clerk;
+  feedbacks: typeof feedbacks;
   http: typeof http;
   imageKit: typeof imageKit;
   likes: typeof likes;

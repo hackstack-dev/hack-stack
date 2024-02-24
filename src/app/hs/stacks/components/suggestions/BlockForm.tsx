@@ -190,7 +190,7 @@ export function BlockForm() {
             >
               {field.value.map((tag) => (
                 <ListboxItem key={tag}>
-                  <Chip key={tag} size="sm" color="primary" variant="bordered">
+                  <Chip key={tag} size="sm" color="primary" variant="flat">
                     {tag}
                   </Chip>
                 </ListboxItem>

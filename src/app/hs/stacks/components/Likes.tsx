@@ -29,7 +29,6 @@ export default function Likes({ stackId }: { stackId: Id<'stacks'> }) {
         variant="light"
         radius="full"
         onClick={handleLike}
-        className="ml-1"
         isIconOnly
       >
         <LucideHeart size={20} color={color} strokeWidth={1.5} />

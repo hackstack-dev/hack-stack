@@ -15,11 +15,12 @@ import { api } from '~/convex/_generated/api'
 import { Id } from '~/convex/_generated/dataModel'
 import { toast } from 'sonner'
 import { Skeleton } from '@nextui-org/react'
+import { EditStackSectionProps } from '@/app/hs/stacks/[stackId]/EditStack.types'
 
 export default function EditStackCoverImage({
   stack,
   stackId
-}: { stack: Stack; stackId: Id<'stacks'> }) {
+}: EditStackSectionProps) {
   const [file, setFile] = React.useState<File>()
   const [uploading, setUploading] = React.useState(false)
   const updateCoverImage = useAction(api.stack.updateStackCoverImage)
@@ -88,7 +89,12 @@ export default function EditStackCoverImage({
                 </Button>
               )}
               {!file && (
-                <Button color="primary" variant="solid" radius="full" isIconOnly>
+                <Button
+                  color="primary"
+                  variant="solid"
+                  radius="full"
+                  isIconOnly
+                >
                   <Upload
                     accept=".png, .jpg, .jpeg, .webp, .avif"
                     beforeUpload={(file) => {
