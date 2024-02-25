@@ -152,7 +152,7 @@ export default function DetailsControls({ setNodes }: ControlsProps) {
               size="sm"
               step={1}
               maxValue={10}
-              minValue={1}
+              minValue={0}
               onChange={(value) =>
                 setShareDetailsSettings((prev) => ({
                   ...prev,

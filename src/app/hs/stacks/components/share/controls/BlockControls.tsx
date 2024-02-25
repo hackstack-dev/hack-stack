@@ -135,7 +135,7 @@ export default function BlockControls({ setNodes }: ControlsProps) {
             size="sm"
             step={1}
             maxValue={10}
-            minValue={1}
+            minValue={0}
             onChange={(value) =>
               setShareBlockSettings((prev) => ({
                 ...prev,
