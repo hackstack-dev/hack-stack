@@ -35,10 +35,6 @@ http.route({
             name,
             profileImage: result.data.image_url
           })
-          await runAction(internal.twilio.sendNotification, {
-            user: `${name} - ${email}`,
-            eventType: 'newUser'
-          })
           break
         }
         case 'user.updated':

@@ -8,11 +8,18 @@ import {
 import { zodResolver } from '@hookform/resolvers/zod'
 import StackDetailsForm from '@/app/hs/stacks/components/StackDetailsForm'
 import useBlockNodes from '@/app/hs/stacks/components/blocks/hooks/useBlockNodes'
-import { BreadcrumbItem, Breadcrumbs, Tab, Tabs } from '@nextui-org/react'
+import {
+  BreadcrumbItem,
+  Breadcrumbs,
+  Tooltip,
+  Tab,
+  Tabs
+} from '@nextui-org/react'
 import {
   LucideFilePenLine,
   LucideLayers3,
-  LucideMessageCircle
+  LucideMessageCircle,
+  LucidePanelsTopLeft
 } from 'lucide-react'
 import StackBlocks from '@/app/hs/stacks/components/blocks/StackBlocks'
 import { cn } from '@/app/lib/utils'
@@ -27,6 +34,8 @@ import { useRouter } from 'next/navigation'
 import PublicPrivateIndication from '@/app/hs/components/ui/PublicPrivateIndication'
 import EditStackCoverImage from '@/app/hs/stacks/[stackId]/EditStackCoverImage'
 import StackFeedbackSettings from '@/app/hs/stacks/[stackId]/StackFeedbackSettings'
+import Link from 'next/link'
+import { Button } from '@nextui-org/button'
 
 interface EditStackProps {
   stackState: StackStateProps['stackState']
@@ -115,7 +124,23 @@ export default function EditStack({
         </Breadcrumbs>
         {error && <p className="text-small text-danger pr-2">{error}</p>}
         <div className="flex items-center flex-row-reverse gap-2">
-          <PublicPrivateIndication isPublic={stack.isPublic} />
+          <div className="flex items-center gap-2">
+            <PublicPrivateIndication isPublic={stack.isPublic} />
+            {stack.isPublic && (
+              <Tooltip content="Go to stack public view">
+                <Button
+                  variant="flat"
+                  radius="full"
+                  size="sm"
+                  as={Link}
+                  href={`/hs/stacks/view/${stackId}`}
+                  isIconOnly
+                >
+                  <LucidePanelsTopLeft size={16} />
+                </Button>
+              </Tooltip>
+            )}
+          </div>
           <Likes stackId={stackId} />
         </div>
       </header>
@@ -156,7 +181,6 @@ export default function EditStack({
             }
           />
         </Tabs>
-
         {viewMode !== 'feedback' && (
           <EditStackActions
             onSaveChanges={handleSaveChanges}
