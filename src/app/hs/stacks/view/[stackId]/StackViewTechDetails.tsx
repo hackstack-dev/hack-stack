@@ -49,7 +49,7 @@ export default function StackViewTechDetails({
     >
       {techData && (
         <>
-          <header className="flex flex-col gap-1 pb-4 border-b-1 dark:border-default-50 px-4">
+          <header className="flex flex-col gap-1 pb-4 border-b-1 dark:border-default-50 px-4 pt-4">
             <div className="flex items-center gap-2">
               {techData?.icon && (
                 <Image
@@ -86,7 +86,7 @@ export default function StackViewTechDetails({
             )}
           >
             {techData?.repoData && (
-              <TechGithubData repoData={techData.repoData} />
+              <TechGithubData githubData={techData.repoData} />
             )}
             {techName && <TechStats techName={techName} />}
           </ScrollShadow>

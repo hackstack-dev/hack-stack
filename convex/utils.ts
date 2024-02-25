@@ -18,6 +18,7 @@ import { UnwrapConvex } from '~/convex/types'
 import { getUserById } from '~/convex/users'
 import { Id } from '~/convex/_generated/dataModel'
 import { generateUsername } from 'friendly-username-generator'
+import { internalAction } from '~/convex/_generated/server'
 
 export const authAction = customAction(
   action,
@@ -152,17 +153,43 @@ export const resolverUsername = (firstName: string, lastName: string) => {
   }`
 }
 
-export const getOwnerAndRepoFromUrl = (url: string) => {
-  const regex = /^https?:\/\/github\.com\/([^\/]+)\/([^\/]+)(\/|$)/
-  const match = url.match(regex)
+const githubUrlRegex =
+  /^(?:https?:\/\/)?(?:www\.)?github\.com\/([^\/]+)(?:\/([^\/]+))?\/?$/
 
-  if (match && match.length === 4) {
+export const getOwnerAndRepoFromUrl = (url: string) => {
+  const match = url.match(githubUrlRegex)
+  if (match) {
     const owner = match[1]
-    const repo = match[2]
+    const repo = match[2] || null
     return { owner, repo }
   }
-
   return null
+}
+
+export const getGithubData = async (githubUrl: string) => {
+  const result = getOwnerAndRepoFromUrl(githubUrl)
+  if (!result) {
+    return null
+  }
+  const headers = {
+    Accept: 'application/vnd.github+json',
+    'User-Agent': 'hackstack'
+  }
+
+  // if only owner than fetcg info about organization
+  if (result.owner && !result.repo) {
+    const data = await fetch(`https://api.github.com/orgs/${result.owner}`, {
+      headers
+    })
+    return data.json()
+  }
+  const data = await fetch(
+    `https://api.github.com/repos/${result.owner}/${result.repo}`,
+    {
+      headers
+    }
+  )
+  return data.json()
 }
 
 export const pointsPerSuggestionType = {

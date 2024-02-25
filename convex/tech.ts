@@ -6,7 +6,11 @@ import {
 } from '~/convex/_generated/server'
 import { v } from 'convex/values'
 import { getManyFrom, getOneFrom } from 'convex-helpers/server/relationships'
-import {authQuery, getOwnerAndRepoFromUrl} from '~/convex/utils'
+import {
+  authQuery,
+  getGithubData,
+  getOwnerAndRepoFromUrl
+} from '~/convex/utils'
 import { internal } from '~/convex/_generated/api'
 import { UnwrapConvex } from '~/convex/types'
 import dayjs from 'dayjs'
@@ -52,7 +56,7 @@ export const insertTechGithubData = internalMutation({
 
 export const getTechData = action({
   args: { techName: v.string() },
-  handler: async ({ runQuery, runMutation }, { techName }) => {
+  handler: async ({ runQuery, runMutation, runAction }, { techName }) => {
     const tech = (await runQuery(internal.tech.getTechByName, {
       name: techName
     })) as UnwrapConvex<typeof getTechByName>
@@ -77,21 +81,24 @@ export const getTechData = action({
           }
         }
 
-        const result = getOwnerAndRepoFromUrl(tech.githubUrl)
-        if (!result) {
-          return null
-        }
-        const data = await fetch(
-          `https://api.github.com/repos/${result.owner}/${result.repo}`,
-          {
-            headers: {
-              Accept: 'application/vnd.github+json',
-              'User-Agent': 'convex'
-            }
-          }
-        )
+        // const result = getOwnerAndRepoFromUrl(tech.githubUrl)
+        // if (!result) {
+        //   return null
+        // }
+        // const data = await fetch(
+        //   `https://api.github.com/repos/${result.owner}/${result.repo}`,
+        //   {
+        //     headers: {
+        //       Accept: 'application/vnd.github+json',
+        //       'User-Agent': 'convex'
+        //     }
+        //   }
+        // )
 
-        const githubDataJson = await data.json()
+        // const githubDataJson = await runAction(internal.tech.getTechGithubData, {
+        //   githubUrl:tech.githubUrl
+        // })
+        const githubDataJson = await getGithubData(tech.githubUrl)
 
         // save the data to the db
         if (githubData) {
