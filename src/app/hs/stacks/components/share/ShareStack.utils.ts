@@ -8,20 +8,8 @@ export const getDetailsNode = (stack: Stack) => {
     type: 'stackDetailsNode',
     position: { x: 0, y: 0 },
     data: {
-      show: true,
       name: stack.name,
-      description: stack?.description ?? '',
-      style: {
-        background: '#ffffff',
-        color: '#000000',
-        fontSize: 16,
-        borderColor: '#000000',
-        borderWidth: 1,
-        borderRadius: 4,
-        descriptionColor: '',
-        descriptionFontSize: 0,
-        boxShadow: 'none'
-      }
+      description: stack?.description ?? ''
     }
   }
   return detailsNode
