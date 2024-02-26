@@ -10,6 +10,7 @@ import { BlockNodeData } from '@/app/hs/stacks/components/blocks/Blocks.types'
 import useNewBlockPosition from '@/app/hs/stacks/components/blocks/hooks/useNewBlockPosition'
 import { cn } from '@/app/lib/utils'
 import { Suggestion } from '@/app/hs/stacks/components/suggestions/Suggestion'
+import BlocksToolbar from '@/app/hs/stacks/components/blocks/BlocksToolbar'
 
 interface StackBlocksProps {
   initialNodes: Node<BlockNodeData, string | undefined>[]
@@ -66,6 +67,7 @@ export default function StackBlocks({
         <Panel minSize={70}>
           <section className="h-full w-full relative">
             <NewBlockDialog onAddBlock={handleAddBlock} />
+            <BlocksToolbar />
             <Flow
               nodes={nodes}
               setNodes={setNodes}

@@ -1,69 +1,37 @@
 import React from 'react'
-import {
-  ControlsProps,
-  ShareStackBlockSettings
-} from '@/app/hs/stacks/components/share/ShareStack.types'
 import ControlsSection from '@/app/hs/stacks/components/share/components/ControlsSection'
 import ControlsRow from '@/app/hs/stacks/components/share/components/ControlRow'
-import { Slider } from '@nextui-org/react'
+import { Slider, Tab, Tabs } from '@nextui-org/react'
 import ColorControl from '@/app/hs/stacks/components/share/controls/ColorControl'
-import { useTheme } from 'next-themes'
 import BackgroundControl from '@/app/hs/stacks/components/share/controls/BackgroundControl'
 import ShadowControl from '@/app/hs/stacks/components/share/controls/ShadowControl'
+import { useSnapshot } from 'valtio'
+import { shareStackBlockSettings } from '@/app/hs/stacks/components/share/Share.state'
 
-export default function BlockControls({ setNodes }: ControlsProps) {
-  const { theme } = useTheme()
-  const [shareBlockSettings, setShareBlockSettings] =
-    React.useState<ShareStackBlockSettings>({
-      background: theme === 'dark' ? '#111' : '#fff',
-      color: theme === 'dark' ? '#fff' : '#000',
-      fontSize: 12,
-      techColor: theme === 'dark' ? '#aaa' : '#ccc',
-      techFontSize: 16,
-      borderColor: '#8b5cf6',
-      borderWidth: 2,
-      borderRadius: 5,
-      boxShadow: 'unset'
-    })
-
-  React.useEffect(() => {
-    setNodes((nds) => {
-      return nds.map((n) => {
-        if (n.type !== 'stackDetailsNode') {
-          return {
-            ...n,
-            data: {
-              ...n.data,
-              style: {
-                background: shareBlockSettings.background,
-                color: shareBlockSettings.color,
-                fontSize: shareBlockSettings.fontSize,
-                techColor: shareBlockSettings.techColor,
-                techFontSize: shareBlockSettings.techFontSize,
-                borderColor: shareBlockSettings.borderColor,
-                borderWidth: shareBlockSettings.borderWidth,
-                borderRadius: shareBlockSettings.borderRadius,
-                boxShadow: shareBlockSettings.boxShadow
-              }
-            }
-          }
-        }
-        return n
-      })
-    })
-  }, [shareBlockSettings, setNodes])
+export default function BlockControls() {
+  const shareBlockSettings = useSnapshot(shareStackBlockSettings)
 
   return (
     <ControlsSection title="Block">
       <div className="flex flex-col space-y-4 mt-4">
+        <ControlsRow label="Block size">
+          <Tabs
+            size="sm"
+            radius="full"
+            selectedKey={shareBlockSettings.blockSize}
+            onSelectionChange={(key) => {
+              shareStackBlockSettings.blockSize = key as string
+            }}
+          >
+            <Tab key="default" title="Default" />
+            <Tab key="compact" title="Compact" />
+          </Tabs>
+        </ControlsRow>
         <ControlsRow label="Background">
           <BackgroundControl
             value={{ background: shareBlockSettings.background }}
             onChange={(background) => {
-              setShareBlockSettings((prev) => ({
-                ...prev,
-                background
-              }))
+              shareStackBlockSettings.background = background
             }}
           />
         </ControlsRow>
@@ -71,10 +39,7 @@ export default function BlockControls({ setNodes }: ControlsProps) {
           <ColorControl
             value={shareBlockSettings.color}
             onChange={(value) => {
-              setShareBlockSettings((prev) => ({
-                ...prev,
-                color: value
-              }))
+              shareStackBlockSettings.color = value
             }}
           />
         </ControlsRow>
@@ -84,12 +49,9 @@ export default function BlockControls({ setNodes }: ControlsProps) {
             step={1}
             maxValue={30}
             minValue={8}
-            onChange={(value) =>
-              setShareBlockSettings((prev) => ({
-                ...prev,
-                fontSize: value as number
-              }))
-            }
+            onChange={(value) => {
+              shareStackBlockSettings.fontSize = value as number
+            }}
             value={shareBlockSettings.fontSize}
           />
         </ControlsRow>
@@ -97,10 +59,7 @@ export default function BlockControls({ setNodes }: ControlsProps) {
           <ColorControl
             value={shareBlockSettings.techColor}
             onChange={(value) => {
-              setShareBlockSettings((prev) => ({
-                ...prev,
-                techColor: value
-              }))
+              shareStackBlockSettings.techColor = value
             }}
           />
         </ControlsRow>
@@ -110,12 +69,9 @@ export default function BlockControls({ setNodes }: ControlsProps) {
             step={1}
             maxValue={30}
             minValue={8}
-            onChange={(value) =>
-              setShareBlockSettings((prev) => ({
-                ...prev,
-                techFontSize: value as number
-              }))
-            }
+            onChange={(value) => {
+              shareStackBlockSettings.techFontSize = value as number
+            }}
             value={shareBlockSettings.techFontSize}
           />
         </ControlsRow>
@@ -123,10 +79,7 @@ export default function BlockControls({ setNodes }: ControlsProps) {
           <ColorControl
             value={shareBlockSettings.borderColor}
             onChange={(value) => {
-              setShareBlockSettings((prev) => ({
-                ...prev,
-                borderColor: value
-              }))
+              shareStackBlockSettings.borderColor = value
             }}
           />
         </ControlsRow>
@@ -136,12 +89,9 @@ export default function BlockControls({ setNodes }: ControlsProps) {
             step={1}
             maxValue={10}
             minValue={0}
-            onChange={(value) =>
-              setShareBlockSettings((prev) => ({
-                ...prev,
-                borderWidth: value as number
-              }))
-            }
+            onChange={(value) => {
+              shareStackBlockSettings.borderWidth = value as number
+            }}
             value={shareBlockSettings.borderWidth}
           />
         </ControlsRow>
@@ -151,12 +101,9 @@ export default function BlockControls({ setNodes }: ControlsProps) {
             step={1}
             maxValue={30}
             minValue={1}
-            onChange={(value) =>
-              setShareBlockSettings((prev) => ({
-                ...prev,
-                borderRadius: value as number
-              }))
-            }
+            onChange={(value) => {
+              shareStackBlockSettings.borderRadius = value as number
+            }}
             value={shareBlockSettings.borderRadius}
           />
         </ControlsRow>
@@ -164,10 +111,7 @@ export default function BlockControls({ setNodes }: ControlsProps) {
           <ShadowControl
             value={shareBlockSettings.boxShadow}
             onChange={(value) => {
-              setShareBlockSettings((prev) => ({
-                ...prev,
-                boxShadow: value
-              }))
+              shareStackBlockSettings.boxShadow = value
             }}
           />
         </ControlsRow>

@@ -1,12 +1,16 @@
 import { NodeProps } from 'reactflow'
 import React from 'react'
 import { StackDetailsNodeData } from '@/app/hs/stacks/components/share/ShareStack.types'
+import { useSnapshot } from 'valtio'
+import { shareStackDetailsSettings } from '@/app/hs/stacks/components/share/Share.state'
 
 export default function StackDetailsNode({
-  data: { name, description, show, style }
+  data: { name, description }
 }: NodeProps<StackDetailsNodeData>) {
+  const shareDetailsSettings = useSnapshot(shareStackDetailsSettings)
+
   const { fontSize, color, descriptionColor, descriptionFontSize, ...rest } =
-    style ?? {}
+    shareDetailsSettings ?? {}
 
   const stackNameStyle = React.useMemo(() => {
     if (fontSize && color) {
@@ -28,7 +32,7 @@ export default function StackDetailsNode({
     return {}
   }, [descriptionColor, descriptionFontSize])
 
-  return show ? (
+  return shareDetailsSettings.showDetails ? (
     <div className="min-w-[200px] px-6 py-4" style={rest}>
       <h1 style={stackNameStyle}>{name}</h1>
       <p style={stackDescriptionStyle}>{description}</p>

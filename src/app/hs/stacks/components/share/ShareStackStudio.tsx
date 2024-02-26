@@ -73,9 +73,9 @@ export default function ShareStackStudio({ stack }: ShareStackStudioProps) {
           setCanvasSettings={setCanvasSettings}
         />
         <Divider className="my-4" />
-        <DetailsControls setNodes={setNodes} />
+        <DetailsControls />
         <Divider className="my-4" />
-        <BlockControls setNodes={setNodes} />
+        <BlockControls />
       </ScrollShadow>
 
       <div className="flex flex-col">

@@ -8,7 +8,6 @@ export type BlockNodeData = {
   id: string
   blockName: string
   tech: TechWithoutSystemFields
-  style?: ShareStackBlockSettings
 }
 
 export interface AddBlockProps {
