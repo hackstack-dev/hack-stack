@@ -24,7 +24,7 @@ export default function Users() {
   const { results, status, loadMore } = usePaginatedQuery(
     api.users.getUsers,
     {},
-    { initialNumItems: 20 }
+    { initialNumItems: 10 }
   )
 
   type User = (typeof results)[0]
@@ -57,7 +57,7 @@ export default function Users() {
       bottomContent={
         status !== 'Exhausted' ? (
           <div className="flex w-full justify-center">
-            <Button variant="flat" onPress={() => loadMore(20)}>
+            <Button variant="flat" onPress={() => loadMore(10)}>
               {status === 'LoadingMore' && <Spinner color="white" size="sm" />}
               Load More
             </Button>
