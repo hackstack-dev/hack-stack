@@ -1,8 +1,13 @@
 import { ConvexError, v } from 'convex/values'
 import { internalMutation, internalQuery, query } from './_generated/server'
-import { authQuery, pointsPerSuggestionType } from '~/convex/utils'
+import {
+  adminAuthQuery,
+  authQuery,
+  pointsPerSuggestionType
+} from '~/convex/utils'
 import { SuggestionTypeCount } from '~/convex/types'
 import { Id } from '~/convex/_generated/dataModel'
+import { paginationOptsValidator } from 'convex/server'
 
 export const getUserById = internalQuery({
   args: { userId: v.string() },
@@ -152,5 +157,14 @@ export const getTopTemplateMakers = authQuery({
   async handler({ db }) {
     const templates = await db.query('templates').collect()
     return countTopUsers<typeof templates>(templates)
+  }
+})
+
+export const getUsers = adminAuthQuery({
+  args: {
+    paginationOpts: paginationOptsValidator
+  },
+  async handler({ db }, { paginationOpts }) {
+    return db.query('users').paginate(paginationOpts)
   }
 })

@@ -59,7 +59,11 @@ export default function Flow({
       edges={[]}
       nodeTypes={nodeTypes}
       onNodesChange={handleNodesChangechanges}
-      proOptions={{ hideAttribution: true }}
+      onNodeDrag={console.log}
+      onNodeDragStop={console.log}
+      onDrop={console.log}
+      onDragOver={console.log}
+      selectNodesOnDrag={false}
       fitViewOptions={{ maxZoom: 1 }}
       fitView
     >
