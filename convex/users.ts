@@ -165,6 +165,6 @@ export const getUsers = adminAuthQuery({
     paginationOpts: paginationOptsValidator
   },
   async handler({ db }, { paginationOpts }) {
-    return db.query('users').paginate(paginationOpts)
+    return db.query('users').order('desc').paginate(paginationOpts)
   }
 })

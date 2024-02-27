@@ -64,10 +64,6 @@ export default function Users() {
           </div>
         ) : null
       }
-      classNames={{
-        base: 'max-h-[520px] overflow-scroll',
-        table: 'min-h-[420px]'
-      }}
     >
       <TableHeader columns={columns}>
         {(column) => (
