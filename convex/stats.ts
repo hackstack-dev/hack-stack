@@ -30,8 +30,8 @@ export const getMostUsedTech = query({
     const stacks = await db.query('stacks').collect()
     const techs = stacks.flatMap((stack) =>
       stack.stackBlocks.flatMap((block) => ({
-        countBy: block.data.tech.name,
-        icon: block.data.tech.icon
+        countBy: block.data.tech?.name || '',
+        icon: block.data.tech?.icon || ''
       }))
     )
     return getUsedStats(techs)
@@ -72,8 +72,8 @@ export const getMostUsedTechByBlockName = query({
       stack.stackBlocks
         .filter((sb) => blockIds.includes(sb.data.id))
         .flatMap((block) => ({
-          countBy: block.data.tech.name,
-          icon: block.data.tech.icon
+          countBy: block.data.tech?.name || '',
+          icon: block.data.tech?.icon || ''
         }))
     )
     return getUsedStats(techs)

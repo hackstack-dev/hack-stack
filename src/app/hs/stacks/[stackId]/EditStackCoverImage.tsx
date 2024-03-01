@@ -133,15 +133,17 @@ export default function EditStackCoverImage({
           <CardFooter className="absolute bg-black/40 bottom-0 z-10 border-t-1 border-default-600 dark:border-default-100">
             <div className="flex flex-grow gap-2 items-center">
               {stack.stackBlocks.slice(0, 10).map((block, index) => {
-                const logo = getTechLogo(block.data.tech.icon, 'dark')
-                return (
+                const logo = block.data.tech?.icon
+                  ? getTechLogo(block.data.tech.icon, 'dark')
+                  : ''
+                return logo ? (
                   <Image
                     key={`${logo}-${index}`}
                     src={logo}
                     className="h-6 w-6"
                     removeWrapper
                   />
-                )
+                ) : null
               })}
             </div>
           </CardFooter>

@@ -19,12 +19,12 @@ export default function TechStats({ techName }: { techName: string }) {
       {techUsage?.p ? (
         <div className="rounded-xl border dark:border-default-100">
           <div className="p-6 flex flex-row items-center justify-between space-y-0 pb-2">
-            <h3 className="tracking-tight text-sm font-medium">
-              All time
-            </h3>
+            <h3 className="tracking-tight text-sm font-medium">All time</h3>
           </div>
           <div className="p-6 pt-0">
-            <div className="text-2xl font-bold text-primary">{techUsage?.p}%</div>
+            <div className="text-2xl font-bold text-primary">
+              {techUsage?.p}%
+            </div>
             <p className="text-xs text-default-400">
               {techUsage?.count} stacks
             </p>

@@ -134,7 +134,7 @@ export const getTechUsage = query({
     const stacks = await db.query('stacks').collect()
     // filter stacks that use this tech
     const techs = stacks.filter((stack) =>
-      stack.stackBlocks.some((block) => block.data.tech.name === techName)
+      stack.stackBlocks.some((block) => block.data.tech?.name === techName)
     )
     // find which project types use this tech
     const projectTypes = techs.flatMap((stack) => stack.projectTypes)
@@ -174,7 +174,7 @@ export const getTechUseagePerDay = authQuery({
 
     // filter stacks that use this tech
     const techs = stacks.filter((stack) =>
-      stack.stackBlocks.some((block) => block.data.tech.name === techName)
+      stack.stackBlocks.some((block) => block.data.tech?.name === techName)
     )
 
     // count tech useage per day

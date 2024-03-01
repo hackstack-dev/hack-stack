@@ -15,6 +15,7 @@ import CanvasControls from '@/app/hs/stacks/components/share/controls/CanvasCont
 import { Button } from '@nextui-org/button'
 import { toPng, toSvg, toJpeg } from 'html-to-image'
 import { useTheme } from 'next-themes'
+import GroupControls from '@/app/hs/stacks/components/share/controls/GroupControls'
 
 interface ShareStackStudioProps {
   stack: Stack
@@ -27,7 +28,8 @@ export default function ShareStackStudio({ stack }: ShareStackStudioProps) {
     getDetailsNode(stack),
     ...stack.stackBlocks.map((n) => ({
       ...n,
-      type: 'customBlockNode'
+      type:
+        n.type === 'resizeableGroupNode' ? 'customGroupNode' : 'customBlockNode'
     }))
   ] as Node[])
 
@@ -76,6 +78,8 @@ export default function ShareStackStudio({ stack }: ShareStackStudioProps) {
         <DetailsControls />
         <Divider className="my-4" />
         <BlockControls />
+        <Divider className="my-4" />
+        <GroupControls />
       </ScrollShadow>
 
       <div className="flex flex-col">

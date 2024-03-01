@@ -2,7 +2,7 @@ import React from 'react'
 import { Node } from 'reactflow'
 import { BlockNodeData } from '@/app/hs/stacks/components/blocks/Blocks.types'
 import { Input } from '@nextui-org/input'
-import { LucideArrowLeft, LucideSearch } from 'lucide-react'
+import { LucideSearch } from 'lucide-react'
 import { useQuery } from 'convex/react'
 import { api } from '~/convex/_generated/api'
 import Image from 'next/image'
@@ -12,23 +12,18 @@ import { useTheme } from 'next-themes'
 import StackViewTechDetails from '@/app/hs/stacks/view/[stackId]/StackViewTechDetails'
 
 interface BlockDataPanelProps {
-  nodes: Node[]
+  selectedNode: Node<BlockNodeData>
   onUpdateBlock: (
     blockId: BlockNodeData['id'],
     blockSelectedTech: BlockNodeData['tech']
   ) => void
 }
 export default function BlockDataPanel({
-  nodes,
+  selectedNode,
   onUpdateBlock
 }: BlockDataPanelProps) {
   const { theme } = useTheme()
   const [search, setSearch] = React.useState('')
-
-  const selectedNode = React.useMemo(
-    () => nodes?.find((node) => node.selected),
-    [nodes]
-  )
 
   const tech =
     useQuery(
@@ -44,61 +39,47 @@ export default function BlockDataPanel({
   }
 
   return (
-    <div className="p-4 h-full w-full bg-default-50 dark:bg-black border-l-1 dark:border-default-50">
-      {selectedNode ? (
-        <>
-          <h2 className="text-xl dark:text-default-500">
-            {selectedNode?.data?.blockName}
-          </h2>
-          {tech && tech.length > 20 && (
-            <div className="mt-4">
-              <Input
-                size="sm"
-                placeholder={'Search technologies'}
-                onValueChange={setSearch}
-                startContent={<LucideSearch strokeWidth={1} />}
-              />
-            </div>
-          )}
-          <ul className="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 text-center gap-4">
-            {tech.slice(0, 20).map((tech) => (
-              <li
-                key={tech.name}
-                className={cn(
-                  'p-2 cursor-pointer rounded-md hover:ring-1 ring-secondary transition-all',
-                  selectedNode?.data?.tech?.name === tech.name &&
-                    'ring-1 ring-secondary'
-                )}
-                onClick={() => handleBlockUpdate(tech)}
-              >
-                <Image
-                  src={getTechLogo(tech.icon, theme)}
-                  alt={tech.name}
-                  width={32}
-                  height={32}
-                  className="h-8 mx-auto"
-                />
-                <span className="text-xs">{tech.name}</span>
-              </li>
-            ))}
-          </ul>
-          <div className="my-6">
-            {selectedNode?.data?.tech?.name && (
-              <StackViewTechDetails
-                name={selectedNode.data.tech.name}
-                embeded
-              />
-            )}
-          </div>
-        </>
-      ) : (
-        <div className="flex flex-col items-center justify-center w-full h-full">
-          <p className="text-default-400 p-5 border border-dashed border-secondary/50 rounded-medium flex items-center gap-2">
-            <LucideArrowLeft />
-            Select a block to view details
-          </p>
+    <>
+      <h2 className="text-xl dark:text-default-500">
+        {selectedNode?.data?.blockName}
+      </h2>
+      {tech && tech.length > 20 && (
+        <div className="mt-4">
+          <Input
+            size="sm"
+            placeholder={'Search technologies'}
+            onValueChange={setSearch}
+            startContent={<LucideSearch strokeWidth={1} />}
+          />
         </div>
       )}
-    </div>
+      <ul className="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 text-center gap-4">
+        {tech.slice(0, 20).map((tech) => (
+          <li
+            key={tech.name}
+            className={cn(
+              'p-2 cursor-pointer rounded-md hover:ring-1 ring-secondary transition-all',
+              selectedNode?.data?.tech?.name === tech.name &&
+                'ring-1 ring-secondary'
+            )}
+            onClick={() => handleBlockUpdate(tech)}
+          >
+            <Image
+              src={getTechLogo(tech.icon, theme)}
+              alt={tech.name}
+              width={32}
+              height={32}
+              className="h-8 mx-auto"
+            />
+            <span className="text-xs">{tech.name}</span>
+          </li>
+        ))}
+      </ul>
+      <div className="my-6">
+        {selectedNode?.data?.tech?.name && (
+          <StackViewTechDetails name={selectedNode.data.tech.name} embeded />
+        )}
+      </div>
+    </>
   )
 }

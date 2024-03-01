@@ -1,5 +1,6 @@
 import { proxy } from 'valtio'
 import {
+  ShareSettings,
   ShareStackBlockSettings,
   ShareStackDetailsSettings
 } from '@/app/hs/stacks/components/share/ShareStack.types'
@@ -29,3 +30,15 @@ export const shareStackDetailsSettings = proxy<ShareStackDetailsSettings>({
   borderRadius: 4,
   boxShadow: 'unset'
 })
+
+export const shareStackGroupSettings = proxy<ShareSettings>({
+  background: 'transparent',
+  color: '#fff',
+  fontSize: 16,
+  borderColor: '#fff',
+  borderWidth: 1,
+  borderRadius: 4,
+  boxShadow: 'unset'
+})
+
+

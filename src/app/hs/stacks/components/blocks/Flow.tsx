@@ -1,11 +1,12 @@
-import React from 'react'
+import React, { DragEventHandler } from 'react'
 import ReactFlow, {
   Node,
   OnNodesChange,
   Background,
   BackgroundVariant,
   BackgroundProps,
-  NodeChange
+  NodeChange,
+  NodeDragHandler
 } from 'reactflow'
 
 import 'reactflow/dist/style.css'
@@ -14,26 +15,40 @@ import BlockNode from '@/app/hs/stacks/components/blocks/node-types/BlockNode'
 import useSetCenter from '@/app/hs/stacks/components/blocks/hooks/useSetCenter'
 import CustomBlockNode from '@/app/hs/stacks/components/blocks/node-types/CustomBlockNode'
 import StackDetailsNode from '@/app/hs/stacks/components/blocks/node-types/StackDetailsNode'
+import ResizableGroupNode from '@/app/hs/stacks/components/blocks/node-types/ResizableGroupNode'
+import CustomGroupNode from '@/app/hs/stacks/components/blocks/node-types/CustomGroupNode'
 
 const nodeTypes = {
   blockNode: BlockNode,
   customBlockNode: CustomBlockNode,
-  stackDetailsNode: StackDetailsNode
+  stackDetailsNode: StackDetailsNode,
+  resizeableGroupNode: ResizableGroupNode,
+  customGroupNode: CustomGroupNode
 }
 
-interface FlowProps {
+interface FlowProps<T> {
   nodes: Node[]
   setNodes: (nodes: Node[]) => void
   onNodesChange: OnNodesChange
+  onNodeDrag?: NodeDragHandler
+  onNodeDragStop?: NodeDragHandler
+  onDrop?: DragEventHandler
+  onDragOver?: DragEventHandler
   viewOnly?: boolean
+  snapToGrid?: boolean
   background?: BackgroundProps
 }
-export default function Flow({
+export default function Flow<T = Element>({
   nodes,
   onNodesChange,
+  onNodeDrag,
+  onNodeDragStop,
+  onDrop,
+  onDragOver,
   viewOnly = false,
+  snapToGrid = false,
   background
-}: FlowProps) {
+}: FlowProps<T>) {
   const { theme } = useTheme()
 
   const bgProps = React.useMemo(
@@ -53,17 +68,23 @@ export default function Flow({
     if (viewOnly && changes.some((c) => c.type === 'remove')) return
     onNodesChange(changes)
   }
+
   return (
     <ReactFlow
       nodes={nodes}
       edges={[]}
       nodeTypes={nodeTypes}
       onNodesChange={handleNodesChangechanges}
+      onNodeDrag={onNodeDrag}
+      onNodeDragStop={onNodeDragStop}
+      onDrop={onDrop}
+      onDragOver={onDragOver}
       selectNodesOnDrag={false}
       proOptions={{
         hideAttribution: true
       }}
       fitViewOptions={{ maxZoom: 1 }}
+      snapToGrid={snapToGrid}
       fitView
     >
       <Background {...bgProps} />

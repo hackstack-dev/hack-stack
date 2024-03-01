@@ -12,7 +12,7 @@ export function NewBlockDialog({ onAddBlock }: AddBlockProps) {
   return (
     <>
       <Button
-        color="primary"
+        color="secondary"
         variant="solid"
         startContent={<LucidePlus size={16} strokeWidth={1.5} />}
         className="absolute top-6 left-6 z-10"

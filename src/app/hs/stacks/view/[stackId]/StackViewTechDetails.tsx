@@ -25,7 +25,7 @@ export default function StackViewTechDetails({
 
   useOnSelectionChange({
     onChange: ({ nodes }) => {
-      setTechName(nodes[0]?.data.tech.name)
+      setTechName(nodes[0]?.data.tech?.name)
     }
   })
 

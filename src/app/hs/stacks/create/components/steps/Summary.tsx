@@ -1,8 +1,7 @@
 import { StackStateProps } from '@/app/hs/stacks/create/create.types'
-import BlockNodeDataDisplay from '@/app/hs/stacks/components/blocks/node-types/BlockNodeDataDisplay'
 import { RoughNotation, RoughNotationGroup } from 'react-rough-notation'
 import PageTitle from '@/app/hs/components/ui/PageTitle'
-
+import BlocksSummary from '@/app/hs/stacks/create/components/steps/BlocksSummary'
 interface SummaryProps {
   stackState: StackStateProps['stackState']
 }
@@ -75,17 +74,7 @@ export default function Summary({ stackState }: SummaryProps) {
             </p>
           )}
         </RoughNotationGroup>
-
-        <h2 className="text-2xl font-bold mt-12 mb-4">Blocks</h2>
-        <div className="my-8 flex flex-wrap items-center gap-4">
-          {stackBlocks.map((block) => (
-            <BlockNodeDataDisplay
-              key={block.id}
-              selected={false}
-              {...block.data}
-            />
-          ))}
-        </div>
+        <BlocksSummary stackBlocks={stackBlocks} />
       </div>
     </div>
   )

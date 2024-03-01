@@ -19,14 +19,16 @@ export const stacksValidator = v.object({
       data: v.object({
         id: v.string(),
         blockName: v.string(),
-        tech: v.object({
-          blockId: v.id('blocks'),
-          name: v.string(),
-          icon: v.string(),
-          githubUrl: v.optional(v.string()),
-          websiteUrl: v.optional(v.string()),
-          description: v.optional(v.string())
-        })
+        tech: v.optional(
+          v.object({
+            blockId: v.id('blocks'),
+            name: v.string(),
+            icon: v.string(),
+            githubUrl: v.optional(v.string()),
+            websiteUrl: v.optional(v.string()),
+            description: v.optional(v.string())
+          })
+        )
       }),
       position: v.object({
         x: v.number(),
@@ -41,7 +43,12 @@ export const stacksValidator = v.object({
       width: v.optional(v.union(v.number(), v.null())),
       height: v.optional(v.union(v.number(), v.null())),
       selected: v.optional(v.boolean()),
-      dragging: v.optional(v.boolean())
+      dragging: v.optional(v.boolean()),
+      resizing: v.optional(v.boolean()),
+      extent: v.optional(v.any()),
+      parentNode: v.optional(v.string()),
+      className: v.optional(v.string()),
+      style: v.optional(v.any())
     })
   )
 })
@@ -126,7 +133,7 @@ export default defineSchema({
     targetUserId: v.id('users'),
     type: v.union(
       v.literal('suggestionApproved'),
-        v.literal('suggestionRejected'),
+      v.literal('suggestionRejected'),
       v.literal('achivement'),
       v.literal('feedback'),
       v.literal('feedbackReply')
