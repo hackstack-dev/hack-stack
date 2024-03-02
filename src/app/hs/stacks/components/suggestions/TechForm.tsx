@@ -27,7 +27,7 @@ const techFormSchema = z.object({
     .min(10, 'Tech description must contain at least 10 characters')
     .max(500, 'Tech description must contain at most 500 characters'),
   blockId: z.string(),
-  logo: z.custom<File>().refine((file) => !!file.name, 'Tech logo is required'),
+  logo: z.custom<File>().refine((file) => !!file?.name, 'Tech logo is required'),
   githubUrl: z.string().url().optional().or(z.literal('')),
   websiteUrl: z.string().url().optional().or(z.literal(''))
 })
