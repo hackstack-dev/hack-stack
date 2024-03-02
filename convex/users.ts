@@ -158,7 +158,10 @@ export const getTopStackBuilders = authQuery({
 
 export const getTopTemplateMakers = authQuery({
   async handler({ db }) {
-    const templates = await db.query('templates').collect()
+    const templates = await db
+      .query('templates')
+      .filter((q) => q.eq(q.field('isPublic'), true))
+      .collect()
     return countTopUsers<typeof templates>(templates)
   }
 })
