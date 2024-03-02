@@ -4,13 +4,10 @@ import {
   authAction,
   pointsPerSuggestionType
 } from '~/convex/utils'
-import { Suggestion, SuggestionWithoutUser, UnwrapConvex } from '~/convex/types'
+import { Suggestion, SuggestionWithoutUser } from '~/convex/types'
 import { internalMutation, internalQuery } from '~/convex/_generated/server'
 import { internal } from '~/convex/_generated/api'
-import { Id } from '~/convex/_generated/dataModel'
 import { v } from 'convex/values'
-import { internalAddNotification } from '~/convex/notifications'
-import { uploadLogo } from '~/convex/imageKit'
 import { paginationOptsValidator } from 'convex/server'
 
 export const insertSuggestion = internalMutation({

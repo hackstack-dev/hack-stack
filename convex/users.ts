@@ -148,7 +148,10 @@ function countTopUsers<T extends { userId: Id<'users'> }[]>(data: T) {
 export const getTopStackBuilders = authQuery({
   async handler({ db }) {
     // get all stacks and group by userId
-    const stacks = await db.query('stacks').collect()
+    const stacks = await db
+      .query('stacks')
+      .filter((q) => q.eq(q.field('isPublic'), true))
+      .collect()
     return countTopUsers<typeof stacks>(stacks)
   }
 })
