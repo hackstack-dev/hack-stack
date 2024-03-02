@@ -4,14 +4,15 @@ import { Node } from 'reactflow'
 import { BlockNodeData } from '@/app/hs/stacks/components/blocks/Blocks.types'
 import { cn } from '@/app/lib/utils'
 import { StackState } from '@/app/hs/stacks/create/create.types'
+import { FancyStepTitle } from '@/app/hs/stacks/create/components/layout/FancyStepTitle'
 
 interface BlocksSummaryProps {
   stackBlocks: StackState['stackBlocks']
 }
 const BlocksSummary = ({ stackBlocks }: BlocksSummaryProps) => {
   return (
-    <>
-      <h2 className="text-2xl font-bold mt-12 mb-4">Blocks</h2>
+    <div className="mt-10">
+      <FancyStepTitle>Blocks</FancyStepTitle>
       <div className="my-8 flex flex-wrap items-start gap-4">
         {stackBlocks.map((block, index, list) => {
           return block.type === 'blockNode' && !block.parentNode ? (
@@ -43,7 +44,7 @@ const BlocksSummary = ({ stackBlocks }: BlocksSummaryProps) => {
           ) : null
         })}
       </div>
-    </>
+    </div>
   )
 }
 

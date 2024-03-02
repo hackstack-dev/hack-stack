@@ -9,7 +9,7 @@ import { StackState } from '@/app/hs/stacks/create/create.types'
 import { StepContainer } from '@/app/hs/stacks/create/components/layout/StepContainer'
 import { Doc } from '~/convex/_generated/dataModel'
 import { ReactFlowProvider } from 'reactflow'
-import Summary from '@/app/hs/stacks/create/components/steps/Summary'
+import Summary from '@/app/hs/stacks/create/components/steps/summary/Summary'
 import { useMutation } from 'convex/react'
 import { api } from '~/convex/_generated/api'
 import { useRouter } from 'next/navigation'
@@ -25,7 +25,9 @@ export default function CreateStackWizard() {
     websiteUrl: '',
     description: '',
     template: {} as Doc<'templates'>,
-    stackBlocks: []
+    isPublic: true,
+    stackBlocks: [],
+    coverImage: getRandomBackground()
   })
 
   const saveStack = useMutation(api.stack.saveStack)
@@ -41,9 +43,8 @@ export default function CreateStackWizard() {
     // save stack
     const { template, ...rest } = createStackState
     const templateId = template?._id ?? ''
-    const coverImage = getRandomBackground()
     await saveStack({
-      stack: { ...rest, templateId, coverImage, isPublic: false }
+      stack: { ...rest, templateId }
     })
     router.push('/hs/stacks')
   }
@@ -72,7 +73,7 @@ export default function CreateStackWizard() {
         />
       </ReactFlowProvider>
       <StepContainer>
-        <Summary stackState={createStackState} />
+        <Summary stackState={createStackState} onStateChange={handleStackStateChange} />
       </StepContainer>
     </Wizard>
   )

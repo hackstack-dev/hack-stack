@@ -8,6 +8,10 @@ import UserProfileLink from '@/app/hs/components/ui/UserProfileLink'
 import Likes from '@/app/hs/stacks/components/Likes'
 import { Id } from '~/convex/_generated/dataModel'
 import StackViewSidebar from '@/app/hs/stacks/view/[stackId]/StackViewSidebar'
+import BlocksToolbar, {
+  snapToGridEnabled
+} from '@/app/hs/stacks/components/blocks/BlocksToolbar'
+import { useSnapshot } from 'valtio'
 
 interface StackViewBlocksProps {
   nodes: Node[]
@@ -25,6 +29,7 @@ export default function StackViewBlocks({
   stackId,
   isOpenForFeedbacks
 }: StackViewBlocksProps) {
+  const snapToGrid = useSnapshot(snapToGridEnabled)
   return (
     <div className="grow border-1 rounded dark:border-default-50">
       <PanelGroup direction="horizontal">
@@ -42,15 +47,21 @@ export default function StackViewBlocks({
               nodes={nodes}
               setNodes={setNodes}
               onNodesChange={onNodesChange}
+              snapToGrid={snapToGrid.value}
               viewOnly
             />
+            <BlocksToolbar />
           </section>
         </Panel>
         <PanelResizeHandle className="relative">
           <ResizeHandle />
         </PanelResizeHandle>
         <Panel defaultSize={35} minSize={0}>
-          <StackViewSidebar userId={userId} stackId={stackId} isOpenForFeedbacks={isOpenForFeedbacks} />
+          <StackViewSidebar
+            userId={userId}
+            stackId={stackId}
+            isOpenForFeedbacks={isOpenForFeedbacks}
+          />
         </Panel>
       </PanelGroup>
     </div>

@@ -16,7 +16,8 @@ export const stackFormSchema = z.object({
     .min(1, 'Please select at least one project type'),
   sourceCodeUrl: z.string().url().optional().or(z.literal('')),
   websiteUrl: z.string().url().optional().or(z.literal('')),
-  description: z.string().optional()
+  description: z.string().optional(),
+  isPublic: z.boolean()
 })
 
 export type StackForm = z.infer<typeof stackFormSchema>
@@ -24,6 +25,7 @@ export type StackForm = z.infer<typeof stackFormSchema>
 export type StackState = StackForm & {
   template?: Doc<'templates'>
   stackBlocks: Node<BlockNodeData | GroupNodeData>[]
+  coverImage: string
 }
 export interface StackStateProps {
   stackState: StackState
