@@ -40,7 +40,7 @@ export default function FeedbackList({ stackId }: FeedbackListProps) {
           onSendReply={handleSendReply}
         />
       ))}
-      {status === 'CanLoadMore' && (
+      {status !== 'Exhausted' && (
         <div className="mt-4 w-full flex justify-center">
           <Button
             size="sm"
