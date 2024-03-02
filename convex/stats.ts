@@ -29,7 +29,7 @@ export const getMostUsedTech = query({
   handler: async ({ db }) => {
     const stacks = await db.query('stacks').collect()
     const techs = stacks.flatMap((stack) =>
-      stack.stackBlocks.flatMap((block) => ({
+      stack.stackBlocks.filter(sb => sb.type === 'blockNode').flatMap((block) => ({
         countBy: block.data.tech?.name || '',
         icon: block.data.tech?.icon || ''
       }))
