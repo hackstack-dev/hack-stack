@@ -172,7 +172,7 @@ export function BlockForm() {
                   size="sm"
                   placeholder="Insert tag"
                   value={tagsInputValue}
-                  onChange={(e) => setTagsInputValue(e.target.value)}
+                  onValueChange={(value) => setTagsInputValue(value)}
                   onKeyDown={handleAddTag}
                 />
               }

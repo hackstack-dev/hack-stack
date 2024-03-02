@@ -8,7 +8,7 @@ import React from 'react'
 import { cn, getTechLogo } from '@/app/lib/utils'
 import Image from 'next/image'
 import { useTheme } from 'next-themes'
-import {LucideMinus, LucideX} from 'lucide-react'
+import { LucideMinus, LucideX } from 'lucide-react'
 interface GroupDataPanelProps {
   nodes: Node<BlockNodeData | GroupNodeData>[]
   selectedNode: Node<GroupNodeData>
@@ -34,8 +34,8 @@ export default function GroupDataPanel({
         variant="underlined"
         label="Group name"
         value={selectedNode.data.blockName}
-        onChange={(e) => {
-          onUpdateGroup(selectedNode.id, e.target.value)
+        onValueChange={(value) => {
+          onUpdateGroup(selectedNode.id, value)
         }}
       />
       <ul className="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 text-center gap-4">

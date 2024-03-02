@@ -23,6 +23,7 @@ import {
   groupsFirst
 } from '@/app/hs/stacks/components/blocks/helpers/StackBlocks.utils'
 import StackBlocksDataPanel from '@/app/hs/stacks/components/blocks/StackBlocksDataPanel'
+import AddGroupButton from '@/app/hs/stacks/components/blocks/AddGroupButton'
 
 interface StackBlocksProps {
   initialNodes: Node<BlockNodeData | GroupNodeData, string | undefined>[]
@@ -199,17 +200,7 @@ export default function StackBlocks({
         <Panel minSize={70}>
           <section className="h-full w-full relative">
             <NewBlockDialog onAddBlock={handleAddBlock} />
-            <Button
-              color="default"
-              variant="faded"
-              startContent={<LucidePlus size={16} strokeWidth={1.5} />}
-              className="absolute top-6 left-28 z-10"
-              radius="md"
-              size="sm"
-              onPress={handleAddGroup}
-            >
-              Group
-            </Button>
+            <AddGroupButton handleAddGroup={handleAddGroup} />
             <BlocksToolbar />
             <Flow
               nodes={nodes}

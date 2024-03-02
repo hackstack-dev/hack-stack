@@ -81,7 +81,7 @@ export default function StackViewTechDetails({
           <ScrollShadow
             hideScrollBar
             className={cn(
-              'h-[calc(100vh-338px)] py-4',
+              'h-[calc(100vh-384px)] py-4',
               embeded && 'h-full pb-0'
             )}
           >

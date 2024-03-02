@@ -15,7 +15,7 @@ export function NewBlockDialog({ onAddBlock }: AddBlockProps) {
         color="secondary"
         variant="solid"
         startContent={<LucidePlus size={16} strokeWidth={1.5} />}
-        className="absolute top-6 left-6 z-10"
+        className="absolute top-4 left-4 z-10"
         radius="md"
         size="sm"
         onPress={onOpen}
