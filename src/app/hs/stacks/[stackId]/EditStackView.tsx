@@ -26,7 +26,9 @@ export default function EditStackView({ stackId }: StackViewProps) {
     sourceCodeUrl: '',
     websiteUrl: '',
     description: '',
-    stackBlocks: []
+    stackBlocks: [],
+    isPublic: true,
+    coverImage: ''
   })
 
   React.useEffect(() => {
@@ -37,7 +39,9 @@ export default function EditStackView({ stackId }: StackViewProps) {
         sourceCodeUrl: stack.sourceCodeUrl,
         websiteUrl: stack.websiteUrl,
         description: stack.description,
-        stackBlocks: stack.stackBlocks as Node<BlockNodeData>[]
+        stackBlocks: stack.stackBlocks as Node<BlockNodeData>[],
+        isPublic: stack.isPublic,
+        coverImage: stack.coverImage
       })
     }
   }, [stack])
