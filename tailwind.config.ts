@@ -9,9 +9,7 @@ const config: Config = {
     './node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}'
   ],
   theme: {
-    extend: {
-
-    }
+    extend: {}
   },
   plugins: [
     nextui({
@@ -54,7 +52,7 @@ const config: Config = {
           colors: {
             primary: {
               DEFAULT: '#000',
-              foreground: '#fff'
+              foreground: '#f7f7f7'
             },
             success: {
               DEFAULT: '#4ade80'
