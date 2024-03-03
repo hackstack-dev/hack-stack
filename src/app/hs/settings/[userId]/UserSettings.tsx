@@ -1,6 +1,5 @@
 import React from 'react'
 import { Id } from '~/convex/_generated/dataModel'
-import { Card, CardBody, CardHeader } from '@nextui-org/card'
 import { useMutation, useQuery } from 'convex/react'
 import { api } from '~/convex/_generated/api'
 import { UserSettingsWithoutUser } from '~/convex/types'
