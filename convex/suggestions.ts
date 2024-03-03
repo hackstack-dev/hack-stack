@@ -2,6 +2,7 @@ import {
   adminAuthAction,
   adminAuthQuery,
   authAction,
+  authQuery,
   pointsPerSuggestionType
 } from '~/convex/utils'
 import { Suggestion, SuggestionWithoutUser } from '~/convex/types'
@@ -71,10 +72,11 @@ export const getSuggestions = adminAuthQuery({
 
 export const internalApproveSuggestion = internalMutation({
   args: {
-    suggestionId: v.id('suggestions')
+    suggestionId: v.id('suggestions'),
+    newLogoName: v.string()
   },
-  handler: async ({ db }, { suggestionId }) => {
-    return await db.patch(suggestionId, { approved: true })
+  handler: async ({ db }, { suggestionId, newLogoName }) => {
+    return await db.patch(suggestionId, { approved: true, logo: newLogoName })
   }
 })
 
@@ -123,9 +125,10 @@ export const approveSuggestion = adminAuthAction({
         newName: newLogoName
       })
     }
-    // update suggestion to approved
+    // update suggestion to approved and new logo name
     await runMutation(internal.suggestions.internalApproveSuggestion, {
-      suggestionId
+      suggestionId,
+      newLogoName: `${newLogoName}.svg`
     })
     // insert new notification for user who suggested
     if (suggestion) {
@@ -170,5 +173,34 @@ export const deleteSuggestion = adminAuthAction({
       suggestionId
     })
     return true
+  }
+})
+
+export const getUserSuggestions = authQuery({
+  args: {
+    userId: v.id('users')
+  },
+  handler: async ({ db }, { userId }) => {
+    const userSuggestions = await db
+      .query('suggestions')
+      .withIndex('by_userId', (q) => q.eq('userId', userId))
+      .filter((q) => q.eq(q.field('approved'), true))
+      .collect()
+
+    const totalPoints = userSuggestions.reduce((acc, suggestion) => {
+      return acc + pointsPerSuggestionType[suggestion.type]
+    }, 0)
+
+    const suggestions = userSuggestions.map((suggestion) => {
+      return {
+        ...suggestion,
+        points: pointsPerSuggestionType[suggestion.type]
+      }
+    })
+
+    return {
+      suggestions,
+      totalPoints
+    }
   }
 })
