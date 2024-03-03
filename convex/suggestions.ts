@@ -40,6 +40,10 @@ export const saveSuggestion = authAction(
       }
     }
     await runMutation(internal.suggestions.insertSuggestion, newSuggestion)
+    await runAction(internal.email.sendEmail, {
+      subject: 'Suggestion Received',
+      html: `<p>A suggestion for <b>${suggestion.name}</b> has been received.</p>`
+    })
   }
 )
 

@@ -71,12 +71,12 @@ export default function MostUsedStats({
                       <Image
                         src={getTechLogo(entry.icon, theme)}
                         alt={item}
-                        width={24}
-                        height={24}
+                        width={20}
+                        height={20}
                       />
                     </div>
                   )}
-                  <div className="font-light text-default-500 text-small">
+                  <div className="font-light text-default-500 text-xs">
                     {item}
                   </div>
                 </div>

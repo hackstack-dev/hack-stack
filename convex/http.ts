@@ -35,6 +35,10 @@ http.route({
             name,
             profileImage: result.data.image_url
           })
+          await runAction(internal.email.sendEmail, {
+            subject: 'A new user has signed up',
+            html: `<p>A new user with the name <b>${name}</b> and email <b>${email}</b> has signed up.</p>`
+          })
           break
         }
         case 'user.updated':
