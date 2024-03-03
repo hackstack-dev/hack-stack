@@ -4,7 +4,7 @@ import { Id } from '~/convex/_generated/dataModel'
 import UserProfile from '@/app/hs/profile/[userId]/UserProfile'
 import UserProfileItems from '@/app/hs/profile/[userId]/items/UserProfileItems'
 
-export default function EditTemplatePage({
+export default function UserProfilePage({
   params
 }: { params: { userId: Id<'users'> } }) {
   const userId = params.userId

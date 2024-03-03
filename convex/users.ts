@@ -46,7 +46,7 @@ export const createUser = internalMutation({
 
     if (user) return
 
-    await db.insert('users', {
+    return await db.insert('users', {
       email,
       userId,
       profileImage,

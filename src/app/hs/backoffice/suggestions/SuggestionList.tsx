@@ -2,7 +2,7 @@
 
 import { useAction, usePaginatedQuery, useQuery } from 'convex/react'
 import { api } from '~/convex/_generated/api'
-import { Divider, Switch } from '@nextui-org/react'
+import { Divider, Select, SelectItem, Switch } from '@nextui-org/react'
 import React from 'react'
 import { Card, CardBody, CardFooter, CardHeader } from '@nextui-org/card'
 import { colorMap } from '@/app/lib/utils'
@@ -17,7 +17,13 @@ import { toast } from 'sonner'
 import dayjs from 'dayjs'
 import { Suggestion } from '@/app/hs/stacks/components/suggestions/Suggestion'
 import PageDataLoading from '@/app/hs/components/ui/PageDataLoading'
+import { shareStackBlockSettings } from '@/app/hs/stacks/components/share/Share.state'
 
+const reasons = [
+  { label: 'Already exists', value: 'Already exists' },
+  { label: 'Missing information', value: 'Missing information' },
+  { label: 'Not relevant', value: 'Not relevant' }
+]
 export default function SuggestionList() {
   const [showPending, setShowPending] = React.useState(true)
   const { results, status, loadMore } = usePaginatedQuery(
@@ -29,6 +35,7 @@ export default function SuggestionList() {
   const blocks = useQuery(api.blocks.getAllBlocks, {})
 
   const [currentAction, setCurrentAction] = React.useState('')
+  const [reason, setReason] = React.useState(reasons[0].value)
 
   const approveSuggestion = useAction(api.suggestions.approveSuggestion)
   const deleteSuggestion = useAction(api.suggestions.deleteSuggestion)
@@ -48,7 +55,10 @@ export default function SuggestionList() {
 
   const handleDelete = async (suggestionId: Id<'suggestions'>) => {
     try {
-      await deleteSuggestion({ suggestionId })
+      await deleteSuggestion({
+        suggestionId,
+        rejectReason: Array.from(reason)[0]
+      })
       toast.success('Suggestion deleted')
     } catch (error) {
       console.error(error)
@@ -131,35 +141,53 @@ export default function SuggestionList() {
                 </div>
               </CardBody>
               <Divider />
-              <CardFooter className="flex items-center justify-between">
-                {suggestion.approved ? (
-                  <div className="flex items-center gap-1">
-                    <LucideCheck stroke="green" />
-                    Approved
-                  </div>
-                ) : (
-                  <Button
-                    size="sm"
-                    color="success"
-                    variant="flat"
-                    onClick={() => handleApprove(suggestion._id)}
-                    isLoading={currentAction === suggestion._id}
-                  >
-                    Approve
-                  </Button>
-                )}
+              <CardFooter className="flex flex-col">
+                <div className="flex items-center justify-between mb-6">
+                  {suggestion.approved ? (
+                    <div className="flex items-center gap-1">
+                      <LucideCheck stroke="green" />
+                      Approved
+                    </div>
+                  ) : (
+                    <Button
+                      size="sm"
+                      color="success"
+                      variant="flat"
+                      onClick={() => handleApprove(suggestion._id)}
+                      isLoading={currentAction === suggestion._id}
+                    >
+                      Approve
+                    </Button>
+                  )}
 
+                  {!suggestion.approved && (
+                    <Button
+                      onClick={() => handleDelete(suggestion._id)}
+                      color="danger"
+                      variant="light"
+                      radius="full"
+                      isLoading={currentAction === suggestion._id}
+                      isIconOnly
+                    >
+                      <LucideTrash size={16} strokeWidth={2} />
+                    </Button>
+                  )}
+                </div>
                 {!suggestion.approved && (
-                  <Button
-                    onClick={() => handleDelete(suggestion._id)}
-                    color="danger"
-                    variant="light"
-                    radius="full"
-                    isLoading={currentAction === suggestion._id}
-                    isIconOnly
+                  <Select
+                    size="sm"
+                    labelPlacement="outside"
+                    selectedKeys={reason}
+                    onSelectionChange={(key) => {
+                      setReason(key as string)
+                    }}
                   >
-                    <LucideTrash size={16} strokeWidth={2} />
-                  </Button>
+                    {reasons.map((r) => (
+                      <SelectItem key={r.value} value={r.value}>
+                        {r.label}
+                      </SelectItem>
+                    ))}
+                  </Select>
                 )}
               </CardFooter>
             </Card>

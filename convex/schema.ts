@@ -68,6 +68,20 @@ export const suggestionsValidator = v.object({
   websiteUrl: v.optional(v.string()),
   blockId: v.optional(v.id('blocks'))
 })
+
+export const userSettingsValidator = v.object({
+  userId: v.id('users'),
+  feedbackReceivedEmail: v.boolean(),
+  feedbackReceivedInApp: v.boolean(),
+  feedbackReplyEmail: v.boolean(),
+  feedbackReplyInApp: v.boolean(),
+  suggestionApprovedEmail: v.boolean(),
+  suggestionApprovedInApp: v.boolean(),
+  suggestionRejectedEmail: v.boolean(),
+  suggestionRejectedInApp: v.boolean(),
+  promotionEmail: v.boolean()
+})
+
 export default defineSchema({
   plans: defineTable({ name: v.string(), userId: v.id('users') }),
 
@@ -167,5 +181,9 @@ export default defineSchema({
     reply: v.string()
   })
     .index('by_feedbackId', ['feedbackId'])
-    .index('by_userId', ['fromUserId'])
+    .index('by_userId', ['fromUserId']),
+
+  userSettings: defineTable(userSettingsValidator).index('by_userId', [
+    'userId'
+  ])
 })

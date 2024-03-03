@@ -3,6 +3,7 @@ import { ScrollShadow } from '@nextui-org/react'
 import { Doc, Id } from '~/convex/_generated/dataModel'
 import SuggestionApproved from '@/app/hs/components/header/notifications/messages/SuggestionApproved'
 import NewFeedbackOrReply from '@/app/hs/components/header/notifications/messages/NewFeedbackOrReply'
+import SuggestionRejected from '@/app/hs/components/header/notifications/messages/SuggestionRejected'
 
 interface NotificationListProps {
   notifications: Doc<'notifications'>[]
@@ -26,6 +27,9 @@ export default function NotificationList({
           <div className="px-6 py-4">
             {n.type === 'suggestionApproved' && (
               <SuggestionApproved data={n.data} />
+            )}
+            {n.type === 'suggestionRejected' && (
+              <SuggestionRejected data={n.data} />
             )}
             {['feedback', 'feedbackReply'].includes(n.type) && (
               <NewFeedbackOrReply data={n.data} type={n.type} />

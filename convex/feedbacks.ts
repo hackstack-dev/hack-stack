@@ -1,6 +1,7 @@
 import { authMutation, authQuery } from '~/convex/utils'
 import { v } from 'convex/values'
 import { paginationOptsValidator } from 'convex/server'
+import { getOneFrom } from 'convex-helpers/server/relationships'
 
 export const getFeedbackSettingsByStackId = authQuery({
   args: {
@@ -50,6 +51,18 @@ export const createFeedback = authMutation({
     // notify unless the user is giving feedback to their own stack
     const stack = await db.get(stackId)
     if (!stack || stack.userId === user._id) return insertResult
+
+    const userSettings = await getOneFrom(
+      db,
+      'userSettings',
+      'by_userId',
+      stack.userId
+    )
+    // if(userSettings?.feedbackReceivedEmail) {
+    //   // ToDo: notify via email
+    //   // send email
+    // }
+    if(!userSettings?.feedbackReceivedInApp) return insertResult
     return db.insert('notifications', {
       sourceUserId: user._id,
       targetUserId: stack.userId,
@@ -81,6 +94,18 @@ export const createReply = authMutation({
     if (!feedback || feedback?.fromUserId === user._id) return insertResult
     const stack = await db.get(feedback.stackId)
     if (!stack) return insertResult
+
+    const userSettings = await getOneFrom(
+        db,
+        'userSettings',
+        'by_userId',
+        stack.userId
+    )
+    // if(userSettings?.feedbackReplyEmail) {
+    //   // ToDo: notify via email
+    //   // send email
+    // }
+    if(!userSettings?.feedbackReplyInApp) return insertResult
     return db.insert('notifications', {
       sourceUserId: user._id,
       targetUserId: feedback.fromUserId,

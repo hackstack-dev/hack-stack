@@ -29,6 +29,7 @@ import type * as suggestions from "../suggestions.js";
 import type * as tech from "../tech.js";
 import type * as templates from "../templates.js";
 import type * as types from "../types.js";
+import type * as userSettings from "../userSettings.js";
 import type * as users from "../users.js";
 import type * as utils from "../utils.js";
 
@@ -56,6 +57,7 @@ declare const fullApi: ApiFromModules<{
   tech: typeof tech;
   templates: typeof templates;
   types: typeof types;
+  userSettings: typeof userSettings;
   users: typeof users;
   utils: typeof utils;
 }>;

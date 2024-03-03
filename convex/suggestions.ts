@@ -10,6 +10,8 @@ import { internalMutation, internalQuery } from '~/convex/_generated/server'
 import { internal } from '~/convex/_generated/api'
 import { v } from 'convex/values'
 import { paginationOptsValidator } from 'convex/server'
+import { internalGetUserSettings } from '~/convex/userSettings'
+import { getOneFrom } from 'convex-helpers/server/relationships'
 
 export const insertSuggestion = internalMutation({
   handler: async ({ db }, newSuggestion: Suggestion) => {
@@ -130,17 +132,32 @@ export const approveSuggestion = adminAuthAction({
       suggestionId,
       newLogoName: `${newLogoName}.svg`
     })
-    // insert new notification for user who suggested
+    // insert new notification for user who suggested if they have in app notifications enabled
     if (suggestion) {
-      await runMutation(internal.notifications.internalAddNotification, {
-        targetUserId: suggestion.userId,
-        data: {
-          suggestion: suggestion.name,
-          type: suggestion.type,
-          points: pointsPerSuggestionType[suggestion.type]
-        },
-        type: 'suggestionApproved'
-      })
+      const userSettings = await runQuery(
+        internal.userSettings.internalGetUserSettings,
+        {
+          userId: suggestion.userId
+        }
+      )
+      if (userSettings?.suggestionApprovedInApp) {
+        await runMutation(internal.notifications.internalAddNotification, {
+          targetUserId: suggestion.userId,
+          data: {
+            suggestion: suggestion.name,
+            type: suggestion.type,
+            points: pointsPerSuggestionType[suggestion.type]
+          },
+          type: 'suggestionApproved'
+        })
+      }
+      if (userSettings?.suggestionApprovedEmail) {
+        // Todo: send email
+        // await runAction(internal.email.sendEmail, {
+        //   subject: 'Suggestion Approved',
+        //   html: `<p>Your suggestion for <b>${suggestion.name}</b> has been approved.</p>`
+        // })
+      }
     }
 
     return true
@@ -158,9 +175,13 @@ export const internalDeleteSuggestion = internalMutation({
 
 export const deleteSuggestion = adminAuthAction({
   args: {
-    suggestionId: v.id('suggestions')
+    suggestionId: v.id('suggestions'),
+    rejectReason: v.string()
   },
-  handler: async ({ runQuery, runMutation, runAction }, { suggestionId }) => {
+  handler: async (
+    { runQuery, runMutation, runAction },
+    { suggestionId, rejectReason }
+  ) => {
     const suggestion = await runQuery(internal.suggestions.getSuggestionById, {
       suggestionId
     })
@@ -169,9 +190,33 @@ export const deleteSuggestion = adminAuthAction({
         logoIds: suggestion.logoIds
       })
     }
+
     await runMutation(internal.suggestions.internalDeleteSuggestion, {
       suggestionId
     })
+
+    if (!suggestion) return true
+    const userSettings = await runQuery(
+      internal.userSettings.internalGetUserSettings,
+      {
+        userId: suggestion.userId
+      }
+    )
+    // if(userSettings?.suggestionRejectedEmail) {
+    //   // ToDo: notify via email
+    //   // send email
+    // }
+    if (userSettings?.suggestionRejectedInApp) {
+      await runMutation(internal.notifications.internalAddNotification, {
+        targetUserId: suggestion.userId,
+        data: {
+          suggestion: suggestion.name,
+          type: suggestion.type,
+          rejectReason
+        },
+        type: 'suggestionRejected'
+      })
+    }
     return true
   }
 })

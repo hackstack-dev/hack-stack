@@ -4,7 +4,7 @@ import {
   DropdownMenu,
   DropdownTrigger
 } from '@nextui-org/react'
-import { LucideMoreVertical, LucideUser } from 'lucide-react'
+import {LucideMoreVertical, LucideSettings, LucideUser} from 'lucide-react'
 import React from 'react'
 import { Doc } from '~/convex/_generated/dataModel'
 
@@ -25,6 +25,13 @@ export default function AppSettings({ user }: AppSettingsProps) {
         >
           My Profile
         </DropdownItem>
+          <DropdownItem
+              key="settings"
+              href={`/hs/settings/${user._id}`}
+              startContent={<LucideSettings size={16} strokeWidth={1.5} />}
+          >
+              Settings
+          </DropdownItem>
       </DropdownMenu>
     </Dropdown>
   )
