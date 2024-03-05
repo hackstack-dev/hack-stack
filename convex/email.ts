@@ -35,7 +35,7 @@ export const sendEmailToUser = internalAction({
     token: v.string()
   },
   handler: async (_, payload) => {
-    const res = fetch('https://stacks.hackazen.com/api/sendEmail', {
+    return fetch('https://stacks.hackazen.com/api/sendEmail', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
