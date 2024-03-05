@@ -17,7 +17,7 @@ import { toast } from 'sonner'
 import dayjs from 'dayjs'
 import { Suggestion } from '@/app/hs/stacks/components/suggestions/Suggestion'
 import PageDataLoading from '@/app/hs/components/ui/PageDataLoading'
-import { shareStackBlockSettings } from '@/app/hs/stacks/components/share/Share.state'
+import { useAuth } from '@clerk/nextjs'
 
 const reasons = [
   { label: 'Already exists', value: 'Already exists' },
@@ -26,6 +26,7 @@ const reasons = [
 ]
 export default function SuggestionList() {
   const [showPending, setShowPending] = React.useState(true)
+  const { getToken } = useAuth()
   const { results, status, loadMore } = usePaginatedQuery(
     api.suggestions.getSuggestions,
     { approved: !showPending },
@@ -43,7 +44,8 @@ export default function SuggestionList() {
   const handleApprove = async (suggestionId: Id<'suggestions'>) => {
     setCurrentAction(suggestionId)
     try {
-      await approveSuggestion({ suggestionId })
+      const token = await getToken()
+      await approveSuggestion({ suggestionId, token })
       toast.success('Suggestion approved')
     } catch (error) {
       console.error(error)

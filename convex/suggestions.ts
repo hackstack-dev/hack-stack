@@ -84,9 +84,13 @@ export const internalApproveSuggestion = internalMutation({
 
 export const approveSuggestion = adminAuthAction({
   args: {
-    suggestionId: v.id('suggestions')
+    suggestionId: v.id('suggestions'),
+    token: v.union(v.string(), v.null())
   },
-  handler: async ({ runQuery, runMutation, runAction }, { suggestionId }) => {
+  handler: async (
+    { runQuery, runMutation, runAction },
+    { suggestionId, token }
+  ) => {
     const suggestion = await runQuery(internal.suggestions.getSuggestionById, {
       suggestionId
     })
@@ -151,12 +155,23 @@ export const approveSuggestion = adminAuthAction({
           type: 'suggestionApproved'
         })
       }
-      if (userSettings?.suggestionApprovedEmail) {
-        // Todo: send email
-        // await runAction(internal.email.sendEmail, {
-        //   subject: 'Suggestion Approved',
-        //   html: `<p>Your suggestion for <b>${suggestion.name}</b> has been approved.</p>`
-        // })
+      if (userSettings?.suggestionApprovedEmail && token) {
+        const user = await runQuery(internal.users.getUserById, {
+          userId: suggestion.userId
+        })
+        if (!user) return true
+        await runAction(internal.email.sendEmailToUser, {
+          subject: 'Suggestion Approved',
+          from: 'app@hackstack.hackazen.com',
+          to: user.email,
+          type: 'suggestionApprovedEmail',
+          data: {
+            suggestion: suggestion.name,
+            type: suggestion.type,
+            points: pointsPerSuggestionType[suggestion.type]
+          },
+          token
+        })
       }
     }
 

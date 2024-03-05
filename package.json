@@ -24,6 +24,8 @@
     "friendly-username-generator": "^2.0.4",
     "html-to-image": "^1.11.11",
     "imagekit": "^5.0.0",
+    "jsonwebtoken": "^9.0.2",
+    "jsx-email": "^1.10.12",
     "lucide-react": "^0.344.0",
     "next": "14.1.0",
     "next-themes": "^0.2.1",
@@ -45,6 +47,7 @@
   },
   "devDependencies": {
     "@biomejs/biome": "1.5.3",
+    "@types/jsonwebtoken": "^9.0.6",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
