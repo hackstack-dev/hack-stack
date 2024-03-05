@@ -20,9 +20,9 @@ import PageDataLoading from '@/app/hs/components/ui/PageDataLoading'
 import { useAuth } from '@clerk/nextjs'
 
 const reasons = [
-  { label: 'Already exists', value: 'Already exists' },
-  { label: 'Missing information', value: 'Missing information' },
-  { label: 'Not relevant', value: 'Not relevant' }
+  { label: 'Already exists', value: 'Already exists in the app' },
+  { label: 'Missing information', value: 'Suggestion missing some required information' },
+  { label: 'Not relevant', value: 'Suggestion is not relevant to HackStack content' }
 ]
 export default function SuggestionList() {
   const [showPending, setShowPending] = React.useState(true)

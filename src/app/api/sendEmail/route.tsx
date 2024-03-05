@@ -3,12 +3,13 @@ import jwt from 'jsonwebtoken'
 import { SuggestionApprovedEmail } from '~/emails/SuggestionApprovedEmail'
 import React from 'react'
 import { NextResponse } from 'next/server'
+import SuggestionRejectedEmail from '~/emails/SuggestionRejectedEmail'
 
 // biome-ignore lint/suspicious/noExplicitAny: <explanation>
 function getEmailComponent(type: string, data: any) {
   const emailComponents: Record<string, React.ReactElement> = {
     suggestionApprovedEmail: <SuggestionApprovedEmail {...data} />,
-    suggestionRejectedEmail: <SuggestionApprovedEmail {...data} />,
+    suggestionRejectedEmail: <SuggestionRejectedEmail {...data} />,
     feedbackReceivedEmail: <SuggestionApprovedEmail {...data} />,
     feedbackReplyEmail: <SuggestionApprovedEmail {...data} />,
     promotionEmail: <SuggestionApprovedEmail {...data} />

@@ -191,12 +191,13 @@ export const internalDeleteSuggestion = internalMutation({
 
 export const deleteSuggestion = adminAuthAction({
   args: {
+    token: v.union(v.string(), v.null()),
     suggestionId: v.id('suggestions'),
     rejectReason: v.string()
   },
   handler: async (
     { runQuery, runMutation, runAction },
-    { suggestionId, rejectReason }
+    { suggestionId, rejectReason, token }
   ) => {
     const suggestion = await runQuery(internal.suggestions.getSuggestionById, {
       suggestionId
@@ -218,10 +219,6 @@ export const deleteSuggestion = adminAuthAction({
         userId: suggestion.userId
       }
     )
-    // if(userSettings?.suggestionRejectedEmail) {
-    //   // ToDo: notify via email
-    //   // send email
-    // }
     if (userSettings?.suggestionRejectedInApp) {
       await runMutation(internal.notifications.internalAddNotification, {
         targetUserId: suggestion.userId,
@@ -231,6 +228,25 @@ export const deleteSuggestion = adminAuthAction({
           rejectReason
         },
         type: 'suggestionRejected'
+      })
+    }
+    if (userSettings?.suggestionRejectedEmail && token) {
+      const user = await runQuery(internal.users.getUserById, {
+        userId: suggestion.userId
+      })
+      if (!user) return true
+      await runAction(internal.email.sendEmailToUser, {
+        subject: 'Suggestion Rejected',
+        from: 'app@hackstack.hackazen.com',
+        to: user.email,
+        type: 'suggestionRejectedEmail',
+        data: {
+          username: user.name,
+          suggestionType: suggestion.type,
+          suggestion: suggestion.name,
+          reason: rejectReason
+        },
+        token
       })
     }
     return true
