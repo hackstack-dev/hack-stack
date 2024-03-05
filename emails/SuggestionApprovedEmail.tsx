@@ -37,8 +37,8 @@ export const SuggestionApprovedEmail = ({
       <Head />
       <Preview>{previewText}</Preview>
       <Tailwind>
-        <Body className="bg-white text-[#09092b] my-auto mx-auto font-sans w-[720px]">
-          <Container className="mt-4 mb-20 mx-auto">
+        <Body className="bg-white text-[#09092b] my-auto mx-auto font-sans !w-full !max-w-[720px]">
+          <Container className="mt-4 mb-20 mx-auto !w-full !max-w-[720px]">
             <Section className="bg-[#09092b] rounded-t border-b-4 border-solid border-[#d946ef] pb-10">
               <Section className="my-6 text-center">
                 <Img
