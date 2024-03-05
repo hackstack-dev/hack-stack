@@ -35,13 +35,23 @@ export const sendEmailToUser = internalAction({
     token: v.string()
   },
   handler: async (_, payload) => {
-    return fetch('https://stacks.hackazen.com/api/sendEmail', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${payload.token}`
-      },
-      body: JSON.stringify(payload)
-    })
+    try {
+      console.log({ token: payload.token })
+      const res = await fetch('https://stacks.hackazen.com/api/sendEmail', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${payload.token}`
+        },
+        body: JSON.stringify(payload)
+      })
+      const text = await res.text()
+      console.log({ text })
+      return text
+      // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+    } catch (error: any) {
+      console.error('Error sending email', error?.message)
+      return false
+    }
   }
 })

@@ -14,10 +14,10 @@ export const testSendEmail = adminAuthAction({
       subject: 'Test suggestionApprovedEmail Email',
       type: 'suggestionApprovedEmail',
       data: {
-        suggestion: '',
-        type: '',
-        points: 0
+        email: 'ofer.webdev@gmail.com',
+        name: 'Ofer'
       }
     })
+    return true
   }
 })
