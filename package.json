@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "convex:dev": "convex dev"
+    "convex:dev": "convex dev",
+    "email:dev": "email dev"
   },
   "dependencies": {
     "@clerk/clerk-sdk-node": "^4.13.8",
@@ -15,6 +16,9 @@
     "@clerk/themes": "^1.7.9",
     "@hookform/resolvers": "^3.3.4",
     "@nextui-org/react": "^2.2.9",
+    "@react-email/components": "0.0.15",
+    "@react-email/render": "0.0.12",
+    "@react-email/tailwind": "0.0.14",
     "chart.js": "^4.4.1",
     "clsx": "^2.1.0",
     "convex": "^1.10.0",
@@ -25,7 +29,6 @@
     "html-to-image": "^1.11.11",
     "imagekit": "^5.0.0",
     "jsonwebtoken": "^9.0.2",
-    "jsx-email": "^1.10.12",
     "lucide-react": "^0.344.0",
     "next": "14.1.0",
     "next-themes": "^0.2.1",
@@ -33,6 +36,7 @@
     "react": "^18",
     "react-chartjs-2": "^5.2.0",
     "react-dom": "^18",
+    "react-email": "2.1.0",
     "react-hook-form": "^7.51.0",
     "react-resizable-panels": "^2.0.2",
     "react-rough-notation": "^1.0.5",

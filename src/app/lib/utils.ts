@@ -51,9 +51,15 @@ export function getCardBackground(bg: string) {
   return `${IMAGEKIT_URL}/backgrounds/${bg}`
 }
 
-// export function getSuggestionLogo(bg: string) {
-//   return `${IMAGEKIT_URL}/backgrounds/${bg}`
-// }
+export function getRandomHackStackEmailBanner() {
+  const logos = ['clair', 'skylar', 'jesse', 'harper']
+  const randomIndex = Math.floor(Math.random() * logos.length)
+  return `${IMAGEKIT_URL}/emails/hackstack-${logos[randomIndex]}.png`
+}
+
+export function getEmailLogo() {
+  return `${IMAGEKIT_URL}/emails/icon.png`
+}
 
 export function getUniqueHueStyle(str: string) {
   let hash = 0

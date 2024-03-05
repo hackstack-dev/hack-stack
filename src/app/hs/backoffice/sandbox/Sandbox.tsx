@@ -3,22 +3,15 @@ import { Button } from '@nextui-org/button'
 import { useAction } from 'convex/react'
 import { useAuth } from '@clerk/nextjs'
 import { api } from '~/convex/_generated/api'
-import { v } from 'convex/values'
 
 export default function SandBox() {
   const { getToken } = useAuth()
-  const testEmailToUser = useAction(api.backoffice.testSendEmail)
-
-  const handleSend = async () => {
-    const token = await getToken()
-    if (!token) return console.error('No token')
-    await testEmailToUser({ token })
-  }
 
   const handleDirectSend = async () => {
     const token = await getToken()
     if (!token) return console.error('No token')
     const res = await fetch('/api/sendEmail', {
+      cache: 'no-store',
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -30,8 +23,10 @@ export default function SandBox() {
         subject: 'test suggestionApprovedEmail Email',
         type: 'suggestionApprovedEmail',
         data: {
-          email: 'ofer.webdev@gmail.com',
-          name: 'Ofer'
+          username: 'batman',
+          suggestion: 'RocksDB',
+          suggestionType: 'tech',
+          points: 10
         }
       })
     })
@@ -39,8 +34,8 @@ export default function SandBox() {
 
   return (
     <div className="h-full">
-      <div className="h-full p-4">
-        <Button onPress={handleSend}>Test Suggestion Approval Email</Button>
+      <div className="p-4 flex items-center gap-2">
+        {/*<Button onPress={handleSend}>Test Suggestion Approval Email</Button>*/}
 
         <Button color="success" onPress={handleDirectSend}>
           Test Direct Suggestion Approval Email

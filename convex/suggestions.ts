@@ -166,8 +166,9 @@ export const approveSuggestion = adminAuthAction({
           to: user.email,
           type: 'suggestionApprovedEmail',
           data: {
+            username: user.name,
+            suggestionType: suggestion.type,
             suggestion: suggestion.name,
-            type: suggestion.type,
             points: pointsPerSuggestionType[suggestion.type]
           },
           token
