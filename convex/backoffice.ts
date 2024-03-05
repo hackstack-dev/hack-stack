@@ -1,22 +1,27 @@
-import { adminAuthAction } from '~/convex/utils'
+import { adminAuthAction, pointsPerSuggestionType } from '~/convex/utils'
 import { internal } from '~/convex/_generated/api'
 import { v } from 'convex/values'
 
 export const testSendEmail = adminAuthAction({
   args: {
+    from: v.string(),
+    to: v.string(),
+    subject: v.string(),
+    type: v.union(
+      v.literal('suggestionApprovedEmail'),
+      v.literal('suggestionRejectedEmail'),
+      v.literal('feedbackReceivedEmail'),
+      v.literal('feedbackReplyEmail'),
+      v.literal('promotionEmail')
+    ),
+    data: v.any(),
     token: v.string()
   },
-  handler: async ({ runAction }, { token }) => {
+  handler: async ({ runAction }, args) => {
+    const { token, ...payload } = args
     await runAction(internal.email.sendEmailToUser, {
-      token,
-      from: 'app@hackstack.hackazen.com',
-      to: 'ofer.webdev@gmail.com',
-      subject: 'Test suggestionApprovedEmail Email',
-      type: 'suggestionApprovedEmail',
-      data: {
-        email: 'ofer.webdev@gmail.com',
-        name: 'Ofer'
-      }
+      ...payload,
+      token
     })
     return true
   }

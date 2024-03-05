@@ -27,7 +27,7 @@ export default function UserSettings({ userId }: UserSettingsProps) {
     })
   }
   return (
-    <div className="max-w-lg">
+    <div className="max-w-lg p-8">
       <div className="flex flex-col gap-2">
         <h2 className="text-lg">Notification Settings</h2>
         <p className="text-sm text-default-400">
