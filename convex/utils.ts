@@ -15,10 +15,9 @@ import {
 import { ConvexError, v } from 'convex/values'
 import { internal } from '~/convex/_generated/api'
 import { UnwrapConvex } from '~/convex/types'
-import { getUserById } from '~/convex/users'
+import { getUserByClerkId } from '~/convex/users'
 import { Id } from '~/convex/_generated/dataModel'
 import { generateUsername } from 'friendly-username-generator'
-import { internalAction } from '~/convex/_generated/server'
 
 export const authAction = customAction(
   action,
@@ -29,9 +28,9 @@ export const authAction = customAction(
       throw new ConvexError('must be logged in')
     }
 
-    const user = (await ctx.runQuery(internal.users.getUserById, {
+    const user = (await ctx.runQuery(internal.users.getUserByClerkId, {
       userId
-    })) as UnwrapConvex<typeof getUserById>
+    })) as UnwrapConvex<typeof getUserByClerkId>
 
     if (!user) {
       throw new ConvexError('user not found')
@@ -91,9 +90,9 @@ export const adminAuthAction = customAction(
       throw new ConvexError('must be logged in')
     }
 
-    const user = (await ctx.runQuery(internal.users.getUserById, {
+    const user = (await ctx.runQuery(internal.users.getUserByClerkId, {
       userId
-    })) as UnwrapConvex<typeof getUserById>
+    })) as UnwrapConvex<typeof getUserByClerkId>
 
     if (!user) {
       throw new ConvexError('user not found')

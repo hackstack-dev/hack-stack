@@ -9,13 +9,20 @@ import { SuggestionTypeCount } from '~/convex/types'
 import { Id } from '~/convex/_generated/dataModel'
 import { paginationOptsValidator } from 'convex/server'
 
-export const getUserById = internalQuery({
+export const getUserByClerkId = internalQuery({
   args: { userId: v.string() },
   handler: async ({ db }, { userId }) => {
     return await db
       .query('users')
       .withIndex('by_userId', (q) => q.eq('userId', userId))
       .first()
+  }
+})
+
+export const getUserById = internalQuery({
+  args: { userId: v.id('users') },
+  handler: async ({ db }, { userId }) => {
+    return await db.get(userId)
   }
 })
 
