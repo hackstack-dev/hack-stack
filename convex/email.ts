@@ -36,7 +36,6 @@ export const sendEmailToUser = internalAction({
   },
   handler: async (_, payload) => {
     try {
-      console.log({ token: payload.token })
       const res = await fetch('https://stacks.hackazen.com/api/sendEmail', {
         method: 'POST',
         headers: {
@@ -45,9 +44,9 @@ export const sendEmailToUser = internalAction({
         },
         body: JSON.stringify(payload)
       })
-      const text = await res.text()
-      console.log({ text })
-      return text
+      const json = await res.json()
+      console.log({ json })
+      return json
       // biome-ignore lint/suspicious/noExplicitAny: <explanation>
     } catch (error: any) {
       console.error('Error sending email', error?.message)

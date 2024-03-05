@@ -22,7 +22,7 @@ export async function POST(req: Request, res: Response) {
   const resend = new Resend(process.env.RESEND_API_KEY)
   const bearerToken = req.headers.get('Authorization')
   if (bearerToken === undefined) {
-    return new Response('not signed in', {
+    return new Response(JSON.stringify({ error: 'Not signed in' }), {
       status: 401
     })
   }
@@ -44,7 +44,7 @@ export async function POST(req: Request, res: Response) {
       })
     }
   } catch (error) {
-    return new Response('not signed in', {
+    return new Response(JSON.stringify({ error: 'Not signed in' }), {
       status: 400
     })
   }
