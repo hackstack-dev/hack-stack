@@ -57,7 +57,9 @@ export default function SuggestionList() {
 
   const handleDelete = async (suggestionId: Id<'suggestions'>) => {
     try {
+      const token = await getToken()
       await deleteSuggestion({
+        token,
         suggestionId,
         rejectReason: Array.from(reason)[0]
       })
