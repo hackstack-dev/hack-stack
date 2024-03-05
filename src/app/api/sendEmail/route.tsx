@@ -18,16 +18,17 @@ function getEmailComponent(type: string, data: any) {
 }
 
 export async function POST(req: Request, res: Response) {
-  const publicKey = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY as string
+  const publicKey = process.env.CLERK_JWT_PK as string
   const resend = new Resend(process.env.RESEND_API_KEY)
-  const token = req.headers.get('Authorization')
-  if (token === undefined) {
+  const bearerToken = req.headers.get('Authorization')
+  if (bearerToken === undefined) {
     return new Response('not signed in', {
       status: 401
     })
   }
   try {
-    if (token) {
+    if (bearerToken) {
+      const token = bearerToken.split(' ')[1]
       jwt.verify(token, publicKey)
       const body = await req.json()
       const { from, to, subject, type, data } = body
