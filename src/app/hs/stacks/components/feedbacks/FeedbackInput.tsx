@@ -1,26 +1,28 @@
 import UserAvatar from '@/app/hs/components/ui/UserAvatar'
-import { useMutation, useQuery } from 'convex/react'
+import { useAction, useMutation, useQuery } from 'convex/react'
 import { api } from '~/convex/_generated/api'
 import { Textarea } from '@nextui-org/input'
 import { Button } from '@nextui-org/button'
 import React from 'react'
 import { Id } from '~/convex/_generated/dataModel'
 import { toast } from 'sonner'
+import { useAuth } from '@clerk/nextjs'
 
 interface FeedbackInputProps {
   stackId?: Id<'stacks'>
-  avatarSize?: 'sm' | 'md' | 'lg',
-    placeholder?: string
+  avatarSize?: 'sm' | 'md' | 'lg'
+  placeholder?: string
   onSendReply?: (reply: string) => void
 }
 export default function FeedbackInput({
   stackId,
   onSendReply,
-placeholder = 'Write a feedback...',
+  placeholder = 'Write a feedback...',
   avatarSize = 'sm'
 }: FeedbackInputProps) {
+  const { getToken } = useAuth()
   const myUser = useQuery(api.users.getMyUser, {})
-  const sendFeedback = useMutation(api.feedbacks.createFeedback)
+  const sendFeedback = useAction(api.feedbacks.createFeedback)
   const [feedback, setFeedback] = React.useState('')
 
   const handleSendFeedback = async () => {
@@ -28,8 +30,9 @@ placeholder = 'Write a feedback...',
       if (onSendReply) {
         onSendReply(feedback)
       } else {
-        if (!stackId) return
-        await sendFeedback({ stackId, feedback })
+        const token = await getToken()
+        if (!stackId || !token) return
+        await sendFeedback({ stackId, feedback, token })
         setFeedback('')
         toast.success('Feedback sent')
       }
