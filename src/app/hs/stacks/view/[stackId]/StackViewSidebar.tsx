@@ -1,8 +1,5 @@
 import { Tab, Tabs } from '@nextui-org/react'
-import {
-  LucideLineChart,
-  LucideMessageCircle,
-} from 'lucide-react'
+import { LucideLineChart, LucideMessageCircle } from 'lucide-react'
 import React from 'react'
 import StackViewTechDetails from '@/app/hs/stacks/view/[stackId]/StackViewTechDetails'
 import { cn } from '@/app/lib/utils'
@@ -13,17 +10,22 @@ interface StackViewSidebarProps {
   userId?: Id<'users'>
   stackId?: Id<'stacks'>
   isOpenForFeedbacks?: boolean
+  openFeedbacks?: string
 }
 export default function StackViewSidebar({
   userId,
   stackId,
-  isOpenForFeedbacks
+  isOpenForFeedbacks,
+  openFeedbacks
 }: StackViewSidebarProps) {
-  const [viewMode, setViewMode] = React.useState<string | number>('data')
+  const [viewMode, setViewMode] = React.useState<string | number>(
+    openFeedbacks ? 'feedback' : 'data'
+  )
 
   return (
     <aside className="overflow-auto py-4 h-full w-full bg-default-50 dark:bg-black border-l-1 border-r-1 dark:border-default-50">
       <Tabs
+        selectedKey={viewMode}
         onSelectionChange={setViewMode}
         aria-label="Options"
         variant="underlined"

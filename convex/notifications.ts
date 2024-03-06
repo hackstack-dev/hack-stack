@@ -40,6 +40,7 @@ export const markAllAsRead = authMutation({
 
 export const internalAddNotification = internalMutation({
   args: {
+    sourceUserId: v.optional(v.id('users')),
     targetUserId: v.id('users'),
     type: v.union(
       v.literal('suggestionApproved'),
@@ -48,12 +49,13 @@ export const internalAddNotification = internalMutation({
       v.literal('feedback'),
       v.literal('feedbackReply')
     ),
-    data: v.any()
+    data: v.any(),
+    isRead: v.optional(v.boolean())
   },
   handler: async ({ db }, args) => {
     return await db.insert('notifications', {
       ...args,
-      isRead: false
+      isRead: args.isRead ?? false
     })
   }
 })

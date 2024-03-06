@@ -20,6 +20,7 @@ interface StackViewBlocksProps {
   userId?: Id<'users'>
   stackId?: Id<'stacks'>
   isOpenForFeedbacks?: boolean
+  openFeedbacks?: string
 }
 export default function StackViewBlocks({
   nodes,
@@ -27,7 +28,8 @@ export default function StackViewBlocks({
   onNodesChange,
   userId,
   stackId,
-  isOpenForFeedbacks
+  isOpenForFeedbacks,
+                                          openFeedbacks
 }: StackViewBlocksProps) {
   const snapToGrid = useSnapshot(snapToGridEnabled)
   return (
@@ -61,6 +63,7 @@ export default function StackViewBlocks({
             userId={userId}
             stackId={stackId}
             isOpenForFeedbacks={isOpenForFeedbacks}
+            openFeedbacks={openFeedbacks}
           />
         </Panel>
       </PanelGroup>

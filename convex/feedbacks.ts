@@ -1,7 +1,10 @@
-import { authMutation, authQuery } from '~/convex/utils'
+import { authAction, authMutation, authQuery } from '~/convex/utils'
 import { v } from 'convex/values'
 import { paginationOptsValidator } from 'convex/server'
 import { getOneFrom } from 'convex-helpers/server/relationships'
+import { internal } from '~/convex/_generated/api'
+import { internalMutation } from '~/convex/_generated/server'
+import { UnwrapConvex } from '~/convex/types'
 
 export const getFeedbackSettingsByStackId = authQuery({
   args: {
@@ -37,44 +40,99 @@ export const saveFeedbackSettings = authMutation({
   }
 })
 
-export const createFeedback = authMutation({
+export const internalAddFeedback = internalMutation({
   args: {
     stackId: v.id('stacks'),
+    fromUserId: v.id('users'),
     feedback: v.string()
   },
-  handler: async ({ db, user }, { stackId, feedback }) => {
-    const insertResult = await db.insert('feedbacks', {
+  handler: async ({ db }, { stackId, fromUserId, feedback }) => {
+    return await db.insert('feedbacks', {
       stackId,
-      fromUserId: user._id,
+      fromUserId,
       feedback
     })
+  }
+})
+
+export const createFeedback = authAction({
+  args: {
+    stackId: v.id('stacks'),
+    feedback: v.string(),
+    token: v.union(v.string(), v.null())
+  },
+  handler: async (
+    { runQuery, runMutation, runAction, user },
+    { stackId, feedback, token }
+  ) => {
+    const insertResult = (await runMutation(
+      internal.feedbacks.internalAddFeedback,
+      { stackId, feedback, fromUserId: user._id }
+    )) as UnwrapConvex<typeof internalAddFeedback>
+
     // notify unless the user is giving feedback to their own stack
-    const stack = await db.get(stackId)
+    const stack = await runQuery(internal.stack.internalGetStack, {
+      stackId
+    })
+
     if (!stack || stack.userId === user._id) return insertResult
 
-    const userSettings = await getOneFrom(
-      db,
-      'userSettings',
-      'by_userId',
-      stack.userId
+    const userSettings = await runQuery(
+      internal.userSettings.internalGetUserSettings,
+      {
+        userId: stack.userId
+      }
     )
-    // if(userSettings?.feedbackReceivedEmail) {
-    //   // ToDo: notify via email
-    //   // send email
-    // }
-    if(!userSettings?.feedbackReceivedInApp) return insertResult
-    return db.insert('notifications', {
-      sourceUserId: user._id,
-      targetUserId: stack.userId,
-      data: {
-        stackName: stack.name,
-        stackId: stack._id,
-        username: user.name,
-        userProfileImage: user.profileImage
-      },
-      type: 'feedback',
-      isRead: false
+
+    const sourceUser = await runQuery(internal.users.getUserById, {
+      userId: user._id
     })
+
+    if (sourceUser && userSettings?.feedbackReceivedInApp) {
+      await runMutation(internal.notifications.internalAddNotification, {
+        sourceUserId: user._id,
+        targetUserId: stack.userId,
+        data: {
+          stackName: stack.name,
+          stackId: stack._id,
+          username: sourceUser.name,
+          userProfileImage: sourceUser.profileImage
+        },
+        type: 'feedback',
+        isRead: false
+      })
+    }
+    if (sourceUser && userSettings?.suggestionApprovedEmail && token) {
+      const targetUser = await runQuery(internal.users.getUserById, {
+        userId: stack.userId
+      })
+
+      if (!targetUser) return insertResult
+
+      const unsubscribeToken = await runAction(
+        internal.email.getUnsubscribeToken,
+        {
+          email: targetUser.email
+        }
+      )
+      await runAction(internal.email.sendEmailToUser, {
+        subject: 'Feedback Received',
+        from: 'app@hackstack.hackazen.com',
+        to: targetUser.email,
+        type: 'feedbackReceivedEmail',
+        data: {
+          targetUserEmail: targetUser.email,
+          sourceUserName: sourceUser.name,
+          sourceUserImage: sourceUser.profileImage,
+          stackName: stack.name,
+          stackId: stack._id,
+          feedback,
+          unsubscribeToken
+        },
+        token
+      })
+    }
+    return insertResult
   }
 })
 
@@ -96,16 +154,16 @@ export const createReply = authMutation({
     if (!stack) return insertResult
 
     const userSettings = await getOneFrom(
-        db,
-        'userSettings',
-        'by_userId',
-        stack.userId
+      db,
+      'userSettings',
+      'by_userId',
+      stack.userId
     )
     // if(userSettings?.feedbackReplyEmail) {
     //   // ToDo: notify via email
     //   // send email
     // }
-    if(!userSettings?.feedbackReplyInApp) return insertResult
+    if (!userSettings?.feedbackReplyInApp) return insertResult
     return db.insert('notifications', {
       sourceUserId: user._id,
       targetUserId: feedback.fromUserId,

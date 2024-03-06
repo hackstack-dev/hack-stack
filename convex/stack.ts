@@ -1,10 +1,19 @@
-import { internalMutation, query } from '~/convex/_generated/server'
+import { internalMutation, internalQuery } from '~/convex/_generated/server'
 import { authAction, authMutation, authQuery, getUserId } from '~/convex/utils'
-import { Stack, Suggestion } from '~/convex/types'
+import { Stack } from '~/convex/types'
 import { Doc, Id } from '~/convex/_generated/dataModel'
 import { ConvexError, v } from 'convex/values'
 import { getManyFrom } from 'convex-helpers/server/relationships'
 import { internal } from '~/convex/_generated/api'
+
+export const internalGetStack = internalQuery({
+  args: {
+    stackId: v.id('stacks')
+  },
+  handler: async ({ db }, { stackId }) => {
+    return await db.get(stackId)
+  }
+})
 
 export const getMyUserStacks = authQuery({
   handler: async ({ db, user }) => {
@@ -22,7 +31,7 @@ export const getOtherUserStacks = authQuery({
   }
 })
 
-export const getPublicStack = query({
+export const getPublicStack = authQuery({
   handler: async ({ db }, { stackId }: { stackId: Id<'stacks'> }) => {
     const stack = await db.get(stackId)
     if (!stack?.isPublic) {

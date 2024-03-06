@@ -90,17 +90,17 @@ export default function UserSettings({ userId }: UserSettingsProps) {
           label={userSettingsConfig.feedbackReceivedInApp.label}
           description={userSettingsConfig.feedbackReceivedInApp.description}
         />
-        {/*<SettingsToggle*/}
-        {/*  value={*/}
-        {/*    settings?.feedbackReceivedEmail ??*/}
-        {/*    userSettingsConfig.feedbackReceivedEmail.defaultValue*/}
-        {/*  }*/}
-        {/*  onChange={(value) =>*/}
-        {/*    handleUpdateUserSettings({ feedbackReceivedEmail: value })*/}
-        {/*  }*/}
-        {/*  label={userSettingsConfig.feedbackReceivedEmail.label}*/}
-        {/*  description={userSettingsConfig.feedbackReceivedEmail.description}*/}
-        {/*/>*/}
+        <SettingsToggle
+          value={
+            settings?.feedbackReceivedEmail ??
+            userSettingsConfig.feedbackReceivedEmail.defaultValue
+          }
+          onChange={(value) =>
+            handleUpdateUserSettings({ feedbackReceivedEmail: value })
+          }
+          label={userSettingsConfig.feedbackReceivedEmail.label}
+          description={userSettingsConfig.feedbackReceivedEmail.description}
+        />
         <SettingsToggle
           value={
             settings?.feedbackReplyInApp ??

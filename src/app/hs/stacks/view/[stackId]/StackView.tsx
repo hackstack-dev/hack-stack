@@ -12,8 +12,9 @@ import PageDataLoading from '@/app/hs/components/ui/PageDataLoading'
 
 interface StackViewProps {
   stackId: Id<'stacks'>
+  openFeedbacks?: string
 }
-export default function StackView({ stackId }: StackViewProps) {
+export default function StackView({ stackId, openFeedbacks }: StackViewProps) {
   const { isAuthenticated } = useConvexAuth()
   const shouldFetch = isAuthenticated && stackId
   const stack = useQuery(
@@ -49,6 +50,7 @@ export default function StackView({ stackId }: StackViewProps) {
             userId={stack.userId}
             stackId={stackId}
             isOpenForFeedbacks={stack.isOpenForFeedbacks}
+            openFeedbacks={openFeedbacks}
           />
         </div>
       )}
