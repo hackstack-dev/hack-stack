@@ -15,7 +15,7 @@
     "@clerk/nextjs": "^4.29.5",
     "@clerk/themes": "^1.7.9",
     "@hookform/resolvers": "^3.3.4",
-    "@nextui-org/react": "^2.2.9",
+    "@nextui-org/react": "^2.2.10",
     "@react-email/components": "0.0.15",
     "@react-email/render": "0.0.12",
     "@react-email/tailwind": "0.0.14",
