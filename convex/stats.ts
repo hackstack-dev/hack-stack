@@ -1,5 +1,5 @@
-import { query } from '~/convex/_generated/server'
 import { v } from 'convex/values'
+import { authQuery } from '~/convex/utils'
 
 const getUsedStats = (data: { countBy: string; icon?: string }[]) => {
   const allCount = data.reduce(
@@ -25,20 +25,22 @@ const getUsedStats = (data: { countBy: string; icon?: string }[]) => {
   return sortedEntries.slice(0, 5)
 }
 
-export const getMostUsedTech = query({
+export const getMostUsedTech = authQuery({
   handler: async ({ db }) => {
     const stacks = await db.query('stacks').collect()
     const techs = stacks.flatMap((stack) =>
-      stack.stackBlocks.filter(sb => sb.type === 'blockNode').flatMap((block) => ({
-        countBy: block.data.tech?.name || '',
-        icon: block.data.tech?.icon || ''
-      }))
+      stack.stackBlocks
+        .filter((sb) => sb.type === 'blockNode')
+        .flatMap((block) => ({
+          countBy: block.data.tech?.name || '',
+          icon: block.data.tech?.icon || ''
+        }))
     )
     return getUsedStats(techs)
   }
 })
 
-export const getMostUsedBlocks = query({
+export const getMostUsedBlocks = authQuery({
   handler: async ({ db }) => {
     const stacks = await db.query('stacks').collect()
     const blocks = stacks.flatMap((stack) =>
@@ -51,7 +53,7 @@ export const getMostUsedBlocks = query({
   }
 })
 
-export const getMostUsedProjectTypes = query({
+export const getMostUsedProjectTypes = authQuery({
   handler: async ({ db }) => {
     const stacks = await db.query('stacks').collect()
     const projectTypes = stacks.flatMap((stack) =>
@@ -64,7 +66,7 @@ export const getMostUsedProjectTypes = query({
   }
 })
 
-export const getMostUsedTechByBlockName = query({
+export const getMostUsedTechByBlockName = authQuery({
   args: { blockIds: v.array(v.string()) },
   handler: async ({ db }, { blockIds }) => {
     const stacks = await db.query('stacks').collect()

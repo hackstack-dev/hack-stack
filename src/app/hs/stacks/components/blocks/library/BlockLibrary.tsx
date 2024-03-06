@@ -4,7 +4,7 @@ import React from 'react'
 import { Chip } from '@nextui-org/chip'
 import { Input } from '@nextui-org/input'
 import { LucideSearch } from 'lucide-react'
-import {ScrollShadow, Spinner} from '@nextui-org/react'
+import { ScrollShadow, Spinner } from '@nextui-org/react'
 import { Button } from '@nextui-org/button'
 import {
   AddBlockProps,
@@ -19,7 +19,7 @@ export default function BlockLibrary({
   onAddBlock,
   onClose
 }: BlockLibraryProps) {
-  const queryData = useQuery(api.blocks.blocksByCategories)
+  const queryData = useQuery(api.blocks.blocksByCategories, {})
   const [search, setSearch] = React.useState('')
   const [categoryFilter, setCategoryFilter] = React.useState('')
   const [filteredItems, setFilteredItems] =
@@ -74,14 +74,14 @@ export default function BlockLibrary({
 
   return (
     <div className="flex items-start gap-4">
-      <div className="min-w-[200px] h-full">
+      <div className="min-w-[200px]">
         <Input
           size="sm"
           placeholder={'Search blocks'}
           onValueChange={setSearch}
           startContent={<LucideSearch strokeWidth={1} />}
         />
-        <div>
+        <ScrollShadow className="h-[480px]" hideScrollBar>
           {queryData?.map(({ category }) => (
             <div key={category._id} className="my-6 space-y-4">
               <Button
@@ -96,7 +96,7 @@ export default function BlockLibrary({
               </Button>
             </div>
           ))}
-        </div>
+        </ScrollShadow>
       </div>
       <>
         {!queryData ? (

@@ -1,4 +1,4 @@
-import { adminAuthAction, pointsPerSuggestionType } from '~/convex/utils'
+import { adminAuthAction } from '~/convex/utils'
 import { internal } from '~/convex/_generated/api'
 import { v } from 'convex/values'
 

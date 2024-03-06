@@ -23,7 +23,7 @@ export default function Summary({
   } = stackState
   const bg = getRandomBackground()
   return (
-    <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-4">
+    <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-2">
       <div className="my-12">
         <FancyStepTitle>This is your stack</FancyStepTitle>
         <div className="my-8">

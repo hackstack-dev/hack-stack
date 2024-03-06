@@ -7,7 +7,7 @@ interface AddGroupButtonProps {
   ref?: React.Ref<HTMLButtonElement>
 }
 
-export default React.forwardRef(function AddGroupButton({
+export default function AddGroupButton({
   handleAddGroup,
   ref
 }: AddGroupButtonProps) {
@@ -25,4 +25,4 @@ export default React.forwardRef(function AddGroupButton({
       Group
     </Button>
   )
-})
+}

@@ -10,8 +10,6 @@ import { internalMutation, internalQuery } from '~/convex/_generated/server'
 import { internal } from '~/convex/_generated/api'
 import { v } from 'convex/values'
 import { paginationOptsValidator } from 'convex/server'
-import { internalGetUserSettings } from '~/convex/userSettings'
-import { getOneFrom } from 'convex-helpers/server/relationships'
 
 export const insertSuggestion = internalMutation({
   handler: async ({ db }, newSuggestion: Suggestion) => {

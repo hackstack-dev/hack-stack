@@ -74,11 +74,9 @@ export const updateStack = authMutation(
   }
 )
 
-export const recentlyAddedStacks = query(async (ctx) => {
-  const userId = await getUserId(ctx)
-
-  if (!userId) {
-    throw new Error('you must be logged in to get recent added public stacks')
+export const recentlyAddedStacks = authQuery(async (ctx) => {
+  if (!ctx.user) {
+    return []
   }
   return ctx.db
     .query('stacks')
@@ -87,11 +85,9 @@ export const recentlyAddedStacks = query(async (ctx) => {
     .take(6)
 })
 
-export const risingStacks = query(async (ctx) => {
-  const userId = await getUserId(ctx)
-
-  if (!userId) {
-    throw new ConvexError('You must be logged in to get recent public stats')
+export const risingStacks = authQuery(async (ctx) => {
+  if (!ctx.user) {
+    return []
   }
 
   const sevenDaysAgo = new Date().getTime() - 7 * 24 * 60 * 60 * 1000

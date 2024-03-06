@@ -27,7 +27,7 @@ export default function UserSettings({ userId }: UserSettingsProps) {
     })
   }
   return (
-    <div className="max-w-lg px-8 py-4">
+    <div className="max-w-xl px-8 py-4">
       <div className="flex flex-col gap-2">
         <h2 className="text-lg">Notification Settings</h2>
         <p className="text-sm text-default-400">
@@ -90,17 +90,17 @@ export default function UserSettings({ userId }: UserSettingsProps) {
           label={userSettingsConfig.feedbackReceivedInApp.label}
           description={userSettingsConfig.feedbackReceivedInApp.description}
         />
-        <SettingsToggle
-          value={
-            settings?.feedbackReceivedEmail ??
-            userSettingsConfig.feedbackReceivedEmail.defaultValue
-          }
-          onChange={(value) =>
-            handleUpdateUserSettings({ feedbackReceivedEmail: value })
-          }
-          label={userSettingsConfig.feedbackReceivedEmail.label}
-          description={userSettingsConfig.feedbackReceivedEmail.description}
-        />
+        {/*<SettingsToggle*/}
+        {/*  value={*/}
+        {/*    settings?.feedbackReceivedEmail ??*/}
+        {/*    userSettingsConfig.feedbackReceivedEmail.defaultValue*/}
+        {/*  }*/}
+        {/*  onChange={(value) =>*/}
+        {/*    handleUpdateUserSettings({ feedbackReceivedEmail: value })*/}
+        {/*  }*/}
+        {/*  label={userSettingsConfig.feedbackReceivedEmail.label}*/}
+        {/*  description={userSettingsConfig.feedbackReceivedEmail.description}*/}
+        {/*/>*/}
         <SettingsToggle
           value={
             settings?.feedbackReplyInApp ??
@@ -112,17 +112,17 @@ export default function UserSettings({ userId }: UserSettingsProps) {
           label={userSettingsConfig.feedbackReplyInApp.label}
           description={userSettingsConfig.feedbackReplyInApp.description}
         />
-        <SettingsToggle
-          value={
-            settings?.feedbackReplyEmail ??
-            userSettingsConfig.feedbackReplyEmail.defaultValue
-          }
-          onChange={(value) =>
-            handleUpdateUserSettings({ feedbackReplyEmail: value })
-          }
-          label={userSettingsConfig.feedbackReplyEmail.label}
-          description={userSettingsConfig.feedbackReplyEmail.description}
-        />
+        {/*<SettingsToggle*/}
+        {/*  value={*/}
+        {/*    settings?.feedbackReplyEmail ??*/}
+        {/*    userSettingsConfig.feedbackReplyEmail.defaultValue*/}
+        {/*  }*/}
+        {/*  onChange={(value) =>*/}
+        {/*    handleUpdateUserSettings({ feedbackReplyEmail: value })*/}
+        {/*  }*/}
+        {/*  label={userSettingsConfig.feedbackReplyEmail.label}*/}
+        {/*  description={userSettingsConfig.feedbackReplyEmail.description}*/}
+        {/*/>*/}
         <SettingsToggle
           value={
             settings?.promotionEmail ??

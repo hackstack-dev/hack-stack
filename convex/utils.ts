@@ -12,7 +12,7 @@ import {
   customMutation,
   customQuery
 } from 'convex-helpers/server/customFunctions'
-import { ConvexError, v } from 'convex/values'
+import { ConvexError } from 'convex/values'
 import { internal } from '~/convex/_generated/api'
 import { UnwrapConvex } from '~/convex/types'
 import { getUserByClerkId } from '~/convex/users'

@@ -13,7 +13,7 @@ export default function SettingsToggle({
   description
 }: UserSettingsToggleProps) {
   return (
-    <div className="p-4 bg-default-100 rounded-large flex justify-between">
+    <div className="p-4 rounded-large border border-default-400 dark:border-default-200 flex justify-between">
       <div className="flex flex-col">
         <h3 className="text-medium">{label}</h3>
         <p className="text-xs text-default-500">{description}</p>

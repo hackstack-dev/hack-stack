@@ -1,7 +1,6 @@
 import { authMutation, authQuery } from '~/convex/utils'
 import { ConvexError, v } from 'convex/values'
-import { getManyFrom, getOneFrom } from 'convex-helpers/server/relationships'
-import { Stack } from '~/convex/types'
+import { getOneFrom } from 'convex-helpers/server/relationships'
 import { internalMutation, internalQuery } from '~/convex/_generated/server'
 
 export const getUserSettings = authQuery({

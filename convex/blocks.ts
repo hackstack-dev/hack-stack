@@ -9,7 +9,7 @@ export const getAllBlocks = authQuery({
   }
 })
 
-export const blocksByCategories = query({
+export const blocksByCategories = authQuery({
   handler: async ({ db }) => {
     // get all categories
     const categories = await db.query('categories').collect()

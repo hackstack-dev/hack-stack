@@ -1,21 +1,12 @@
-import {
-  action,
-  internalMutation,
-  internalQuery,
-  query
-} from '~/convex/_generated/server'
+import { internalMutation, internalQuery } from '~/convex/_generated/server'
 import { v } from 'convex/values'
 import { getManyFrom, getOneFrom } from 'convex-helpers/server/relationships'
-import {
-  authQuery,
-  getGithubData,
-  getOwnerAndRepoFromUrl
-} from '~/convex/utils'
+import { authAction, authQuery, getGithubData } from '~/convex/utils'
 import { internal } from '~/convex/_generated/api'
 import { UnwrapConvex } from '~/convex/types'
 import dayjs from 'dayjs'
 
-export const findTechByBlock = query({
+export const findTechByBlock = authQuery({
   args: { blockId: v.id('blocks') },
   handler: async ({ db }, { blockId }) => {
     return getManyFrom(db, 'tech', 'by_blockId', blockId)
@@ -54,7 +45,7 @@ export const insertTechGithubData = internalMutation({
   }
 })
 
-export const getTechData = action({
+export const getTechData = authAction({
   args: { techName: v.string() },
   handler: async ({ runQuery, runMutation, runAction }, { techName }) => {
     const tech = (await runQuery(internal.tech.getTechByName, {
@@ -80,24 +71,6 @@ export const getTechData = action({
             repoData: githubData.data
           }
         }
-
-        // const result = getOwnerAndRepoFromUrl(tech.githubUrl)
-        // if (!result) {
-        //   return null
-        // }
-        // const data = await fetch(
-        //   `https://api.github.com/repos/${result.owner}/${result.repo}`,
-        //   {
-        //     headers: {
-        //       Accept: 'application/vnd.github+json',
-        //       'User-Agent': 'convex'
-        //     }
-        //   }
-        // )
-
-        // const githubDataJson = await runAction(internal.tech.getTechGithubData, {
-        //   githubUrl:tech.githubUrl
-        // })
         const githubDataJson = await getGithubData(tech.githubUrl)
 
         // save the data to the db
@@ -128,7 +101,7 @@ export const getTechData = action({
 })
 
 // get tech useage percentage from all stacks
-export const getTechUsage = query({
+export const getTechUsage = authQuery({
   args: { techName: v.string() },
   handler: async ({ db }, { techName }) => {
     const stacks = await db.query('stacks').collect()
