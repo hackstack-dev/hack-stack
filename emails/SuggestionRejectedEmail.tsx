@@ -90,7 +90,7 @@ export const SuggestionRejectedEmail = ({
                     userEmail
                   )}&token=${encodeURIComponent(
                     unsubscribeToken
-                  )}&type=suggestionApprovedEmail`}
+                  )}&type=suggestionRejectedEmail`}
                 >
                   Unsubscribe
                 </Link>
