@@ -1,5 +1,5 @@
 import { authMutation, authQuery } from '~/convex/utils'
-import { v } from 'convex/values'
+import { ConvexError, v } from 'convex/values'
 import { getManyFrom, getOneFrom } from 'convex-helpers/server/relationships'
 import { Stack } from '~/convex/types'
 import { internalMutation, internalQuery } from '~/convex/_generated/server'
@@ -26,13 +26,7 @@ export const updateUserSettings = authMutation({
     suggestionRejectedInApp: v.optional(v.boolean()),
     promotionEmail: v.optional(v.boolean())
   },
-  handler: async ({ db, user }, args) => {
-    const userSettings = await getManyFrom(
-      db,
-      'userSettings',
-      'by_userId',
-      user._id
-    )
+  handler: async ({ db }, args) => {
     const { settingsId, ...rest } = args
     return await db.patch(settingsId, {
       ...rest
@@ -66,5 +60,42 @@ export const internalCreateUserSettings = internalMutation({
       suggestionRejectedInApp: true,
       promotionEmail: true
     })
+  }
+})
+
+export const internalUnsubscribe = internalMutation({
+  args: {
+    email: v.string(),
+    type: v.union(
+      v.literal('suggestionApprovedEmail'),
+      v.literal('suggestionRejectedEmail'),
+      v.literal('feedbackReceivedEmail'),
+      v.literal('feedbackReplyEmail'),
+      v.literal('promotionEmail')
+    )
+  },
+  handler: async ({ db }, { email, type }) => {
+    try {
+      const user = await db
+        .query('users')
+        .filter((q) => q.eq(q.field('email'), email))
+        .first()
+      if (!user) return false
+      const settings = await getOneFrom(
+        db,
+        'userSettings',
+        'by_userId',
+        user._id
+      )
+      if (!settings) return false
+      await db.patch(settings._id, {
+        [type]: false
+      })
+      return true
+      // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+    } catch (error: any) {
+      new ConvexError(error?.message)
+      return false
+    }
   }
 })

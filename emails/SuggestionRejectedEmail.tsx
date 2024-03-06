@@ -1,6 +1,5 @@
 import {
   Body,
-  Button,
   Container,
   Head,
   Heading,
@@ -13,26 +12,26 @@ import {
   Tailwind,
   Text
 } from '@react-email/components'
-import {
-  getEmailLogo,
-  getRandomHackStackEmailBanner,
-  getSadHackStackEmailBanner
-} from '@/app/lib/utils'
+import { getEmailLogo, getHackStackFigure } from '@/app/lib/utils'
 
 interface SuggestionRejectedEmailProps {
   username: string
+  userEmail: string
   userId: string
   suggestion: string
   suggestionType: string
   reason: string
   points?: number
+  unsubscribeToken: string
 }
 
 export const SuggestionRejectedEmail = ({
   username,
+  userEmail,
   suggestion,
   suggestionType,
-  reason
+  reason,
+  unsubscribeToken
 }: SuggestionRejectedEmailProps) => {
   const previewText = 'Your suggestion has been rejected'
 
@@ -59,7 +58,7 @@ export const SuggestionRejectedEmail = ({
                 </Heading>
               </Section>
               <Img
-                src={getSadHackStackEmailBanner()}
+                src={getHackStackFigure('sad')}
                 width="320"
                 alt="HackStack Logo"
                 className="my-0 mx-auto"
@@ -78,7 +77,8 @@ export const SuggestionRejectedEmail = ({
                   <strong>{reason}</strong>
                 </Text>
                 <Text>
-                  Don't worry, you can always suggest something else and earn some points!
+                  Don't worry, you can always suggest something else and earn
+                  some points!
                 </Text>
               </Section>
               <Hr className="border border-solid border-[#eaeaea] my-[26px] mx-0 w-full" />
@@ -86,7 +86,11 @@ export const SuggestionRejectedEmail = ({
                 <Link
                   target={'_blank'}
                   className="mr-5 text-[#999]"
-                  href="https://stacks.hackazen.com/unsubscribe"
+                  href={`https://stacks.hackazen.com/unsubscribe?email=${encodeURIComponent(
+                    userEmail
+                  )}&token=${encodeURIComponent(
+                    unsubscribeToken
+                  )}&type=suggestionApprovedEmail`}
                 >
                   Unsubscribe
                 </Link>
@@ -114,9 +118,11 @@ export const SuggestionRejectedEmail = ({
 
 SuggestionRejectedEmail.PreviewProps = {
   username: 'batman',
+  userEmail: 'batman@email.com',
   suggestion: 'RocksDB',
   suggestionType: 'tech',
   reason: 'Already exists in the app.',
+  unsubscribeToken: '123456'
 } as SuggestionRejectedEmailProps
 
 export default SuggestionRejectedEmail

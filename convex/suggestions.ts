@@ -160,6 +160,12 @@ export const approveSuggestion = adminAuthAction({
           userId: suggestion.userId
         })
         if (!user) return true
+        const unsubscribeToken = await runAction(
+          internal.email.getUnsubscribeToken,
+          {
+            email: user.email
+          }
+        )
         await runAction(internal.email.sendEmailToUser, {
           subject: 'Suggestion Approved',
           from: 'app@hackstack.hackazen.com',
@@ -167,9 +173,11 @@ export const approveSuggestion = adminAuthAction({
           type: 'suggestionApprovedEmail',
           data: {
             username: user.name,
+            userEmail: user.email,
             suggestionType: suggestion.type,
             suggestion: suggestion.name,
-            points: pointsPerSuggestionType[suggestion.type]
+            points: pointsPerSuggestionType[suggestion.type],
+            unsubscribeToken
           },
           token
         })
@@ -235,6 +243,12 @@ export const deleteSuggestion = adminAuthAction({
         userId: suggestion.userId
       })
       if (!user) return true
+      const unsubscribeToken = await runAction(
+        internal.email.getUnsubscribeToken,
+        {
+          email: user.email
+        }
+      )
       await runAction(internal.email.sendEmailToUser, {
         subject: 'Suggestion Rejected',
         from: 'app@hackstack.hackazen.com',
@@ -242,9 +256,11 @@ export const deleteSuggestion = adminAuthAction({
         type: 'suggestionRejectedEmail',
         data: {
           username: user.name,
+          userEmail: user.email,
           suggestionType: suggestion.type,
           suggestion: suggestion.name,
-          reason: rejectReason
+          reason: rejectReason,
+          unsubscribeToken
         },
         token
       })

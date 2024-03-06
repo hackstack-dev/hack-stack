@@ -13,12 +13,12 @@ import {
   Tailwind,
   Text
 } from '@react-email/components'
-import {getEmailLogo, getRandomHackStackEmailBanner} from "@/app/lib/utils";
-
+import { getEmailLogo, getRandomHackStackEmailBanner } from '@/app/lib/utils'
 
 interface SuggestionApprovedEmailProps {
   username: string
-  userId: string
+  userEmail: string
+  unsubscribeToken: string
   suggestion: string
   suggestionType: string
   points: number
@@ -26,6 +26,8 @@ interface SuggestionApprovedEmailProps {
 
 export const SuggestionApprovedEmail = ({
   username,
+  userEmail,
+  unsubscribeToken,
   suggestion,
   suggestionType,
   points
@@ -97,7 +99,11 @@ export const SuggestionApprovedEmail = ({
                 <Link
                   target={'_blank'}
                   className="mr-5 text-[#999]"
-                  href="https://stacks.hackazen.com/unsubscribe"
+                  href={`https://stacks.hackazen.com/unsubscribe?email=${encodeURIComponent(
+                    userEmail
+                  )}&token=${encodeURIComponent(
+                    unsubscribeToken
+                  )}&type=suggestionApprovedEmail`}
                 >
                   Unsubscribe
                 </Link>
@@ -125,6 +131,8 @@ export const SuggestionApprovedEmail = ({
 
 SuggestionApprovedEmail.PreviewProps = {
   username: 'batman',
+  userEmail: 'ofer.webdev@gmail.com',
+  unsubscribeToken: '123',
   suggestion: 'RocksDB',
   suggestionType: 'tech',
   points: 10

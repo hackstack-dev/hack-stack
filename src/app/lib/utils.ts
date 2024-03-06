@@ -56,14 +56,12 @@ export function getRandomHackStackEmailBanner() {
   const randomIndex = Math.floor(Math.random() * logos.length)
   return `${IMAGEKIT_URL}/emails/hackstack-${logos[randomIndex]}.png`
 }
-export function getSadHackStackEmailBanner() {
-  return `${IMAGEKIT_URL}/emails/hackstack-sad.png`
+export function getHackStackFigure(figure: string) {
+  return `${IMAGEKIT_URL}/emails/hackstack-${figure}.png`
 }
 export function getEmailLogo() {
   return `${IMAGEKIT_URL}/emails/icon.png`
 }
-
-
 
 export function getUniqueHueStyle(str: string) {
   let hash = 0

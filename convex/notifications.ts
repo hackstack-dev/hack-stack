@@ -43,7 +43,7 @@ export const internalAddNotification = internalMutation({
     targetUserId: v.id('users'),
     type: v.union(
       v.literal('suggestionApproved'),
-        v.literal('suggestionRejected'),
+      v.literal('suggestionRejected'),
       v.literal('achivement'),
       v.literal('feedback'),
       v.literal('feedbackReply')
