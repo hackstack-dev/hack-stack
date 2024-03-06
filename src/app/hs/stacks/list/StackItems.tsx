@@ -11,6 +11,7 @@ import { api } from '~/convex/_generated/api'
 import PublicPrivateIndication from '@/app/hs/components/ui/PublicPrivateIndication'
 import EmptyData from '@/app/hs/components/ui/EmptyData'
 import ShareStackButton from '@/app/hs/stacks/components/share/ShareStackButton'
+import FeedbacksCount from '@/app/hs/stacks/components/FeedbacksCount'
 
 const cardSize = {
   sm: 'h-40',
@@ -23,12 +24,14 @@ interface StackItemsProps {
   size?: 'sm' | 'md' | 'lg'
   isPublicItems?: boolean
   withAvatar?: boolean
+  openFeedbacks?: boolean
 }
 export default function StackItems({
   items,
   size = 'md',
   isPublicItems = false,
-  withAvatar = true
+  withAvatar = true,
+  openFeedbacks = false
 }: StackItemsProps) {
   const myUser = useQuery(api.users.getMyUser, {})
   const router = useRouter()
@@ -43,7 +46,9 @@ export default function StackItems({
         const stackUrl =
           stack.userId === myUser?._id
             ? `/hs/stacks/${stack._id}`
-            : `/hs/stacks/view/${stack._id}`
+            : `/hs/stacks/view/${stack._id}${
+                openFeedbacks ? '?feedback=open' : ''
+              }`
         const first10Blocks = stack.stackBlocks.slice(0, 10)
         return (
           <Card
@@ -90,6 +95,9 @@ export default function StackItems({
               )}
 
               {isPublicItems && <Likes stackId={stack._id} />}
+              {stack.isOpenForFeedbacks && (
+                <FeedbacksCount stackId={stack._id} />
+              )}
             </CardFooter>
           </Card>
         )

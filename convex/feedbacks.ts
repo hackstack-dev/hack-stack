@@ -1,7 +1,7 @@
 import { authAction, authMutation, authQuery } from '~/convex/utils'
 import { v } from 'convex/values'
 import { paginationOptsValidator } from 'convex/server'
-import { getOneFrom } from 'convex-helpers/server/relationships'
+import { getManyFrom, getOneFrom } from 'convex-helpers/server/relationships'
 import { internal } from '~/convex/_generated/api'
 import { internalMutation } from '~/convex/_generated/server'
 import { UnwrapConvex } from '~/convex/types'
@@ -159,10 +159,7 @@ export const createReply = authMutation({
       'by_userId',
       stack.userId
     )
-    // if(userSettings?.feedbackReplyEmail) {
-    //   // ToDo: notify via email
-    //   // send email
-    // }
+
     if (!userSettings?.feedbackReplyInApp) return insertResult
     return db.insert('notifications', {
       sourceUserId: user._id,
@@ -225,5 +222,15 @@ export const getFeedbacksByStackId = authQuery({
       })
     )
     return { ...feedbacks, page: data }
+  }
+})
+
+export const getStackFeedbacksCount = authQuery({
+  args: {
+    stackId: v.id('stacks')
+  },
+  handler: async ({ db }, { stackId }) => {
+    const feedbacks = await getManyFrom(db, 'feedbacks', 'by_stackId', stackId)
+    return feedbacks.length
   }
 })

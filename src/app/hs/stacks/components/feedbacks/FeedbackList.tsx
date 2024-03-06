@@ -15,7 +15,7 @@ export default function FeedbackList({ stackId }: FeedbackListProps) {
   const { results, status, loadMore } = usePaginatedQuery(
     api.feedbacks.getFeedbacksByStackId,
     stackId ? { stackId } : 'skip',
-    { initialNumItems: 1 }
+    { initialNumItems: 10 }
   )
 
   const sendReply = useMutation(api.feedbacks.createReply)
@@ -47,7 +47,7 @@ export default function FeedbackList({ stackId }: FeedbackListProps) {
             color="secondary"
             variant="flat"
             disabled={status !== 'CanLoadMore'}
-            onClick={() => loadMore(1)}
+            onClick={() => loadMore(10)}
           >
             Load more
           </Button>

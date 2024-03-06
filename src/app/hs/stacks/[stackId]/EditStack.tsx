@@ -36,6 +36,7 @@ import EditStackCoverImage from '@/app/hs/stacks/[stackId]/EditStackCoverImage'
 import StackFeedbackSettings from '@/app/hs/stacks/[stackId]/StackFeedbackSettings'
 import Link from 'next/link'
 import { Button } from '@nextui-org/button'
+import FeedbacksCount from '@/app/hs/stacks/components/FeedbacksCount'
 
 interface EditStackProps {
   stackState: StackStateProps['stackState']
@@ -141,6 +142,7 @@ export default function EditStack({
               </Tooltip>
             )}
           </div>
+          {stack.isOpenForFeedbacks && <FeedbacksCount stackId={stackId} />}
           <Likes stackId={stackId} />
         </div>
       </header>

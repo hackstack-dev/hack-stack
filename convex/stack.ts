@@ -94,6 +94,22 @@ export const recentlyAddedStacks = authQuery(async (ctx) => {
     .take(6)
 })
 
+export const requestedFeedback = authQuery(async (ctx) => {
+  if (!ctx.user) {
+    return []
+  }
+  return ctx.db
+    .query('stacks')
+    .filter((q) =>
+      q.and(
+        q.eq(q.field('isPublic'), true),
+        q.eq(q.field('isOpenForFeedbacks'), true)
+      )
+    )
+    .order('desc')
+    .take(6)
+})
+
 export const risingStacks = authQuery(async (ctx) => {
   if (!ctx.user) {
     return []

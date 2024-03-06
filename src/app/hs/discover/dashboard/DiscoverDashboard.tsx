@@ -12,6 +12,7 @@ import { api } from '~/convex/_generated/api'
 import { TopContributors } from '@/app/hs/discover/dashboard/TopContributors'
 import { TopStackBuilders } from '@/app/hs/discover/dashboard/TopStackBuilders'
 import { TopTemplateMakers } from '@/app/hs/discover/dashboard/TopTemplateMakers'
+import RequestedFeedback from "@/app/hs/discover/dashboard/RequestedFeedback";
 
 export default function DiscoverDashboard() {
   const blocks = useQuery(api.blocks.getAllBlocks, {})
@@ -43,6 +44,9 @@ export default function DiscoverDashboard() {
       <DashboardSection title="Rising Stacks">
         <RisingStacks />
       </DashboardSection>
+        <DashboardSection title="Requested Feedback">
+            <RequestedFeedback />
+        </DashboardSection>
       <DashboardSection title="Community">
         <TopContributors />
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mt-6">
