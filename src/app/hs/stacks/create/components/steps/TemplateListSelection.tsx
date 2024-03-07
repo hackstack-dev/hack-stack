@@ -61,7 +61,7 @@ export default function TemplateListSelection({
               {error && <p className="text-tiny text-danger">{error}</p>}
             </div>
             <Input
-              size="sm"
+              size="md"
               className="mt-12 ml-auto mb-4 max-w-[450px]"
               placeholder={'Search templates'}
               onValueChange={setSearch}

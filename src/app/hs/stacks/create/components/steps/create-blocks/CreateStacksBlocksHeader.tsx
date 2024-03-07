@@ -2,6 +2,7 @@ import React from 'react'
 import { StackState } from '@/app/hs/stacks/create/create.types'
 import { BreadcrumbItem, Breadcrumbs } from '@nextui-org/react'
 import { useWizard } from 'react-use-wizard'
+import { Suggestion } from '@/app/hs/stacks/components/suggestions/Suggestion'
 
 interface StacksBlocksHeaderProps {
   stackState: StackState
@@ -24,6 +25,7 @@ export function CreateStacksBlocksHeader({
         <BreadcrumbItem>Build your stack</BreadcrumbItem>
       </Breadcrumbs>
       {error && <p className="text-small text-danger pr-2">{error}</p>}
+      <Suggestion item="tech" variant="light" />
     </div>
   )
 }

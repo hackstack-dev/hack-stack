@@ -13,7 +13,7 @@ export default function BlocksToolbar() {
 
   const activeColor = theme === 'dark' ? 'primary' : 'secondary'
   return (
-    <div className="absolute left-4 bottom-4 z-10 bg-white dark:bg-black flex flex-col gap-2 p-1 border-1 border-default-100 rounded-large">
+    <div className="absolute right-4 top-4 z-10 bg-white dark:bg-black flex items-center gap-2 p-1 border-1 border-default-100 rounded-large">
       <Tooltip size="sm" content={'Compact mode'}>
         <Button
           onClick={() => {

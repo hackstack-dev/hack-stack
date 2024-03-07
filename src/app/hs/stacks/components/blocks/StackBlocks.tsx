@@ -15,8 +15,6 @@ import { Suggestion } from '@/app/hs/stacks/components/suggestions/Suggestion'
 import BlocksToolbar, {
   snapToGridEnabled
 } from '@/app/hs/stacks/components/blocks/BlocksToolbar'
-import { Button } from '@nextui-org/button'
-import { LucidePlus } from 'lucide-react'
 import { useSnapshot } from 'valtio'
 import {
   adjustNodePositionInGroup,
@@ -201,7 +199,6 @@ export default function StackBlocks({
           <section className="h-full w-full relative">
             <NewBlockDialog onAddBlock={handleAddBlock} />
             <AddGroupButton handleAddGroup={handleAddGroup} />
-            <BlocksToolbar />
             <Flow
               nodes={nodes}
               setNodes={setNodes}
@@ -210,9 +207,7 @@ export default function StackBlocks({
               onNodeDragStop={handleNodeDragStop}
               snapToGrid={snapToGrid.value}
             />
-            <div className="absolute top-6 right-6 z-10">
-              <Suggestion item="tech" variant="flat" />
-            </div>
+            <BlocksToolbar />
           </section>
         </Panel>
         <PanelResizeHandle className="relative">

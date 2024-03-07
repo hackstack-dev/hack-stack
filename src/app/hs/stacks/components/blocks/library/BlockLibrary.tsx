@@ -76,7 +76,7 @@ export default function BlockLibrary({
     <div className="flex items-start gap-4">
       <div className="min-w-[200px]">
         <Input
-          size="sm"
+          size="md"
           placeholder={'Search blocks'}
           onValueChange={setSearch}
           startContent={<LucideSearch strokeWidth={1} />}

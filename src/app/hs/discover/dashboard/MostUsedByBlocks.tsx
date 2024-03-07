@@ -39,7 +39,7 @@ export default function MostUsedByBlocks({ options }: MostUsedByBlocksProps) {
   return (
     <div>
       <Select
-        size="sm"
+        size="md"
         variant="flat"
         color="primary"
         placeholder="Select blocks"
