@@ -11,6 +11,13 @@ import { Doc, Id } from '~/convex/_generated/dataModel'
 import { useTheme } from 'next-themes'
 import StackViewTechDetails from '@/app/hs/stacks/view/[stackId]/StackViewTechDetails'
 
+const onDragStart = (
+  event: React.DragEvent<HTMLDivElement>,
+  nodeData: BlockNodeData
+) => {
+  event.dataTransfer.setData('application/reactflow', JSON.stringify(nodeData))
+  event.dataTransfer.effectAllowed = 'move'
+}
 interface BlockDataPanelProps {
   selectedNode: Node<BlockNodeData>
   onUpdateBlock: (
@@ -24,6 +31,7 @@ export default function BlockDataPanel({
 }: BlockDataPanelProps) {
   const { theme } = useTheme()
   const [search, setSearch] = React.useState('')
+  const [draggingId, setDraggingId] = React.useState('')
 
   const tech =
     useQuery(
@@ -58,20 +66,40 @@ export default function BlockDataPanel({
           <li
             key={tech.name}
             className={cn(
-              'p-2 cursor-pointer rounded-md hover:ring-1 ring-secondary transition-all',
+              'p-2 cursor-pointer rounded-md ',
               selectedNode?.data?.tech?.name === tech.name &&
-                'ring-1 ring-secondary'
+                'ring-1 ring-secondary',
+              draggingId !== tech.name && 'hover:ring-1 ring-secondary'
             )}
             onClick={() => handleBlockUpdate(tech)}
           >
-            <Image
-              src={getTechLogo(tech.icon, theme)}
-              alt={tech.name}
-              width={32}
-              height={32}
-              className="h-8 mx-auto"
-            />
-            <span className="text-xs">{tech.name}</span>
+            <div
+              className={cn(
+                'flex flex-col items-center transition-all translate-x-0 translate-y-0 transform-gpu',
+                draggingId === tech.name &&
+                  'select-none cursor-grabbing opacity-10'
+              )}
+              onDragStart={(event) => {
+                setDraggingId(tech.name)
+                const { _id, _creationTime, ...rest } = tech
+                onDragStart(event, {
+                  id: selectedNode.data.id,
+                  blockName: selectedNode.data.blockName,
+                  tech: rest
+                })
+              }}
+              onDragEnd={(event) => setDraggingId('')}
+              draggable
+            >
+              <Image
+                src={getTechLogo(tech.icon, theme)}
+                alt={tech.name}
+                width={32}
+                height={32}
+                className="h-8 mx-auto"
+              />
+              <span className="text-xs">{tech.name}</span>
+            </div>
           </li>
         ))}
       </ul>

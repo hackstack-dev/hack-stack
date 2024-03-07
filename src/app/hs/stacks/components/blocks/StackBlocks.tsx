@@ -32,7 +32,7 @@ export default function StackBlocks({
   hidden = false
 }: StackBlocksProps) {
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes)
-  const { getIntersectingNodes } = useReactFlow()
+  const { getIntersectingNodes, screenToFlowPosition } = useReactFlow()
 
   const { setPosition } = useNewBlockPosition()
   const snapToGrid = useSnapshot(snapToGridEnabled)
@@ -187,6 +187,47 @@ export default function StackBlocks({
     },
     [getIntersectingNodes, setNodes]
   )
+
+  const onDragOver = React.useCallback((event: React.DragEvent) => {
+    event.preventDefault()
+    event.dataTransfer.dropEffect = 'move'
+  }, [])
+
+  const onDrop = React.useCallback(
+    (event: React.DragEvent) => {
+      event.preventDefault()
+      try {
+        const nodeDataString = event.dataTransfer.getData(
+          'application/reactflow'
+        )
+        const nodeData = JSON.parse(nodeDataString) as BlockNodeData
+
+        const position = screenToFlowPosition({
+          x: event.clientX,
+          y: event.clientY
+        })
+
+        setNodes((nds) => {
+          const updatedNodes = nds.map((node) =>
+            node.selected ? { ...node, selected: false } : node
+          )
+
+          const newBlockNode = {
+            id: `${nodeData.id}_${updatedNodes.length}`,
+            type: 'blockNode',
+            data: nodeData,
+            position,
+            selected: true
+          }
+
+          return [...updatedNodes, newBlockNode].sort(groupsFirst)
+        })
+      } catch (error) {
+        console.error(error)
+      }
+    },
+    [screenToFlowPosition, setNodes]
+  )
   return (
     <div
       className={cn(
@@ -205,6 +246,8 @@ export default function StackBlocks({
               onNodesChange={onNodesChange}
               onNodeDrag={handleNodeDrag}
               onNodeDragStop={handleNodeDragStop}
+              onDrop={(event) => onDrop(event)}
+              onDragOver={onDragOver}
               snapToGrid={snapToGrid.value}
             />
             <BlocksToolbar />

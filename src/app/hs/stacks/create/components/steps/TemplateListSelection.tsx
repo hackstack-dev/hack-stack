@@ -12,7 +12,7 @@ import { useWizard } from 'react-use-wizard'
 import { FancyStepTitle } from '@/app/hs/stacks/create/components/layout/FancyStepTitle'
 import { Chip } from '@nextui-org/chip'
 import UserAvatar from '@/app/hs/components/ui/UserAvatar'
-import PageDataLoading from "@/app/hs/components/ui/PageDataLoading";
+import PageDataLoading from '@/app/hs/components/ui/PageDataLoading'
 
 export default function TemplateListSelection({
   stackState,
@@ -49,7 +49,7 @@ export default function TemplateListSelection({
   return (
     <div className="my-2">
       {!templates ? (
-          <PageDataLoading />
+        <PageDataLoading />
       ) : (
         <RadioGroup
           value={stackState.template?._id}
@@ -96,9 +96,9 @@ export default function TemplateListSelection({
                     </p>
                     {t.blocks.length > 0 && (
                       <div className="mt-4 flex items-center gap-2 flex-wrap">
-                        {t.blocks.map((block) => (
+                        {t.blocks.map((block, i) => (
                           <Chip
-                            key={block._id}
+                            key={block._id ?? i}
                             size="sm"
                             color="secondary"
                             variant="bordered"

@@ -22,7 +22,7 @@ export default function ResizableGroupNode(props: NodeProps<GroupNodeData>) {
           height: 10
         }}
       />
-      <div className="text-lg p-2 break-words border-b border-primary dark:border-default-200">
+      <div className="text-center text-lg p-2 break-words border-b border-primary dark:border-default-200">
         {data.blockName}
       </div>
     </div>
