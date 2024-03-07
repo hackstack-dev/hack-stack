@@ -11,7 +11,7 @@ export default function FeedbacksCount({ stackId }: { stackId: Id<'stacks'> }) {
   })
 
   return (
-    <div className="flex items-center gap-2">
+    <div className="flex items-center gap-2 mx-2">
       <span className="text-xs text-default-400 dark:text-default-500">
         {formatNumber(feedbacksCount ?? 0)}
       </span>
