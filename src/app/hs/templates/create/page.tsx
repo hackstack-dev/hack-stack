@@ -15,6 +15,7 @@ export default function CreateTemplatePage() {
         <TemplateForm
           defaultValues={defaultValues}
           initialNodes={[]}
+          initialEdges={[]}
           title="Create a new template"
         />
       </FlowProvider>

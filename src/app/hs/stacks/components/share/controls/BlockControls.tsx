@@ -6,11 +6,14 @@ import ColorControl from '@/app/hs/stacks/components/share/controls/ColorControl
 import BackgroundControl from '@/app/hs/stacks/components/share/controls/BackgroundControl'
 import ShadowControl from '@/app/hs/stacks/components/share/controls/ShadowControl'
 import { useSnapshot } from 'valtio'
-import { shareStackBlockSettings } from '@/app/hs/stacks/components/share/Share.state'
+import {
+  shareStackBlockSettings,
+  shareStackEdgeSettings
+} from '@/app/hs/stacks/components/share/Share.state'
 
 export default function BlockControls() {
   const shareBlockSettings = useSnapshot(shareStackBlockSettings)
-
+  const shareEdgeSettings = useSnapshot(shareStackEdgeSettings)
   return (
     <ControlsSection title="Block">
       <div className="flex flex-col space-y-4 mt-4">
@@ -112,6 +115,14 @@ export default function BlockControls() {
             value={shareBlockSettings.boxShadow}
             onChange={(value) => {
               shareStackBlockSettings.boxShadow = value
+            }}
+          />
+        </ControlsRow>
+        <ControlsRow label="Connection color">
+          <ColorControl
+            value={shareEdgeSettings.color}
+            onChange={(value) => {
+              shareStackEdgeSettings.color = value
             }}
           />
         </ControlsRow>

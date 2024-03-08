@@ -1,30 +1,35 @@
-import { NodeProps, NodeResizer } from 'reactflow'
+import { NodeProps } from 'reactflow'
 import { GroupNodeData } from '@/app/hs/stacks/components/blocks/Blocks.types'
-import { cn } from '@/app/lib/utils'
+import ResizableGroupNodeDisplay from '@/app/hs/stacks/components/blocks/node-types/ResizableGroupNodeDisplay'
+import { useSnapshot } from 'valtio'
+import {
+  connectionsOrientation,
+  enableConnections
+} from '@/app/hs/stacks/components/blocks/Blocks.state'
+import CustomHandle from '@/app/hs/stacks/components/blocks/handles/CustomHandle'
+import { useTheme } from 'next-themes'
 
 export default function ResizableGroupNode(props: NodeProps<GroupNodeData>) {
-  const { data, selected } = props
+  const { theme } = useTheme()
+  const withConnections = useSnapshot(enableConnections)
+  const connOrientation = useSnapshot(connectionsOrientation)
   return (
-    <div
-      className={cn(
-        'bg-amber-200/30 dark:bg-default-200/30',
-        'border-1 border-primary dark:border-default-200 rounded-medium',
-        'h-full z-0'
-      )}
-    >
-      <NodeResizer
-        color="#d946ef"
-        isVisible={selected}
-        minWidth={230}
-        minHeight={230}
-        handleStyle={{
-          width: 10,
-          height: 10
-        }}
+    <>
+      <CustomHandle
+        visible={withConnections.value}
+        orientation={connOrientation.value}
+        type="target"
+        theme={theme}
+        nodeType={'resizableGroupNode'}
       />
-      <div className="text-center text-lg p-2 break-words border-b border-primary dark:border-default-200">
-        {data.blockName}
-      </div>
-    </div>
+      <ResizableGroupNodeDisplay {...props} />
+      <CustomHandle
+        visible={withConnections.value}
+        orientation={connOrientation.value}
+        type="source"
+        theme={theme}
+        nodeType={'resizableGroupNode'}
+      />
+    </>
   )
 }

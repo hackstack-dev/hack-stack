@@ -1,7 +1,16 @@
 import React, { MouseEvent as ReactMouseEvent } from 'react'
-import { useNodesState, useReactFlow } from 'reactflow'
+import {
+  addEdge,
+  Connection,
+  ConnectionLineType,
+  Edge,
+  Node,
+  useEdgesState,
+  useNodesState,
+  useReactFlow,
+  useUpdateNodeInternals
+} from 'reactflow'
 import Flow from '@/app/hs/stacks/components/blocks/Flow'
-import { Node } from 'reactflow'
 import { NewBlockDialog } from '@/app/hs/stacks/components/blocks/library/NewBlockDialog'
 import { Panel, PanelGroup, PanelResizeHandle } from 'react-resizable-panels'
 import ResizeHandle from '@/app/hs/stacks/components/blocks/ResizeHandle'
@@ -11,10 +20,6 @@ import {
 } from '@/app/hs/stacks/components/blocks/Blocks.types'
 import useNewBlockPosition from '@/app/hs/stacks/components/blocks/hooks/useNewBlockPosition'
 import { cn } from '@/app/lib/utils'
-import { Suggestion } from '@/app/hs/stacks/components/suggestions/Suggestion'
-import BlocksToolbar, {
-  snapToGridEnabled
-} from '@/app/hs/stacks/components/blocks/BlocksToolbar'
 import { useSnapshot } from 'valtio'
 import {
   adjustNodePositionInGroup,
@@ -22,20 +27,48 @@ import {
 } from '@/app/hs/stacks/components/blocks/helpers/StackBlocks.utils'
 import StackBlocksDataPanel from '@/app/hs/stacks/components/blocks/StackBlocksDataPanel'
 import AddGroupButton from '@/app/hs/stacks/components/blocks/AddGroupButton'
+import BlocksToolbar from '@/app/hs/stacks/components/blocks/BlocksToolbar'
+import {
+  connectionsLineType,
+  enableConnectionAnimation,
+  snapToGridEnabled
+} from '@/app/hs/stacks/components/blocks/Blocks.state'
+import { useTheme } from 'next-themes'
 
 interface StackBlocksProps {
   initialNodes: Node<BlockNodeData | GroupNodeData, string | undefined>[]
+  initialEdges?: Edge[]
   hidden?: boolean
 }
 export default function StackBlocks({
   initialNodes,
+  initialEdges = [],
   hidden = false
 }: StackBlocksProps) {
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes)
+  const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges)
   const { getIntersectingNodes, screenToFlowPosition } = useReactFlow()
-
+  const updateNodeInternals = useUpdateNodeInternals()
   const { setPosition } = useNewBlockPosition()
   const snapToGrid = useSnapshot(snapToGridEnabled)
+  const lineType = useSnapshot(connectionsLineType)
+  const animated = useSnapshot(enableConnectionAnimation)
+
+  const onEdgeConnect = React.useCallback(
+    (connection: Connection) =>
+      setEdges((eds) => {
+        return addEdge(
+          {
+            ...connection,
+            style: { stroke: '#8b5cf6' },
+            type: lineType.value,
+            animated: animated.value
+          },
+          eds
+        )
+      }),
+    [setEdges, lineType.value, animated.value]
+  )
   const handleAddBlock = (nodeData: BlockNodeData) => {
     setNodes((nds) => {
       const updatedNodes = nds.map((node) =>
@@ -228,6 +261,25 @@ export default function StackBlocks({
     },
     [screenToFlowPosition, setNodes]
   )
+
+  const handleUpdateNodeInternals = React.useCallback(() => {
+    updateNodeInternals(nodes.map((n) => n.id))
+  }, [updateNodeInternals, nodes])
+
+  const handleLineTypeChange = React.useCallback(
+    (type: ConnectionLineType) => {
+      setEdges((nds) => nds.map((edge) => ({ ...edge, type })))
+    },
+    [setEdges]
+  )
+
+  const handleAnimatedChange = React.useCallback(
+    (animated: boolean) => {
+      setEdges((nds) => nds.map((edge) => ({ ...edge, animated })))
+    },
+    [setEdges]
+  )
+
   return (
     <div
       className={cn(
@@ -242,15 +294,21 @@ export default function StackBlocks({
             <AddGroupButton handleAddGroup={handleAddGroup} />
             <Flow
               nodes={nodes}
-              setNodes={setNodes}
+              edges={edges}
+              onEdgeConnect={onEdgeConnect}
               onNodesChange={onNodesChange}
+              onEdgesChange={onEdgesChange}
               onNodeDrag={handleNodeDrag}
               onNodeDragStop={handleNodeDragStop}
               onDrop={(event) => onDrop(event)}
               onDragOver={onDragOver}
               snapToGrid={snapToGrid.value}
             />
-            <BlocksToolbar />
+            <BlocksToolbar
+              publishConnectionsConfigChange={handleUpdateNodeInternals}
+              onLineTypeChange={handleLineTypeChange}
+              onAnimatedChange={handleAnimatedChange}
+            />
           </section>
         </Panel>
         <PanelResizeHandle className="relative">

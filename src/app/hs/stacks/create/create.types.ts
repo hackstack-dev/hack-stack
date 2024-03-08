@@ -1,6 +1,6 @@
 import { Doc } from '~/convex/_generated/dataModel'
 import { z } from 'zod'
-import type { Node } from 'reactflow'
+import type { Node, Edge } from 'reactflow'
 import {
   BlockNodeData,
   GroupNodeData
@@ -25,6 +25,7 @@ export type StackForm = z.infer<typeof stackFormSchema>
 export type StackState = StackForm & {
   template?: Doc<'templates'>
   stackBlocks: Node<BlockNodeData | GroupNodeData>[]
+  stackEdges?: Edge[]
   coverImage: string
 }
 export interface StackStateProps {

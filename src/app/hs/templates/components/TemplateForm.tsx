@@ -1,5 +1,5 @@
 import React from 'react'
-import { Node, useReactFlow } from 'reactflow'
+import { Edge, Node, useReactFlow } from 'reactflow'
 import { useMutation } from 'convex/react'
 import { api } from '~/convex/_generated/api'
 import { useRouter } from 'next/navigation'
@@ -33,12 +33,14 @@ interface TemplateFormProps {
   title: string
   defaultValues: TemplateFormState
   initialNodes: Node<BlockNodeData, string | undefined>[]
+  initialEdges: Edge[]
   templateId?: Id<'templates'>
 }
 export default function TemplateForm({
   title,
   defaultValues,
   initialNodes,
+  initialEdges,
   templateId
 }: TemplateFormProps) {
   const [submitting, setSubmitting] = React.useState(false)
@@ -106,7 +108,10 @@ export default function TemplateForm({
   return (
     <div className="grid grid-col-1 grow md:grid-cols-[1fr_400px] border dark:border-default-50 rounded-large">
       <div className="border-r dark:border-default-50 relative">
-        <TemplateBlocks initialNodes={initialNodes} />
+        <TemplateBlocks
+          initialNodes={initialNodes}
+          initialEdges={initialEdges}
+        />
       </div>
       <form
         onSubmit={handleSubmit(onSubmit)}

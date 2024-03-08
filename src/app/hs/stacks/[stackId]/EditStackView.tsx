@@ -6,9 +6,13 @@ import { api } from '~/convex/_generated/api'
 import { Id } from '~/convex/_generated/dataModel'
 import { StackState } from '@/app/hs/stacks/create/create.types'
 import type { Node } from 'reactflow'
-import { BlockNodeData } from '@/app/hs/stacks/components/blocks/Blocks.types'
+import {
+  BlockNodeData,
+  BlocksConfig
+} from '@/app/hs/stacks/components/blocks/Blocks.types'
 import EditStack from '@/app/hs/stacks/[stackId]/EditStack'
 import PageDataLoading from '@/app/hs/components/ui/PageDataLoading'
+import useBlocksConfig from '@/app/hs/stacks/components/blocks/hooks/useBlocksConfig'
 
 interface StackViewProps {
   stackId: Id<'stacks'>
@@ -20,6 +24,7 @@ export default function EditStackView({ stackId }: StackViewProps) {
     api.stack.getUserStack,
     shouldFetch ? { stackId } : 'skip'
   )
+  const { setBlocksConfig } = useBlocksConfig()
   const [editStackState, setStackState] = React.useState<StackState>({
     name: '',
     projectTypes: [],
@@ -27,6 +32,7 @@ export default function EditStackView({ stackId }: StackViewProps) {
     websiteUrl: '',
     description: '',
     stackBlocks: [],
+    stackEdges: [],
     isPublic: true,
     coverImage: ''
   })
@@ -40,11 +46,13 @@ export default function EditStackView({ stackId }: StackViewProps) {
         websiteUrl: stack.websiteUrl,
         description: stack.description,
         stackBlocks: stack.stackBlocks as Node<BlockNodeData>[],
+        stackEdges: stack.stackEdges,
         isPublic: stack.isPublic,
         coverImage: stack.coverImage
       })
+      stack?.blocksConfig && setBlocksConfig(stack.blocksConfig as BlocksConfig)
     }
-  }, [stack])
+  }, [stack, setBlocksConfig])
 
   return (
     <>

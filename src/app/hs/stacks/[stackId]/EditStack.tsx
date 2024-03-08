@@ -37,6 +37,7 @@ import StackFeedbackSettings from '@/app/hs/stacks/[stackId]/StackFeedbackSettin
 import Link from 'next/link'
 import { Button } from '@nextui-org/button'
 import FeedbacksCount from '@/app/hs/stacks/components/FeedbacksCount'
+import useBlocksConfig from '@/app/hs/stacks/components/blocks/hooks/useBlocksConfig'
 
 interface EditStackProps {
   stackState: StackStateProps['stackState']
@@ -50,10 +51,10 @@ export default function EditStack({
 }: EditStackProps) {
   const router = useRouter()
   const [viewMode, setViewMode] = React.useState<string | number>('blocks')
-  const { getNodes, validateBlocks, error } = useBlockNodes()
+  const { getNodes, getEdges, validateBlocks, error } = useBlockNodes()
   const updateStack = useMutation(api.stack.updateStack)
   const deleteStack = useMutation(api.stack.deleteStack)
-
+  const { getBlocksConfig } = useBlocksConfig()
   const form = useForm<StackForm>({
     resolver: zodResolver(stackFormSchema),
     defaultValues: stackState
@@ -70,6 +71,8 @@ export default function EditStack({
         }
       }
       const nodes = getNodes()
+      const edges = getEdges()
+      const blocksConfig = getBlocksConfig()
       const values = form.getValues()
       const templateId = stack.templateId
       const coverImage = stack.coverImage
@@ -78,6 +81,8 @@ export default function EditStack({
         templateId,
         coverImage,
         stackBlocks: nodes,
+        stackEdges: edges,
+        blocksConfig,
         isPublic: stack.isPublic
       }
       await updateStack({ stackId, stack: updatedStack })
@@ -194,6 +199,7 @@ export default function EditStack({
       </div>
       <StackBlocks
         initialNodes={stackState.stackBlocks ?? []}
+        initialEdges={stackState.stackEdges ?? []}
         hidden={viewMode !== 'blocks'}
       />
 

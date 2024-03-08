@@ -1,13 +1,24 @@
-import { GroupNodeData } from '@/app/hs/stacks/components/blocks/Blocks.types'
+import {
+  BlocksConfig,
+  GroupNodeData
+} from '@/app/hs/stacks/components/blocks/Blocks.types'
 import { NodeProps, NodeResizer } from 'reactflow'
 import React from 'react'
 import { useSnapshot } from 'valtio'
 import { shareStackGroupSettings } from '@/app/hs/stacks/components/share/Share.state'
+import CustomHandle from '@/app/hs/stacks/components/blocks/handles/CustomHandle'
+import { useTheme } from 'next-themes'
 
 export default function CustomGroupNode({
   selected,
-  data: { blockName }
-}: NodeProps<GroupNodeData>) {
+  data: { blockName, orientation, enableConnections }
+}: NodeProps<
+  GroupNodeData & {
+    orientation: BlocksConfig['connectionsOrientation']
+    enableConnections: BlocksConfig['enableConnections']
+  }
+>) {
+  const { theme } = useTheme()
   const shareGroupSettings = useSnapshot(shareStackGroupSettings)
   const { fontSize, color, ...rest } = shareGroupSettings ?? {}
 
@@ -31,26 +42,40 @@ export default function CustomGroupNode({
   }, [rest.borderColor, rest.borderWidth])
 
   return (
-    <div className="h-full" style={rest}>
-      <NodeResizer
-        color="#d946ef"
-        isVisible={selected}
-        minWidth={230}
-        minHeight={230}
-        handleStyle={{
-          width: 10,
-          height: 10
-        }}
+    <>
+      <CustomHandle
+        type={'target'}
+        visible={enableConnections}
+        orientation={orientation}
+        nodeType={'resizeableGroupNode'}
+        theme={theme}
+        customBackgroundColor={shareGroupSettings.background}
+        customBorderColor={shareGroupSettings.borderColor}
       />
-      <div className="p-2" style={groupNameBorderStyle}>
-        <span style={groupNameStyle}>{blockName}</span>
+      <div className="h-full" style={rest}>
+        <NodeResizer
+          color="#d946ef"
+          isVisible={selected}
+          minWidth={230}
+          minHeight={230}
+          handleStyle={{
+            width: 10,
+            height: 10
+          }}
+        />
+        <div className="p-2" style={groupNameBorderStyle}>
+          <span style={groupNameStyle}>{blockName}</span>
+        </div>
       </div>
-    </div>
+      <CustomHandle
+        type={'source'}
+        visible={enableConnections}
+        orientation={orientation}
+        nodeType={'resizeableGroupNode'}
+        theme={theme}
+        customBackgroundColor={shareGroupSettings.background}
+        customBorderColor={shareGroupSettings.borderColor}
+      />
+    </>
   )
 }
-
-/*'bg-amber-200/30 dark:bg-default-200/30',
-        'border-1 border-primary dark:border-default-200 rounded-medium',
-        'h-full z-0'
-
- */

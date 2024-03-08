@@ -2,21 +2,20 @@ import React from 'react'
 import Flow from '@/app/hs/stacks/components/blocks/Flow'
 import { Panel, PanelGroup, PanelResizeHandle } from 'react-resizable-panels'
 import ResizeHandle from '@/app/hs/stacks/components/blocks/ResizeHandle'
-import { Node, OnNodesChange } from 'reactflow'
-import StackViewTechDetails from '@/app/hs/stacks/view/[stackId]/StackViewTechDetails'
+import { Node, OnNodesChange, Edge, OnEdgesChange } from 'reactflow'
 import UserProfileLink from '@/app/hs/components/ui/UserProfileLink'
 import Likes from '@/app/hs/stacks/components/Likes'
 import { Id } from '~/convex/_generated/dataModel'
 import StackViewSidebar from '@/app/hs/stacks/view/[stackId]/StackViewSidebar'
-import BlocksToolbar, {
-  snapToGridEnabled
-} from '@/app/hs/stacks/components/blocks/BlocksToolbar'
+import BlocksToolbar from '@/app/hs/stacks/components/blocks/BlocksToolbar'
 import { useSnapshot } from 'valtio'
+import { snapToGridEnabled } from '@/app/hs/stacks/components/blocks/Blocks.state'
 
 interface StackViewBlocksProps {
   nodes: Node[]
-  setNodes: (nodes: Node[]) => void
   onNodesChange: OnNodesChange
+  edges: Edge[]
+  onEdgesChange: OnEdgesChange
   userId?: Id<'users'>
   stackId?: Id<'stacks'>
   isOpenForFeedbacks?: boolean
@@ -24,12 +23,13 @@ interface StackViewBlocksProps {
 }
 export default function StackViewBlocks({
   nodes,
-  setNodes,
   onNodesChange,
+  edges,
+  onEdgesChange,
   userId,
   stackId,
   isOpenForFeedbacks,
-                                          openFeedbacks
+  openFeedbacks
 }: StackViewBlocksProps) {
   const snapToGrid = useSnapshot(snapToGridEnabled)
   return (
@@ -47,12 +47,13 @@ export default function StackViewBlocks({
             )}
             <Flow
               nodes={nodes}
-              setNodes={setNodes}
               onNodesChange={onNodesChange}
+              edges={edges}
+              onEdgesChange={onEdgesChange}
               snapToGrid={snapToGrid.value}
               viewOnly
             />
-            <BlocksToolbar />
+            <BlocksToolbar viewOnly  />
           </section>
         </Panel>
         <PanelResizeHandle className="relative">

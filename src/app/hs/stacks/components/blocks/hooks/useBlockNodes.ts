@@ -3,7 +3,7 @@ import { BlockNodeData } from '@/app/hs/stacks/components/blocks/Blocks.types'
 import React from 'react'
 
 export default function useBlockNodes() {
-  const { getNodes } = useReactFlow<BlockNodeData>()
+  const { getNodes, getEdges } = useReactFlow<BlockNodeData>()
   const [error, setError] = React.useState('')
   const validateBlocks = () => {
     setError('')
@@ -35,5 +35,5 @@ export default function useBlockNodes() {
     }
   }
 
-  return { validateBlocks, error, getNodes }
+  return { validateBlocks, error, getNodes, getEdges }
 }

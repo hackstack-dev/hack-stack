@@ -30,5 +30,5 @@ export interface ShareStackDetailsSettings extends ShareSettings {
 export interface ShareStackBlockSettings extends ShareSettings {
   techColor: string
   techFontSize: number
-  blockSize: string
+  blockSize: string,
 }

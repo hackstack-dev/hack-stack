@@ -12,6 +12,7 @@ export const stacksValidator = v.object({
   sourceCodeUrl: v.optional(v.string()),
   websiteUrl: v.optional(v.string()),
   description: v.optional(v.string()),
+  stackEdges: v.optional(v.array(v.any())),
   stackBlocks: v.array(
     v.object({
       id: v.string(),
@@ -49,6 +50,19 @@ export const stacksValidator = v.object({
       parentNode: v.optional(v.string()),
       className: v.optional(v.string()),
       style: v.optional(v.any())
+    })
+  ),
+  blocksConfig: v.optional(
+    v.object({
+      compactMode: v.boolean(),
+      snapToGrid: v.boolean(),
+      enableConnections: v.boolean(),
+      connectionsOrientation: v.union(
+        v.literal('horizontal'),
+        v.literal('vertical')
+      ),
+      connectionsLineType: v.string(),
+      animated: v.boolean()
     })
   )
 })

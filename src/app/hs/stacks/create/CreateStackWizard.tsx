@@ -15,6 +15,7 @@ import { api } from '~/convex/_generated/api'
 import { useRouter } from 'next/navigation'
 import { getRandomBackground } from '@/app/lib/utils'
 import CreateStackBlocks from '@/app/hs/stacks/create/components/steps/create-blocks/CreateStackBlocks'
+import useBlocksConfig from '@/app/hs/stacks/components/blocks/hooks/useBlocksConfig'
 
 export default function CreateStackWizard() {
   const router = useRouter()
@@ -27,11 +28,12 @@ export default function CreateStackWizard() {
     template: {} as Doc<'templates'>,
     isPublic: true,
     stackBlocks: [],
+    stackEdges: [],
     coverImage: getRandomBackground()
   })
 
   const saveStack = useMutation(api.stack.saveStack)
-
+  const { getBlocksConfig } = useBlocksConfig()
   const handleStackStateChange = React.useCallback(
     (newState: Partial<StackState>) => {
       setStackState((prev) => ({ ...prev, ...newState }))
@@ -42,9 +44,10 @@ export default function CreateStackWizard() {
   const handleSaveStack = async () => {
     // save stack
     const { template, ...rest } = createStackState
+    const blocksConfig = getBlocksConfig()
     const templateId = template?._id ?? ''
     await saveStack({
-      stack: { ...rest, templateId }
+      stack: { ...rest, templateId, blocksConfig }
     })
     router.push('/hs/stacks')
   }
@@ -73,7 +76,10 @@ export default function CreateStackWizard() {
         />
       </ReactFlowProvider>
       <StepContainer>
-        <Summary stackState={createStackState} onStateChange={handleStackStateChange} />
+        <Summary
+          stackState={createStackState}
+          onStateChange={handleStackStateChange}
+        />
       </StepContainer>
     </Wizard>
   )

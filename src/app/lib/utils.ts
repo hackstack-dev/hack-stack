@@ -36,7 +36,7 @@ export function convertFileToBase64(file: File) {
 }
 
 export function getTechLogo(tech: string, theme: string | undefined) {
-  const techExtension = tech.split('.').pop() ?? 'svg'
+  const techExtension = tech?.split('.')?.pop() ?? 'svg'
   const logoName =
     theme === 'dark'
       ? `${tech.replace(techExtension, `dark.${techExtension}`)}`

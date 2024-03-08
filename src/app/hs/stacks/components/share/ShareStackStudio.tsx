@@ -3,6 +3,7 @@ import {
   BackgroundProps,
   BackgroundVariant,
   type Node,
+  useEdgesState,
   useNodesState
 } from 'reactflow'
 import { Stack } from '~/convex/types'
@@ -24,10 +25,22 @@ interface ShareStackStudioProps {
 export default function ShareStackStudio({ stack }: ShareStackStudioProps) {
   const { theme } = useTheme()
   const exportRef = React.useRef<HTMLDivElement>(null)
+  const [edges, setEdges, onEdgesChange] = useEdgesState(
+    stack.stackEdges?.map((e) => ({
+      ...e,
+      data: stack.blocksConfig,
+      type: 'customEdge'
+    })) ?? []
+  )
   const [nodes, setNodes, onNodesChange] = useNodesState([
     getDetailsNode(stack),
     ...stack.stackBlocks.map((n) => ({
       ...n,
+      data: {
+        ...n.data,
+        orientation: stack.blocksConfig?.connectionsOrientation ?? 'vertical',
+        enableConnections: stack.blocksConfig?.enableConnections ?? false
+      },
       type:
         n.type === 'resizeableGroupNode' ? 'customGroupNode' : 'customBlockNode'
     }))
@@ -91,8 +104,9 @@ export default function ShareStackStudio({ stack }: ShareStackStudioProps) {
         <div className="grow h-full" ref={exportRef}>
           <Flow
             nodes={nodes}
-            setNodes={setNodes}
             onNodesChange={onNodesChange}
+            edges={edges}
+            onEdgesChange={onEdgesChange}
             background={canvasSettings}
             viewOnly
           />

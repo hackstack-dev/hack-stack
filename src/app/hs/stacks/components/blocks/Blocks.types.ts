@@ -1,6 +1,8 @@
 import { Doc } from '~/convex/_generated/dataModel'
 import { WithoutSystemFields } from 'convex/server'
 
+import { ConnectionLineType } from 'reactflow'
+
 export type TechWithoutSystemFields = WithoutSystemFields<Doc<'tech'>>
 
 export type BlockNodeData = {
@@ -24,3 +26,12 @@ export type TechWithRepoData =
       repoData?: any
     })
   | null
+
+export type BlocksConfig = {
+  compactMode: boolean
+  snapToGrid: boolean
+  enableConnections: boolean
+  connectionsOrientation: 'horizontal' | 'vertical'
+  connectionsLineType: ConnectionLineType
+  animated: boolean
+}

@@ -41,4 +41,6 @@ export const shareStackGroupSettings = proxy<ShareSettings>({
   boxShadow: 'unset'
 })
 
-
+export const shareStackEdgeSettings = proxy<{ color: string }>({
+  color: '#fff'
+})

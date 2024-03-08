@@ -2,11 +2,15 @@ import React, { DragEventHandler } from 'react'
 import ReactFlow, {
   Node,
   OnNodesChange,
+  OnConnect,
   Background,
   BackgroundVariant,
   BackgroundProps,
   NodeChange,
-  NodeDragHandler
+  NodeDragHandler,
+  Edge,
+  OnEdgesChange,
+  EdgeChange
 } from 'reactflow'
 
 import 'reactflow/dist/style.css'
@@ -17,6 +21,7 @@ import CustomBlockNode from '@/app/hs/stacks/components/blocks/node-types/Custom
 import StackDetailsNode from '@/app/hs/stacks/components/blocks/node-types/StackDetailsNode'
 import ResizableGroupNode from '@/app/hs/stacks/components/blocks/node-types/ResizableGroupNode'
 import CustomGroupNode from '@/app/hs/stacks/components/blocks/node-types/CustomGroupNode'
+import CustomEdge from '@/app/hs/stacks/components/blocks/edge-types/CustomEdge'
 
 const nodeTypes = {
   blockNode: BlockNode,
@@ -26,10 +31,16 @@ const nodeTypes = {
   customGroupNode: CustomGroupNode
 }
 
+const edgeTypes = {
+  customEdge: CustomEdge
+}
+
 interface FlowProps<T> {
   nodes: Node[]
-  setNodes: (nodes: Node[]) => void
+  edges: Edge[]
+  onEdgeConnect?: OnConnect
   onNodesChange: OnNodesChange
+  onEdgesChange: OnEdgesChange
   onNodeDrag?: NodeDragHandler
   onNodeDragStop?: NodeDragHandler
   onDrop?: DragEventHandler
@@ -40,7 +51,10 @@ interface FlowProps<T> {
 }
 export default function Flow<T = Element>({
   nodes,
+  edges,
+  onEdgeConnect,
   onNodesChange,
+  onEdgesChange,
   onNodeDrag,
   onNodeDragStop,
   onDrop,
@@ -64,17 +78,25 @@ export default function Flow<T = Element>({
 
   useSetCenter()
 
-  const handleNodesChangechanges = (changes: NodeChange[]) => {
+  const handleNodesChange = (changes: NodeChange[]) => {
     if (viewOnly && changes.some((c) => c.type === 'remove')) return
     onNodesChange(changes)
+  }
+
+  const handleEdgesChange = (changes: EdgeChange[]) => {
+    if (viewOnly && changes.some((c) => c.type === 'remove')) return
+    onEdgesChange(changes)
   }
 
   return (
     <ReactFlow
       nodes={nodes}
-      edges={[]}
+      edges={edges}
       nodeTypes={nodeTypes}
-      onNodesChange={handleNodesChangechanges}
+      edgeTypes={edgeTypes}
+      onNodesChange={handleNodesChange}
+      onEdgesChange={handleEdgesChange}
+      onConnect={onEdgeConnect}
       onNodeDrag={onNodeDrag}
       onNodeDragStop={onNodeDragStop}
       onDrop={onDrop}

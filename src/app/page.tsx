@@ -2,6 +2,7 @@ import { Button } from '@nextui-org/button'
 import Link from 'next/link'
 import Image from 'next/image'
 import { Metadata } from 'next'
+
 export const metadata: Metadata = {
   title: 'HackStack',
   description: 'HackStack - Community Driven Tech Stacks',

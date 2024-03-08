@@ -1,4 +1,4 @@
-import { Node, useNodesState } from 'reactflow'
+import { Node, Edge, useNodesState, useEdgesState } from 'reactflow'
 import useNewBlockPosition from '@/app/hs/stacks/components/blocks/hooks/useNewBlockPosition'
 import { BlockNodeData } from '@/app/hs/stacks/components/blocks/Blocks.types'
 import { NewBlockDialog } from '@/app/hs/stacks/components/blocks/library/NewBlockDialog'
@@ -8,10 +8,15 @@ import TemplateBlockTechList from '@/app/hs/templates/components/TemplateBlockTe
 
 interface TemplateBlocksProps {
   initialNodes: Node<BlockNodeData, string | undefined>[]
+  initialEdges: Edge[]
 }
 
-export default function TemplateBlocks({ initialNodes }: TemplateBlocksProps) {
+export default function TemplateBlocks({
+  initialNodes,
+  initialEdges
+}: TemplateBlocksProps) {
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes)
+  const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges)
   const { setPosition } = useNewBlockPosition()
   const handleAddBlock = (nodeData: BlockNodeData) => {
     setNodes((nds) => {
@@ -33,7 +38,12 @@ export default function TemplateBlocks({ initialNodes }: TemplateBlocksProps) {
     <>
       <NewBlockDialog onAddBlock={handleAddBlock} />
       <TemplateBlockTechList />
-      <Flow nodes={nodes} setNodes={setNodes} onNodesChange={onNodesChange} />
+      <Flow
+        nodes={nodes}
+        onNodesChange={onNodesChange}
+        edges={edges}
+        onEdgesChange={onEdgesChange}
+      />
     </>
   )
 }

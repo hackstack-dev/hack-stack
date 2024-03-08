@@ -1,16 +1,24 @@
 import { cn, getTechLogo } from '@/app/lib/utils'
-
 import Image from 'next/image'
-import { BlockNodeData } from '@/app/hs/stacks/components/blocks/Blocks.types'
+import {
+  BlockNodeData,
+  BlocksConfig
+} from '@/app/hs/stacks/components/blocks/Blocks.types'
 import { useTheme } from 'next-themes'
-import { NodeProps } from 'reactflow'
+import { NodeProps, useReactFlow, useUpdateNodeInternals } from 'reactflow'
 import React from 'react'
 import { useSnapshot } from 'valtio'
-import {shareStackBlockSettings} from "@/app/hs/stacks/components/share/Share.state";
+import { shareStackBlockSettings } from '@/app/hs/stacks/components/share/Share.state'
+import CustomHandle from '@/app/hs/stacks/components/blocks/handles/CustomHandle'
 
 export default function CustomBlockNode({
-  data: { blockName, tech }
-}: NodeProps<BlockNodeData>) {
+  data: { blockName, tech, orientation, enableConnections }
+}: NodeProps<
+  BlockNodeData & {
+    orientation: BlocksConfig['connectionsOrientation']
+    enableConnections: BlocksConfig['enableConnections']
+  }
+>) {
   const { theme } = useTheme()
   const techLogo = tech?.icon ?? 'icon.svg'
   const shareBlockSettings = useSnapshot(shareStackBlockSettings)
@@ -49,6 +57,15 @@ export default function CustomBlockNode({
 
   return (
     <>
+      <CustomHandle
+        type={'target'}
+        visible={enableConnections}
+        orientation={orientation}
+        nodeType={'blockNode'}
+        theme={theme}
+        customBackgroundColor={shareBlockSettings.background}
+        customBorderColor={shareBlockSettings.borderColor}
+      />
       <div
         className={cn(
           shareBlockSettings.blockSize === 'default' && 'min-w-[200px]'
@@ -78,6 +95,15 @@ export default function CustomBlockNode({
           )}
         </div>
       </div>
+      <CustomHandle
+        type={'source'}
+        visible={enableConnections}
+        orientation={orientation}
+        nodeType={'blockNode'}
+        theme={theme}
+        customBackgroundColor={shareBlockSettings.background}
+        customBorderColor={shareBlockSettings.borderColor}
+      />
     </>
   )
 }
