@@ -1,7 +1,7 @@
 import { Button } from '@nextui-org/button'
 import Link from 'next/link'
 import Image from 'next/image'
-import { Metadata } from 'next'
+import type { Metadata } from 'next'
 import StarField from '@/app/hs/components/ui/StarField'
 import { getRandomHackStackEmailBanner } from '@/app/lib/utils'
 
