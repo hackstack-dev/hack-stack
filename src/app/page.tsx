@@ -33,21 +33,21 @@ export default function Home() {
           width={250}
           height={250}
         />
-        <h1 className="text-6xl font-bold text-center">HackStack</h1>
-        <p className="text-lg text-gray-600 dark:text-gray-400 max-w-80">
+        <h1 className="text-6xl font-bold text-center text-white">HackStack</h1>
+        <p className="text-lg text-[#d946ef] max-w-80">
           Community driven tech stacks
         </p>
         <Button
           href="hs/discover"
           as={Link}
-          color="primary"
+          color="secondary"
           variant="solid"
           className="w-full md:w-1/2"
         >
           Get Started
         </Button>
       </div>
-      <div className="w-full">
+      <div className="w-full h-screen">
         <StarField />
       </div>
     </div>
