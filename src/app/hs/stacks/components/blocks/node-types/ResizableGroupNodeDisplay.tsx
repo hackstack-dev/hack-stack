@@ -1,5 +1,5 @@
-import { NodeProps, NodeResizer } from 'reactflow'
-import { GroupNodeData } from '@/app/hs/stacks/components/blocks/Blocks.types'
+import { type NodeProps, NodeResizer } from 'reactflow'
+import type { GroupNodeData } from '@/app/hs/stacks/components/blocks/Blocks.types'
 import { cn } from '@/app/lib/utils'
 
 export default function ResizableGroupNodeDisplay(
@@ -9,7 +9,7 @@ export default function ResizableGroupNodeDisplay(
   return (
     <div
       className={cn(
-        'bg-amber-200/30 dark:bg-[#0a0a0a]',
+        'bg-amber-200/30 dark:bg-black/20',
         'border-1 border-primary dark:border-secondary-400 rounded-medium',
         'h-full z-0'
       )}
