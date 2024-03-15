@@ -1,6 +1,6 @@
-import { NodeProps } from 'reactflow'
+import type { NodeProps } from 'reactflow'
 import React from 'react'
-import { StackDetailsNodeData } from '@/app/hs/stacks/components/share/ShareStack.types'
+import type { StackDetailsNodeData } from '@/app/hs/stacks/components/share/ShareStack.types'
 import { useSnapshot } from 'valtio'
 import { shareStackDetailsSettings } from '@/app/hs/stacks/components/share/Share.state'
 

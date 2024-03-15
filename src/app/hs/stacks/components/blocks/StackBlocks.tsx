@@ -27,7 +27,7 @@ import {
 } from '@/app/hs/stacks/components/blocks/helpers/StackBlocks.utils'
 import StackBlocksDataPanel from '@/app/hs/stacks/components/blocks/StackBlocksDataPanel'
 import AddGroupButton from '@/app/hs/stacks/components/blocks/AddGroupButton'
-import BlocksToolbar from '@/app/hs/stacks/components/blocks/BlocksToolbar'
+import BlocksToolbar from '@/app/hs/components/ui/FlowEditor/BlocksToolbar'
 import {
   connectionsLineType,
   enableConnectionAnimation,

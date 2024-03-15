@@ -1,15 +1,15 @@
 import { cn, getTechLogo } from '@/app/lib/utils'
 import Image from 'next/image'
-import {
+import type {
   BlockNodeData,
   BlocksConfig
 } from '@/app/hs/stacks/components/blocks/Blocks.types'
 import { useTheme } from 'next-themes'
-import { NodeProps, useReactFlow, useUpdateNodeInternals } from 'reactflow'
+import type { NodeProps } from 'reactflow'
 import React from 'react'
 import { useSnapshot } from 'valtio'
 import { shareStackBlockSettings } from '@/app/hs/stacks/components/share/Share.state'
-import CustomHandle from '@/app/hs/stacks/components/blocks/handles/CustomHandle'
+import CustomHandle from '@/app/hs/components/ui/FlowEditor/handles/CustomHandle'
 
 export default function CustomBlockNode({
   data: { blockName, tech, orientation, enableConnections }

@@ -1,9 +1,9 @@
 import { cn, getTechLogo } from '@/app/lib/utils'
 import Image from 'next/image'
-import { BlockNodeData } from '@/app/hs/stacks/components/blocks/Blocks.types'
 import { useTheme } from 'next-themes'
 import { useSnapshot } from 'valtio'
-import {compactMode} from "@/app/hs/stacks/components/blocks/Blocks.state";
+import { compactMode } from '@/app/hs/stacks/components/blocks/Blocks.state'
+import type { BlockNodeData } from '@/app/hs/stacks/components/blocks/Blocks.types'
 
 interface BlockNodeDataDisplayProps extends BlockNodeData {
   selected: boolean

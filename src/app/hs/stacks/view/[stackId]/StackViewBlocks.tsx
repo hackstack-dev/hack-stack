@@ -7,7 +7,7 @@ import UserProfileLink from '@/app/hs/components/ui/UserProfileLink'
 import Likes from '@/app/hs/stacks/components/Likes'
 import { Id } from '~/convex/_generated/dataModel'
 import StackViewSidebar from '@/app/hs/stacks/view/[stackId]/StackViewSidebar'
-import BlocksToolbar from '@/app/hs/stacks/components/blocks/BlocksToolbar'
+import BlocksToolbar from '@/app/hs/components/ui/FlowEditor/BlocksToolbar'
 import { useSnapshot } from 'valtio'
 import { snapToGridEnabled } from '@/app/hs/stacks/components/blocks/Blocks.state'
 

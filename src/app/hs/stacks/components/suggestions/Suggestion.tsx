@@ -34,6 +34,10 @@ export function Suggestion({
   const { isOpen, onOpen, onOpenChange } = useDisclosure()
   const [selected, setSelected] = React.useState<string>(item)
 
+  const handleOpen = () => {
+    window.beam('/custom-events/suggestion-opened')
+    onOpen()
+  }
   return (
     <>
       <Button
@@ -42,7 +46,7 @@ export function Suggestion({
         variant={variant}
         radius="full"
         startContent={<LucideHand size={iconSize[size]} strokeWidth={2} />}
-        onPress={onOpen}
+        onPress={handleOpen}
       >
         <span className="hidden md:inline-block">Suggest new {item}</span>
       </Button>

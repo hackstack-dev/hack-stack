@@ -6,7 +6,7 @@ import {
   enableConnections,
   snapToGridEnabled
 } from '@/app/hs/stacks/components/blocks/Blocks.state'
-import { BlocksConfig } from '@/app/hs/stacks/components/blocks/Blocks.types'
+import type { BlocksConfig } from '@/app/hs/stacks/components/blocks/Blocks.types'
 import { ConnectionLineType } from 'reactflow'
 import React from 'react'
 

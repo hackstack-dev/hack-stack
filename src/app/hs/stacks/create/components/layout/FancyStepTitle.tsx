@@ -1,8 +1,8 @@
-import React from 'react'
+import type React from 'react'
 
 export function FancyStepTitle({ children }: React.PropsWithChildren) {
   return (
-    <h2 className="font-light text-2xl dark:bg-gradient-to-br dark:from-secondary dark:to-primary dark:bg-clip-text dark:text-transparent">
+    <h2 className="font-light text-2xl bg-gradient-to-br from-secondary to-primary bg-clip-text text-transparent">
       {children}
     </h2>
   )

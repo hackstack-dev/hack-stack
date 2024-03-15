@@ -1,13 +1,13 @@
-import {
+import type {
   BlocksConfig,
   GroupNodeData
 } from '@/app/hs/stacks/components/blocks/Blocks.types'
-import { NodeProps, NodeResizer } from 'reactflow'
+import { type NodeProps, NodeResizer } from 'reactflow'
 import React from 'react'
 import { useSnapshot } from 'valtio'
 import { shareStackGroupSettings } from '@/app/hs/stacks/components/share/Share.state'
-import CustomHandle from '@/app/hs/stacks/components/blocks/handles/CustomHandle'
 import { useTheme } from 'next-themes'
+import CustomHandle from '@/app/hs/components/ui/FlowEditor/handles/CustomHandle'
 
 export default function CustomGroupNode({
   selected,

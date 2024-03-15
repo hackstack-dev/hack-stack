@@ -1,7 +1,6 @@
-import { Doc } from '~/convex/_generated/dataModel'
-import { WithoutSystemFields } from 'convex/server'
-
-import { ConnectionLineType } from 'reactflow'
+import type { Doc } from '~/convex/_generated/dataModel'
+import type { WithoutSystemFields } from 'convex/server'
+import type { ConnectionLineType } from 'reactflow'
 
 export type TechWithoutSystemFields = WithoutSystemFields<Doc<'tech'>>
 

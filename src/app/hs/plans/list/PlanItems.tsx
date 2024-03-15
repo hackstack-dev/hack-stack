@@ -14,7 +14,7 @@ interface TemplateItemsProps {
   withAvatar?: boolean
   withPublicPrivateIndication?: boolean
 }
-export default function TemplateItems({
+export default function PlanItems({
   items,
   isPressable = false,
   withAvatar = false,

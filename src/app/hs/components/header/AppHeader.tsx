@@ -15,7 +15,7 @@ import {
   NavbarMenuToggle
 } from '@nextui-org/react'
 import React from 'react'
-import { MenuItem } from '@/app/hs/components/header/types'
+import type { MenuItem } from '@/app/hs/components/header/types'
 import { useQuery } from 'convex/react'
 import { api } from '~/convex/_generated/api'
 import AppSettings from '@/app/hs/components/header/AppSettings'
@@ -39,6 +39,12 @@ const menuItems: MenuItem[] = [
   }
 ]
 const adminMenuItems: MenuItem[] = [
+  {
+    name: 'Plan',
+    href: '/hs/plans',
+    parentPath: 'plans',
+    highlight: true
+  },
   {
     name: 'Backoffice',
     href: '/hs/backoffice',
