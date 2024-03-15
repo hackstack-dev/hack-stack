@@ -1,11 +1,11 @@
 import { type Node, type Edge, useNodesState, useEdgesState } from 'reactflow'
-import useNewBlockPosition from '@/app/hs/stacks/components/blocks/hooks/useNewBlockPosition'
 import type { BlockNodeData } from '@/app/hs/stacks/components/blocks/Blocks.types'
 import { NewBlockDialog } from '@/app/hs/stacks/components/blocks/library/NewBlockDialog'
-import Flow from '@/app/hs/stacks/components/blocks/Flow'
 import React from 'react'
 import TemplateBlockTechList from '@/app/hs/templates/components/TemplateBlockTechList'
 import BlocksToolbar from '@/app/hs/components/ui/FlowEditor/BlocksToolbar'
+import useNewBlockPosition from '@/app/hs/components/ui/FlowEditor/hooks/useNewBlockPosition'
+import Flow from '@/app/hs/components/ui/FlowEditor/Flow'
 
 interface TemplateBlocksProps {
   initialNodes: Node<BlockNodeData, string | undefined>[]

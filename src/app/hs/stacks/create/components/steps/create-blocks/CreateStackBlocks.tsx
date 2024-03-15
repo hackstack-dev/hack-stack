@@ -1,10 +1,10 @@
 import React from 'react'
-import { StackStateProps } from '@/app/hs/stacks/create/create.types'
+import type { StackStateProps } from '@/app/hs/stacks/create/create.types'
 import { useWizard } from 'react-use-wizard'
-import { Node, Edge } from 'reactflow'
+import type { Node, Edge } from 'reactflow'
 import StackBlocks from '@/app/hs/stacks/components/blocks/StackBlocks'
-import useBlockNodes from '@/app/hs/stacks/components/blocks/hooks/useBlockNodes'
 import { CreateStacksBlocksHeader } from '@/app/hs/stacks/create/components/steps/create-blocks/CreateStacksBlocksHeader'
+import useBlockNodes from '@/app/hs/components/ui/FlowEditor/hooks/useBlockNodes'
 
 const initialNodes: Node[] = []
 const initialEdges: Edge[] = []

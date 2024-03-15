@@ -1,30 +1,22 @@
-import React, { MouseEvent as ReactMouseEvent } from 'react'
+import React, { type MouseEvent as ReactMouseEvent } from 'react'
 import {
   addEdge,
-  Connection,
-  ConnectionLineType,
-  Edge,
-  Node,
+  type Connection,
+  type ConnectionLineType,
+  type Edge,
+  type Node,
   useEdgesState,
   useNodesState,
   useReactFlow,
   useUpdateNodeInternals
 } from 'reactflow'
-import Flow from '@/app/hs/stacks/components/blocks/Flow'
 import { NewBlockDialog } from '@/app/hs/stacks/components/blocks/library/NewBlockDialog'
 import { Panel, PanelGroup, PanelResizeHandle } from 'react-resizable-panels'
 import ResizeHandle from '@/app/hs/stacks/components/blocks/ResizeHandle'
-import {
-  BlockNodeData,
-  GroupNodeData
-} from '@/app/hs/stacks/components/blocks/Blocks.types'
-import useNewBlockPosition from '@/app/hs/stacks/components/blocks/hooks/useNewBlockPosition'
+
 import { cn } from '@/app/lib/utils'
 import { useSnapshot } from 'valtio'
-import {
-  adjustNodePositionInGroup,
-  groupsFirst
-} from '@/app/hs/stacks/components/blocks/helpers/StackBlocks.utils'
+
 import StackBlocksDataPanel from '@/app/hs/stacks/components/blocks/StackBlocksDataPanel'
 import AddGroupButton from '@/app/hs/stacks/components/blocks/AddGroupButton'
 import BlocksToolbar from '@/app/hs/components/ui/FlowEditor/BlocksToolbar'
@@ -33,7 +25,17 @@ import {
   enableConnectionAnimation,
   snapToGridEnabled
 } from '@/app/hs/stacks/components/blocks/Blocks.state'
-import { useTheme } from 'next-themes'
+
+import type {
+  BlockNodeData,
+  GroupNodeData
+} from '@/app/hs/stacks/components/blocks/Blocks.types'
+import useNewBlockPosition from '@/app/hs/components/ui/FlowEditor/hooks/useNewBlockPosition'
+import {
+  adjustNodePositionInGroup,
+  groupsFirst
+} from '@/app/hs/components/ui/FlowEditor/helpers/StackBlocks.utils'
+import Flow from '@/app/hs/components/ui/FlowEditor/Flow'
 
 interface StackBlocksProps {
   initialNodes: Node<BlockNodeData | GroupNodeData, string | undefined>[]
