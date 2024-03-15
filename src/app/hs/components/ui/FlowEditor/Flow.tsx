@@ -1,34 +1,38 @@
-import React, { DragEventHandler } from 'react'
+import React, { type DragEventHandler } from 'react'
 import ReactFlow, {
-  Node,
-  OnNodesChange,
-  OnConnect,
+  type Node,
+  type OnNodesChange,
+  type OnConnect,
   Background,
   BackgroundVariant,
-  BackgroundProps,
-  NodeChange,
-  NodeDragHandler,
-  Edge,
-  OnEdgesChange,
-  EdgeChange
+  type BackgroundProps,
+  type NodeChange,
+  type NodeDragHandler,
+  type Edge,
+  type OnEdgesChange,
+  type EdgeChange
 } from 'reactflow'
 
 import 'reactflow/dist/style.css'
 import { useTheme } from 'next-themes'
-import BlockNode from '@/app/hs/stacks/components/blocks/node-types/BlockNode'
-import useSetCenter from '@/app/hs/stacks/components/blocks/hooks/useSetCenter'
-import CustomBlockNode from '@/app/hs/stacks/components/blocks/node-types/CustomBlockNode'
-import StackDetailsNode from '@/app/hs/stacks/components/blocks/node-types/StackDetailsNode'
-import ResizableGroupNode from '@/app/hs/stacks/components/blocks/node-types/ResizableGroupNode'
-import CustomGroupNode from '@/app/hs/stacks/components/blocks/node-types/CustomGroupNode'
-import CustomEdge from '@/app/hs/stacks/components/blocks/edge-types/CustomEdge'
+import BlockNode from '@/app/hs/components/ui/FlowEditor/node-types/BlockNode'
+import CustomBlockNode from '@/app/hs/components/ui/FlowEditor/node-types/CustomBlockNode'
+import StackDetailsNode from '@/app/hs/components/ui/FlowEditor/node-types/StackDetailsNode'
+import ResizableGroupNode from '@/app/hs/components/ui/FlowEditor/node-types/ResizableGroupNode'
+import CustomGroupNode from '@/app/hs/components/ui/FlowEditor/node-types/CustomGroupNode'
+import CustomEdge from '@/app/hs/components/ui/FlowEditor/edge-types/CustomEdge'
+import useSetCenter from '@/app/hs/components/ui/FlowEditor/hooks/useSetCenter'
+import NoteNote from "@/app/hs/components/ui/FlowEditor/node-types/NoteNode";
+import LabelNode from "@/app/hs/components/ui/FlowEditor/node-types/LabelNode";
 
 const nodeTypes = {
   blockNode: BlockNode,
   customBlockNode: CustomBlockNode,
   stackDetailsNode: StackDetailsNode,
   resizeableGroupNode: ResizableGroupNode,
-  customGroupNode: CustomGroupNode
+  customGroupNode: CustomGroupNode,
+  noteNode: NoteNote,
+  labelNode: LabelNode
 }
 
 const edgeTypes = {

@@ -97,8 +97,6 @@ export const userSettingsValidator = v.object({
 })
 
 export default defineSchema({
-  plans: defineTable({ name: v.string(), userId: v.id('users') }),
-
   stacks: defineTable(stacksValidator).index('by_userId', ['userId']),
 
   tech: defineTable({
@@ -107,7 +105,8 @@ export default defineSchema({
     githubUrl: v.optional(v.string()),
     websiteUrl: v.optional(v.string()),
     description: v.optional(v.string()),
-    blockId: v.id('blocks')
+    blockId: v.id('blocks'),
+    tags: v.optional(v.array(v.string()))
   })
     .index('by_name', ['name'])
     .index('by_blockId', ['blockId']),
@@ -199,5 +198,9 @@ export default defineSchema({
 
   userSettings: defineTable(userSettingsValidator).index('by_userId', [
     'userId'
-  ])
+  ]),
+  plans: defineTable({ name: v.string(), userId: v.id('users') }).index(
+    'by_userId',
+    ['userId']
+  )
 })

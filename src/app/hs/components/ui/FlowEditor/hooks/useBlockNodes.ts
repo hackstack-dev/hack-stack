@@ -1,5 +1,5 @@
 import { useReactFlow } from 'reactflow'
-import { BlockNodeData } from '@/app/hs/stacks/components/blocks/Blocks.types'
+import type { BlockNodeData } from '@/app/hs/stacks/components/blocks/Blocks.types'
 import React from 'react'
 
 export default function useBlockNodes() {

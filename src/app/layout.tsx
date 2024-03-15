@@ -4,7 +4,7 @@ import Script from 'next/script'
 import AppProviders from '@/app/providers/AppProviders'
 import './globals.css'
 
-const jakartaSans = Plus_Jakarta_Sans({ subsets: ['latin'] })
+const font = Plus_Jakarta_Sans({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: 'HackStack',
@@ -23,7 +23,7 @@ export default function RootLayout({
       className="text-foreground bg-background"
       suppressHydrationWarning
     >
-      <body className={jakartaSans.className}>
+      <body className={font.className}>
         <AppProviders>{children}</AppProviders>
         <Script
           src="https://beamanalytics.b-cdn.net/beam.min.js"

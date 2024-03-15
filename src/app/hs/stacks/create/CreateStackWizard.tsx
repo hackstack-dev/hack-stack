@@ -5,9 +5,9 @@ import TemplateListSelection from '@/app/hs/stacks/create/components/steps/Templ
 import CreateStackDetails from '@/app/hs/stacks/create/components/steps/create-blocks/CreateStackDetails'
 import React from 'react'
 import { CreateStackWizardHeader } from '@/app/hs/stacks/create/components/layout/CreateStackWizardHeader'
-import { StackState } from '@/app/hs/stacks/create/create.types'
+import type { StackState } from '@/app/hs/stacks/create/create.types'
 import { StepContainer } from '@/app/hs/stacks/create/components/layout/StepContainer'
-import { Doc } from '~/convex/_generated/dataModel'
+import type { Doc } from '~/convex/_generated/dataModel'
 import { ReactFlowProvider } from 'reactflow'
 import Summary from '@/app/hs/stacks/create/components/steps/summary/Summary'
 import { useMutation } from 'convex/react'
@@ -15,7 +15,7 @@ import { api } from '~/convex/_generated/api'
 import { useRouter } from 'next/navigation'
 import { getRandomBackground } from '@/app/lib/utils'
 import CreateStackBlocks from '@/app/hs/stacks/create/components/steps/create-blocks/CreateStackBlocks'
-import useBlocksConfig from '@/app/hs/stacks/components/blocks/hooks/useBlocksConfig'
+import useBlocksConfig from '@/app/hs/components/ui/FlowEditor/hooks/useBlocksConfig'
 
 export default function CreateStackWizard() {
   const router = useRouter()

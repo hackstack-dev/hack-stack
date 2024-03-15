@@ -1,5 +1,6 @@
 export type MenuItem = {
   name: string
   href: string
-  parentPath: string
+  parentPath: string,
+  highlight?: boolean
 }

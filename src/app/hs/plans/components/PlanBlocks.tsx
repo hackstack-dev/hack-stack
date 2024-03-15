@@ -1,18 +1,17 @@
 import { type Node, type Edge, useNodesState, useEdgesState } from 'reactflow'
 import type { BlockNodeData } from '@/app/hs/stacks/components/blocks/Blocks.types'
-import { NewBlockDialog } from '@/app/hs/stacks/components/blocks/library/NewBlockDialog'
 import React from 'react'
-import TemplateBlockTechList from '@/app/hs/templates/components/TemplateBlockTechList'
 import BlocksToolbar from '@/app/hs/components/ui/FlowEditor/BlocksToolbar'
+import PlanQnAForm from '@/app/hs/plans/create/project/PlanQnAForm'
 import useNewBlockPosition from '@/app/hs/components/ui/FlowEditor/hooks/useNewBlockPosition'
 import Flow from '@/app/hs/components/ui/FlowEditor/Flow'
 
 interface TemplateBlocksProps {
-  initialNodes: Node<BlockNodeData, string | undefined>[]
+  initialNodes: Node[]
   initialEdges: Edge[]
 }
 
-export default function TemplateBlocks({
+export default function PlanBlocks({
   initialNodes,
   initialEdges
 }: TemplateBlocksProps) {
@@ -37,9 +36,7 @@ export default function TemplateBlocks({
   }
   return (
     <>
-      <NewBlockDialog onAddBlock={handleAddBlock} />
       <BlocksToolbar viewOnly />
-      <TemplateBlockTechList />
       <Flow
         nodes={nodes}
         onNodesChange={onNodesChange}

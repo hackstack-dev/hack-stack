@@ -1,19 +1,16 @@
-import { NodeProps } from 'reactflow'
-import { useTheme } from 'next-themes'
-
-import BlockNodeDataDisplay from '@/app/hs/stacks/components/blocks/node-types/BlockNodeDataDisplay'
-import { BlockNodeData } from '@/app/hs/stacks/components/blocks/Blocks.types'
+import type { NodeProps } from 'reactflow'
 import { useSnapshot } from 'valtio'
 import {
   connectionsOrientation,
   enableConnections
 } from '@/app/hs/stacks/components/blocks/Blocks.state'
-import CustomHandle from '@/app/hs/stacks/components/blocks/handles/CustomHandle'
+import { useTheme } from 'next-themes'
+import type { GroupNodeData } from '@/app/hs/stacks/components/blocks/Blocks.types'
+import CustomHandle from '@/app/hs/components/ui/FlowEditor/handles/CustomHandle'
+import ResizableGroupNodeDisplay from '@/app/hs/components/ui/FlowEditor/node-types/ResizableGroupNodeDisplay'
 
-export default function BlockNode(props: NodeProps<BlockNodeData>) {
+export default function ResizableGroupNode(props: NodeProps<GroupNodeData>) {
   const { theme } = useTheme()
-
-  const { data, selected } = props
   const withConnections = useSnapshot(enableConnections)
   const connOrientation = useSnapshot(connectionsOrientation)
   return (
@@ -22,16 +19,16 @@ export default function BlockNode(props: NodeProps<BlockNodeData>) {
         visible={withConnections.value}
         orientation={connOrientation.value}
         type="target"
-        nodeType={'blockNode'}
         theme={theme}
+        nodeType={'resizableGroupNode'}
       />
-      <BlockNodeDataDisplay selected={selected} {...data} />
+      <ResizableGroupNodeDisplay {...props} />
       <CustomHandle
         visible={withConnections.value}
         orientation={connOrientation.value}
         type="source"
-        nodeType={'blockNode'}
         theme={theme}
+        nodeType={'resizableGroupNode'}
       />
     </>
   )

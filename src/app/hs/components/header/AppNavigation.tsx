@@ -2,13 +2,9 @@
 
 import { Button } from '@nextui-org/button'
 import { usePathname } from 'next/navigation'
-import {
-  NavbarItem,
-  NavbarMenuItem,
-  Link as NextUiLink
-} from '@nextui-org/react'
+import { NavbarMenuItem, Link as NextUiLink, Badge } from '@nextui-org/react'
 import Link from 'next/link'
-import { MenuItem } from '@/app/hs/components/header/types'
+import type { MenuItem } from '@/app/hs/components/header/types'
 import React from 'react'
 import { cn } from '@/app/lib/utils'
 
@@ -32,13 +28,13 @@ export default function AppNavigation({
         const color = isActive ? PRIMARY_COLOR : DEFAULT_COLOR
         const menuItemColor = isActive ? PRIMARY_COLOR : FOREGROUND_COLOR
 
-        return mode === 'nav' ? (
-          <NavbarItem key={item.href} isActive={isActive}>
+        const Component =
+          mode === 'nav' ? (
             <Button
               href={item.href}
               as={Link}
               size="md"
-              variant="light"
+              variant={item.highlight ? 'flat' : 'light'}
               color={color}
               radius="full"
             >
@@ -46,13 +42,20 @@ export default function AppNavigation({
                 {item.name}
               </span>
             </Button>
-          </NavbarItem>
+          ) : (
+            <NavbarMenuItem key={item.href} isActive={isActive}>
+              <NextUiLink href={item.href} color={menuItemColor}>
+                {item.name}
+              </NextUiLink>
+            </NavbarMenuItem>
+          )
+
+        return item.highlight ? (
+          <Badge content="new" color="danger" size="sm">
+            {Component}
+          </Badge>
         ) : (
-          <NavbarMenuItem key={item.href} isActive={isActive}>
-            <NextUiLink href={item.href} color={menuItemColor}>
-              {item.name}
-            </NextUiLink>
-          </NavbarMenuItem>
+          Component
         )
       })}
     </>

@@ -1,13 +1,13 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
 import {
-  StackForm,
+  type StackForm,
   stackFormSchema,
-  StackStateProps
+  type StackStateProps
 } from '@/app/hs/stacks/create/create.types'
 import { zodResolver } from '@hookform/resolvers/zod'
 import StackDetailsForm from '@/app/hs/stacks/components/StackDetailsForm'
-import useBlockNodes from '@/app/hs/stacks/components/blocks/hooks/useBlockNodes'
+
 import {
   BreadcrumbItem,
   Breadcrumbs,
@@ -24,9 +24,9 @@ import {
 import StackBlocks from '@/app/hs/stacks/components/blocks/StackBlocks'
 import { cn } from '@/app/lib/utils'
 import { api } from '~/convex/_generated/api'
-import { Id } from '~/convex/_generated/dataModel'
+import type { Id } from '~/convex/_generated/dataModel'
 import { useMutation } from 'convex/react'
-import { Stack } from '~/convex/types'
+import type { Stack } from '~/convex/types'
 import { toast } from 'sonner'
 import EditStackActions from '@/app/hs/stacks/[stackId]/EditStackActions'
 import Likes from '@/app/hs/stacks/components/Likes'
@@ -37,7 +37,8 @@ import StackFeedbackSettings from '@/app/hs/stacks/[stackId]/StackFeedbackSettin
 import Link from 'next/link'
 import { Button } from '@nextui-org/button'
 import FeedbacksCount from '@/app/hs/stacks/components/FeedbacksCount'
-import useBlocksConfig from '@/app/hs/stacks/components/blocks/hooks/useBlocksConfig'
+import useBlockNodes from '@/app/hs/components/ui/FlowEditor/hooks/useBlockNodes'
+import useBlocksConfig from '@/app/hs/components/ui/FlowEditor/hooks/useBlocksConfig'
 
 interface EditStackProps {
   stackState: StackStateProps['stackState']

@@ -1,10 +1,10 @@
-import { StackStateProps } from '@/app/hs/stacks/create/create.types'
 import { RoughNotation, RoughNotationGroup } from 'react-rough-notation'
 import BlocksSummary from '@/app/hs/stacks/create/components/steps/summary/BlocksSummary'
 import { FancyStepTitle } from '@/app/hs/stacks/create/components/layout/FancyStepTitle'
 import { getRandomBackground } from '@/app/lib/utils'
 import React from 'react'
 import StackCardPreview from '@/app/hs/stacks/create/components/steps/summary/StackCardPreview'
+import type { StackStateProps } from '@/app/hs/stacks/create/create.types'
 
 export default function Summary({
   stackState,

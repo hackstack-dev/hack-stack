@@ -4,7 +4,7 @@ import { Modal, ModalContent, useDisclosure } from '@nextui-org/react'
 import { ModalBody, ModalHeader } from '@nextui-org/modal'
 import FlowProvider from '@/app/hs/components/ui/FlowProvider'
 import ShareStackStudio from '@/app/hs/stacks/components/share/ShareStackStudio'
-import { Stack } from '~/convex/types'
+import type { Stack } from '~/convex/types'
 
 interface ShareStackButtonProps {
   stack: Stack

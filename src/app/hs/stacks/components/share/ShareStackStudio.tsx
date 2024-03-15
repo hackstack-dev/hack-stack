@@ -1,12 +1,11 @@
-import Flow from '@/app/hs/stacks/components/blocks/Flow'
 import {
-  BackgroundProps,
+  type BackgroundProps,
   BackgroundVariant,
   type Node,
   useEdgesState,
   useNodesState
 } from 'reactflow'
-import { Stack } from '~/convex/types'
+import type { Stack } from '~/convex/types'
 import React from 'react'
 import { ButtonGroup, Divider, ScrollShadow } from '@nextui-org/react'
 import { getDetailsNode } from '@/app/hs/stacks/components/share/ShareStack.utils'
@@ -17,6 +16,7 @@ import { Button } from '@nextui-org/button'
 import { toPng, toSvg, toJpeg } from 'html-to-image'
 import { useTheme } from 'next-themes'
 import GroupControls from '@/app/hs/stacks/components/share/controls/GroupControls'
+import Flow from '@/app/hs/components/ui/FlowEditor/Flow'
 
 interface ShareStackStudioProps {
   stack: Stack

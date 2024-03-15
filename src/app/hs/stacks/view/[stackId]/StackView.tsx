@@ -3,16 +3,16 @@
 import React from 'react'
 import { useConvexAuth, useQuery } from 'convex/react'
 import { api } from '~/convex/_generated/api'
-import { Id } from '~/convex/_generated/dataModel'
-import { Node, useEdgesState, useNodesState } from 'reactflow'
-import {
-  BlockNodeData,
-  BlocksConfig
-} from '@/app/hs/stacks/components/blocks/Blocks.types'
+import type { Id } from '~/convex/_generated/dataModel'
+import { type Node, useEdgesState, useNodesState } from 'reactflow'
 import StackViewHeader from '@/app/hs/stacks/view/[stackId]/StackViewHeader'
 import StackViewBlocks from '@/app/hs/stacks/view/[stackId]/StackViewBlocks'
 import PageDataLoading from '@/app/hs/components/ui/PageDataLoading'
-import useBlocksConfig from '@/app/hs/stacks/components/blocks/hooks/useBlocksConfig'
+import type {
+  BlockNodeData,
+  BlocksConfig
+} from '@/app/hs/stacks/components/blocks/Blocks.types'
+import useBlocksConfig from '@/app/hs/components/ui/FlowEditor/hooks/useBlocksConfig'
 
 interface StackViewProps {
   stackId: Id<'stacks'>

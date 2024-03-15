@@ -1,4 +1,4 @@
-import { Node } from 'reactflow'
+import type { Node } from 'reactflow'
 export const groupsFirst = (nodeA: Node, nodeB: Node) =>
   nodeA.type === nodeB.type
     ? 0

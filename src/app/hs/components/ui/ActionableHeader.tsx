@@ -1,5 +1,5 @@
 import PageTitle from '@/app/hs/components/ui/PageTitle'
-import React from 'react'
+import type React from 'react'
 
 export interface ActionableHeaderProps {
   title: React.ReactNode

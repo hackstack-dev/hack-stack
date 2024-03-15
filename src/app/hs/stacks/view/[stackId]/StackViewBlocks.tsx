@@ -1,15 +1,15 @@
 import React from 'react'
-import Flow from '@/app/hs/stacks/components/blocks/Flow'
 import { Panel, PanelGroup, PanelResizeHandle } from 'react-resizable-panels'
 import ResizeHandle from '@/app/hs/stacks/components/blocks/ResizeHandle'
-import { Node, OnNodesChange, Edge, OnEdgesChange } from 'reactflow'
+import type { Node, OnNodesChange, Edge, OnEdgesChange } from 'reactflow'
 import UserProfileLink from '@/app/hs/components/ui/UserProfileLink'
 import Likes from '@/app/hs/stacks/components/Likes'
-import { Id } from '~/convex/_generated/dataModel'
+import type { Id } from '~/convex/_generated/dataModel'
 import StackViewSidebar from '@/app/hs/stacks/view/[stackId]/StackViewSidebar'
-import BlocksToolbar from '@/app/hs/stacks/components/blocks/BlocksToolbar'
+import BlocksToolbar from '@/app/hs/components/ui/FlowEditor/BlocksToolbar'
 import { useSnapshot } from 'valtio'
 import { snapToGridEnabled } from '@/app/hs/stacks/components/blocks/Blocks.state'
+import Flow from '@/app/hs/components/ui/FlowEditor/Flow'
 
 interface StackViewBlocksProps {
   nodes: Node[]
@@ -53,7 +53,7 @@ export default function StackViewBlocks({
               snapToGrid={snapToGrid.value}
               viewOnly
             />
-            <BlocksToolbar viewOnly  />
+            <BlocksToolbar viewOnly />
           </section>
         </Panel>
         <PanelResizeHandle className="relative">

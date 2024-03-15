@@ -1,10 +1,10 @@
 import React from 'react'
-import BlockNodeDataDisplay from '@/app/hs/stacks/components/blocks/node-types/BlockNodeDataDisplay'
-import { Node } from 'reactflow'
-import { BlockNodeData } from '@/app/hs/stacks/components/blocks/Blocks.types'
+import type { Node } from 'reactflow'
 import { cn } from '@/app/lib/utils'
-import { StackState } from '@/app/hs/stacks/create/create.types'
+import type { StackState } from '@/app/hs/stacks/create/create.types'
 import { FancyStepTitle } from '@/app/hs/stacks/create/components/layout/FancyStepTitle'
+import BlockNodeDataDisplay from '@/app/hs/components/ui/FlowEditor/node-types/BlockNodeDataDisplay'
+import type { BlockNodeData } from '@/app/hs/stacks/components/blocks/Blocks.types'
 
 interface BlocksSummaryProps {
   stackBlocks: StackState['stackBlocks']
