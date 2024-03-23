@@ -36,15 +36,15 @@ const menuItems: MenuItem[] = [
     name: 'Templates',
     href: '/hs/templates',
     parentPath: 'templates'
-  }
-]
-const adminMenuItems: MenuItem[] = [
+  },
   {
     name: 'Tech Finder',
     href: '/hs/finder',
     parentPath: 'finder',
     highlight: true
-  },
+  }
+]
+const adminMenuItems: MenuItem[] = [
   {
     name: 'Backoffice',
     href: '/hs/backoffice',
