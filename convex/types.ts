@@ -1,6 +1,10 @@
-import { Infer } from 'convex/values'
-import {stacksValidator, suggestionsValidator, userSettingsValidator} from '~/convex/schema'
-import {Id} from "~/convex/_generated/dataModel";
+import type { Infer } from 'convex/values'
+import type {
+  stacksValidator,
+  suggestionsValidator,
+  userSettingsValidator
+} from '~/convex/schema'
+import type { Id } from '~/convex/_generated/dataModel'
 
 export type Stack = Omit<Infer<typeof stacksValidator>, 'userId'>
 
@@ -30,4 +34,3 @@ export type BuilderUser = {
   userId: Id<'users'>
   count: number
 }
-

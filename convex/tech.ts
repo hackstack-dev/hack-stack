@@ -183,17 +183,20 @@ export const internalInsertTech = internalMutation({
     githubUrl: v.optional(v.string()),
     websiteUrl: v.optional(v.string()),
     description: v.optional(v.string()),
-    blockId: v.id('blocks')
+    blockId: v.id('blocks'),
+    tags: v.optional(v.array(v.string()))
   },
   handler: async ({ db }, args) => {
-    const { name, icon, githubUrl, websiteUrl, description, blockId } = args
+    const { name, icon, githubUrl, websiteUrl, description, blockId, tags } =
+      args
     return await db.insert('tech', {
       name,
       icon,
       githubUrl,
       websiteUrl,
       description,
-      blockId
+      blockId,
+      tags
     })
   }
 })

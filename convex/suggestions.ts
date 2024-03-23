@@ -118,7 +118,8 @@ export const approveSuggestion = adminAuthAction({
         githubUrl: suggestion.githubUrl ?? '',
         websiteUrl: suggestion.websiteUrl ?? '',
         description: suggestion.description ?? '',
-        blockId: suggestion.blockId
+        blockId: suggestion.blockId,
+        tags: suggestion.tags ?? []
       })
     }
 

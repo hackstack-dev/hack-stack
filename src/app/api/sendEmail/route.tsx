@@ -1,7 +1,7 @@
 import { Resend } from 'resend'
 import jwt from 'jsonwebtoken'
 import { SuggestionApprovedEmail } from '~/emails/SuggestionApprovedEmail'
-import React from 'react'
+import type React from 'react'
 import { NextResponse } from 'next/server'
 import SuggestionRejectedEmail from '~/emails/SuggestionRejectedEmail'
 
