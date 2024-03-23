@@ -26,7 +26,7 @@ export default function TechFinderPage() {
   }, [])
 
   return (
-    <div className="grid grid-cols-[400px_1fr]">
+    <div className="grid grid-cols-1 md:grid-cols-[400px_1fr]">
       <SidebarFilters
         queryData={queryData}
         theme={theme}

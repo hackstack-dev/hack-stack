@@ -24,7 +24,6 @@ import type * as http from "../http.js";
 import type * as imageKit from "../imageKit.js";
 import type * as likes from "../likes.js";
 import type * as notifications from "../notifications.js";
-import type * as plan from "../plan.js";
 import type * as stack from "../stack.js";
 import type * as stats from "../stats.js";
 import type * as suggestions from "../suggestions.js";
@@ -54,7 +53,6 @@ declare const fullApi: ApiFromModules<{
   imageKit: typeof imageKit;
   likes: typeof likes;
   notifications: typeof notifications;
-  plan: typeof plan;
   stack: typeof stack;
   stats: typeof stats;
   suggestions: typeof suggestions;
