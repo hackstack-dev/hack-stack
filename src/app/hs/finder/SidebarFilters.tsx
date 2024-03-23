@@ -62,7 +62,7 @@ export default function SidebarFilters({
 
   return (
     <aside className="border-r-1 dark:border-default-50 p-4">
-      <ScrollShadow className="h-[calc(100dvh-95px)]" hideScrollBar>
+      <ScrollShadow className="h-[calc(100dvh-100px)]" hideScrollBar>
         <h2 className="text-xl mb-4">Categories</h2>
         {!queryData && <FinderSkeleton length={6} cols="3" />}
         <div className="grid gap-4 grid-cols-1 md:grid-cols-3">

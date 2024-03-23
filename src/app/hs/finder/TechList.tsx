@@ -8,6 +8,7 @@ import { api } from '~/convex/_generated/api'
 import type { Doc, Id } from '~/convex/_generated/dataModel'
 import { getShortUrl } from '@/app/hs/finder/TechFinder.utils'
 import { Chip } from '@nextui-org/chip'
+import { Suggestion } from '@/app/hs/stacks/components/suggestions/Suggestion'
 
 interface TechListProps {
   queryData?: {
@@ -65,7 +66,7 @@ export default function TechList({
 
   return (
     <div className="p-4">
-      <header className="p-4 bg-white dark:bg-black border dark:border-default-100 rounded-lg">
+      <header className="flex items-center justify-between p-4 bg-white dark:bg-black border dark:border-default-100 rounded-lg">
         <div className="flex items-center gap-4">
           <span>Filter by:</span>
           {TECH_TAGS.map((tag) => (
@@ -77,8 +78,9 @@ export default function TechList({
             />
           ))}
         </div>
+        <Suggestion item="tech" />
       </header>
-      <ScrollShadow className="h-[calc(100dvh-174px)]" hideScrollBar>
+      <ScrollShadow className="h-[calc(100dvh-180px)]" hideScrollBar>
         <div className="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 pb-1">
           {applyTechFilters(techData)?.map((tech) => (
             <Card
