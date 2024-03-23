@@ -1,4 +1,4 @@
-import React from 'react'
+import type React from 'react'
 import { ClerkProvider } from '@clerk/nextjs'
 import { dark } from '@clerk/themes'
 import ClientProviders from '@/app/providers/ClientProviders'

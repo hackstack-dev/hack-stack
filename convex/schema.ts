@@ -198,9 +198,5 @@ export default defineSchema({
 
   userSettings: defineTable(userSettingsValidator).index('by_userId', [
     'userId'
-  ]),
-  plans: defineTable({ name: v.string(), userId: v.id('users') }).index(
-    'by_userId',
-    ['userId']
-  )
+  ])
 })

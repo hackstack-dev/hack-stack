@@ -22,8 +22,7 @@ import ResizableGroupNode from '@/app/hs/components/ui/FlowEditor/node-types/Res
 import CustomGroupNode from '@/app/hs/components/ui/FlowEditor/node-types/CustomGroupNode'
 import CustomEdge from '@/app/hs/components/ui/FlowEditor/edge-types/CustomEdge'
 import useSetCenter from '@/app/hs/components/ui/FlowEditor/hooks/useSetCenter'
-import NoteNote from "@/app/hs/components/ui/FlowEditor/node-types/NoteNode";
-import LabelNode from "@/app/hs/components/ui/FlowEditor/node-types/LabelNode";
+
 
 const nodeTypes = {
   blockNode: BlockNode,
@@ -31,8 +30,6 @@ const nodeTypes = {
   stackDetailsNode: StackDetailsNode,
   resizeableGroupNode: ResizableGroupNode,
   customGroupNode: CustomGroupNode,
-  noteNode: NoteNote,
-  labelNode: LabelNode
 }
 
 const edgeTypes = {

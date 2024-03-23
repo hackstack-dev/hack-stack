@@ -35,7 +35,6 @@ export function Suggestion({
   const [selected, setSelected] = React.useState<string>(item)
 
   const handleOpen = () => {
-    window.beam('/custom-events/suggestion-opened')
     onOpen()
   }
   return (

@@ -40,9 +40,9 @@ const menuItems: MenuItem[] = [
 ]
 const adminMenuItems: MenuItem[] = [
   {
-    name: 'Plan',
-    href: '/hs/plans',
-    parentPath: 'plans',
+    name: 'Tech Finder',
+    href: '/hs/finder',
+    parentPath: 'finder',
     highlight: true
   },
   {

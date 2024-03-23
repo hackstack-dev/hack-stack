@@ -3,6 +3,11 @@ import { twMerge } from 'tailwind-merge'
 
 const IMAGEKIT_URL = 'https://ik.imagekit.io/odzx7thry/hack_stack'
 
+export const TECH_TAGS = [
+    'Open Source',
+    'SaaS',
+    'New',
+]
 export type ColorVariant =
   | 'success'
   | 'warning'
@@ -39,7 +44,7 @@ export function getTechLogo(tech: string, theme: string | undefined) {
   const techExtension = tech?.split('.')?.pop() ?? 'svg'
   const logoName =
     theme === 'dark'
-      ? `${tech.replace(techExtension, `dark.${techExtension}`)}`
+      ? `${tech?.replace(techExtension, `dark.${techExtension}`)}`
       : tech
   return `${IMAGEKIT_URL}/logos/${logoName}`
 }

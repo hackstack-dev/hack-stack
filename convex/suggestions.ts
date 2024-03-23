@@ -5,7 +5,7 @@ import {
   authQuery,
   pointsPerSuggestionType
 } from '~/convex/utils'
-import { Suggestion, SuggestionWithoutUser } from '~/convex/types'
+import type { Suggestion, SuggestionWithoutUser } from '~/convex/types'
 import { internalMutation, internalQuery } from '~/convex/_generated/server'
 import { internal } from '~/convex/_generated/api'
 import { v } from 'convex/values'

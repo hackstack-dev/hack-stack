@@ -4,7 +4,7 @@ import { paginationOptsValidator } from 'convex/server'
 import { getManyFrom, getOneFrom } from 'convex-helpers/server/relationships'
 import { internal } from '~/convex/_generated/api'
 import { internalMutation } from '~/convex/_generated/server'
-import { UnwrapConvex } from '~/convex/types'
+import type { UnwrapConvex } from '~/convex/types'
 
 export const getFeedbackSettingsByStackId = authQuery({
   args: {

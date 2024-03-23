@@ -4,6 +4,9 @@ import Image from 'next/image'
 import type { Metadata } from 'next'
 import StarField from '@/app/hs/components/ui/StarField'
 import { getRandomHackStackEmailBanner } from '@/app/lib/utils'
+import { auth } from '@clerk/nextjs/server'
+
+import { redirect } from 'next/navigation'
 
 export const metadata: Metadata = {
   title: 'HackStack',
@@ -24,6 +27,10 @@ export const metadata: Metadata = {
   }
 }
 export default function Home() {
+  const {sessionId} = auth()
+  if (sessionId) {
+    redirect('/hs/discover')
+  }
   return (
     <div className="w-full h-screen relative">
       <div className="absolute z-50 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col justify-center items-center w-full md:w-1/2 p-6 space-y-6">

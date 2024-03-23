@@ -6,11 +6,11 @@ import { Input } from '@nextui-org/input'
 import { LucideSearch } from 'lucide-react'
 import { ScrollShadow, Spinner } from '@nextui-org/react'
 import { Button } from '@nextui-org/button'
-import {
+import type {
   AddBlockProps,
   BlockNodeData
 } from '@/app/hs/stacks/components/blocks/Blocks.types'
-import { Doc } from '~/convex/_generated/dataModel'
+import type { Doc } from '~/convex/_generated/dataModel'
 
 interface BlockLibraryProps extends AddBlockProps {
   onClose: () => void

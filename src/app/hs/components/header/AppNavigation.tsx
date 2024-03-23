@@ -31,6 +31,7 @@ export default function AppNavigation({
         const Component =
           mode === 'nav' ? (
             <Button
+              key={item.href}
               href={item.href}
               as={Link}
               size="md"
@@ -51,7 +52,7 @@ export default function AppNavigation({
           )
 
         return item.highlight ? (
-          <Badge content="new" color="danger" size="sm">
+          <Badge content="new" color="danger" size="sm" key={item.href}>
             {Component}
           </Badge>
         ) : (

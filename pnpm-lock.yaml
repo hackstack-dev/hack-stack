@@ -39,8 +39,8 @@ dependencies:
     specifier: ^1.10.0
     version: 1.10.0(react-dom@18.2.0)(react@18.2.0)
   convex-helpers:
-    specifier: ^0.1.15
-    version: 0.1.15(convex@1.10.0)(react@18.2.0)(zod@3.22.4)
+    specifier: ^0.1.27
+    version: 0.1.27(convex@1.10.0)(react@18.2.0)(zod@3.22.4)
   dayjs:
     specifier: ^1.11.10
     version: 1.11.10
@@ -5440,13 +5440,16 @@ packages:
       proto-list: 1.2.4
     dev: false
 
-  /convex-helpers@0.1.15(convex@1.10.0)(react@18.2.0)(zod@3.22.4):
-    resolution: {integrity: sha512-G9MNXH4CsBfnwNCsFH3vjVBpiWGiz2cRYz6oHLEyKjqGJe6XKbD7B0y5r3pAOCokaY6q6NcfamqAFwrMdUIOJw==}
+  /convex-helpers@0.1.27(convex@1.10.0)(react@18.2.0)(zod@3.22.4):
+    resolution: {integrity: sha512-Oc3xluBNd+rxy+Lok/X9QjaYmJddAZyMbOSE5OsFWsOulGqOp99PYAnngAYA0T/1Uw/D4j1bet2ql+nZLMtICg==}
     peerDependencies:
-      convex: ^1.8.0
+      convex: ^1.10.0
+      hono: ^4.0.5
       react: ^17.0.2 || ^18.0.0
       zod: ^3.22.4
     peerDependenciesMeta:
+      hono:
+        optional: true
       react:
         optional: true
       zod:

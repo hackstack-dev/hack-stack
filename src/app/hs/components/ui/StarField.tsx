@@ -1,8 +1,8 @@
 'use client'
-import React, { useEffect, useRef } from 'react'
+import React from 'react'
 
 const COUNT = 200
-const SPEED = 0.02
+const SPEED = 0.05
 
 class Star {
   x: number
@@ -48,10 +48,10 @@ class Star {
   }
 }
 
-const Starfield: React.FC = () => {
-  const canvasRef = useRef<HTMLCanvasElement>(null)
+const Starfield = () => {
+  const canvasRef = React.useRef<HTMLCanvasElement>(null)
 
-  useEffect(() => {
+  React.useEffect(() => {
     const canvas = canvasRef.current
     const ctx = canvas?.getContext('2d')
 

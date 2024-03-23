@@ -1,15 +1,25 @@
 import { internalMutation, internalQuery } from '~/convex/_generated/server'
 import { v } from 'convex/values'
-import { getManyFrom, getOneFrom } from 'convex-helpers/server/relationships'
 import { authAction, authQuery, getGithubData } from '~/convex/utils'
 import { internal } from '~/convex/_generated/api'
-import { UnwrapConvex } from '~/convex/types'
+import type { UnwrapConvex } from '~/convex/types'
 import dayjs from 'dayjs'
+import { getManyFrom, getOneFrom } from 'convex-helpers/server/relationships'
 
 export const findTechByBlock = authQuery({
   args: { blockId: v.id('blocks') },
   handler: async ({ db }, { blockId }) => {
     return getManyFrom(db, 'tech', 'by_blockId', blockId)
+  }
+})
+
+export const findTechByMultipleBlocks = authQuery({
+  args: { blockIds: v.array(v.id('blocks')) },
+  handler: async ({ db }, { blockIds }) => {
+    const allTech = await Promise.all(
+      blockIds.map((blockId) => getManyFrom(db, 'tech', 'by_blockId', blockId))
+    )
+    return allTech.flat()
   }
 })
 

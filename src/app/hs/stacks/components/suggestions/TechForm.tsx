@@ -1,21 +1,27 @@
-import { Controller, SubmitHandler, useForm } from 'react-hook-form'
+import { Controller, type SubmitHandler, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Input, Textarea } from '@nextui-org/input'
 import React from 'react'
 import { z } from 'zod'
 import SubmitButton from '@/app/hs/stacks/components/suggestions/SubmitButton'
-import { Select, SelectItem, SelectSection } from '@nextui-org/react'
+import {
+  Select,
+  type SelectedItems,
+  SelectItem,
+  SelectSection
+} from '@nextui-org/react'
 import { useAction, useQuery } from 'convex/react'
 import { api } from '~/convex/_generated/api'
 import Image from 'next/image'
-import { Id } from '~/convex/_generated/dataModel'
+import type { Id } from '~/convex/_generated/dataModel'
 import { toast } from 'sonner'
-import { convertFileToBase64 } from '@/app/lib/utils'
+import { convertFileToBase64, TECH_TAGS } from '@/app/lib/utils'
 import {
   commonToastOptions,
   getErrorText,
   getSuccessText
 } from '@/app/hs/stacks/components/suggestions/Suggestion.utils'
+import { Chip } from '@nextui-org/chip'
 
 const techFormSchema = z.object({
   name: z
@@ -27,9 +33,12 @@ const techFormSchema = z.object({
     .min(10, 'Tech description must contain at least 10 characters')
     .max(500, 'Tech description must contain at most 500 characters'),
   blockId: z.string(),
-  logo: z.custom<File>().refine((file) => !!file?.name, 'Tech logo is required'),
+  logo: z
+    .custom<File>()
+    .refine((file) => !!file?.name, 'Tech logo is required'),
   githubUrl: z.string().url().optional().or(z.literal('')),
-  websiteUrl: z.string().url().optional().or(z.literal(''))
+  websiteUrl: z.string().url().optional().or(z.literal('')),
+  tags: z.set(z.string()).optional()
 })
 
 type TechFormState = z.infer<typeof techFormSchema>
@@ -45,7 +54,8 @@ export function TechForm() {
         blockId: undefined,
         logo: undefined,
         githubUrl: undefined,
-        websiteUrl: undefined
+        websiteUrl: undefined,
+        tags: []
       }
     })
   const saveTechSuggestion = useAction(api.suggestions.saveSuggestion)
@@ -58,7 +68,8 @@ export function TechForm() {
     blockId,
     logo,
     githubUrl,
-    websiteUrl
+    websiteUrl,
+    tags
   }) => {
     setSubmitting(true)
     try {
@@ -71,7 +82,8 @@ export function TechForm() {
         description,
         logo: logoBase64,
         githubUrl,
-        websiteUrl
+        websiteUrl,
+        tags: Array.from(tags ?? [])
       })
       reset()
       setPreview(undefined)
@@ -205,6 +217,33 @@ export function TechForm() {
           <p className="text-tiny text-danger">{logoErrorMessage}</p>
         )}
       </div>
+      <Controller
+        name="tags"
+        control={control}
+        render={({ field, fieldState }) => {
+          console.log(field)
+          return (
+            <Select
+              variant="bordered"
+              isInvalid={fieldState.invalid}
+              errorMessage={fieldState.error?.message}
+              selectedKeys={field.value}
+              onSelectionChange={field.onChange}
+              label="Tech tags"
+              placeholder="Select tags"
+              selectionMode="multiple"
+              className="max-w-xs"
+            >
+              {TECH_TAGS.map((tag) => (
+                <SelectItem key={tag} value={tag}>
+                  {tag}
+                </SelectItem>
+              ))}
+            </Select>
+          )
+        }}
+      />
+
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <Controller
           name="githubUrl"
@@ -221,7 +260,6 @@ export function TechForm() {
             />
           )}
         />
-
         <Controller
           name="websiteUrl"
           control={control}
