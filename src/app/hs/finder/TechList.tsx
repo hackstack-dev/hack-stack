@@ -81,11 +81,11 @@ export default function TechList({
         <Suggestion item="tech" />
       </header>
       <ScrollShadow className="h-[calc(100dvh-180px)]" hideScrollBar>
-        <div className="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 pb-1">
+        <div className="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 2xl:grid-cols-5 gap-4 pb-1">
           {applyTechFilters(techData)?.map((tech) => (
             <Card
               key={tech._id}
-              className="max-w-[400px] bg-transparent border dark:border-default-100"
+              className="max-w-[400px] bg-transparent border dark:border-default-100 dark:bg-neutral-900/60"
             >
               <CardHeader className="flex gap-3">
                 <Image

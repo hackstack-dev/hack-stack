@@ -3,6 +3,7 @@ import { Button } from '@nextui-org/button'
 import React from 'react'
 import type { Doc, Id } from '~/convex/_generated/dataModel'
 import FinderSkeleton from '@/app/hs/finder/FinderSkeleton'
+import { Chip } from '@nextui-org/chip'
 
 interface SidebarFiltersProps {
   queryData?: {
@@ -65,14 +66,13 @@ export default function SidebarFilters({
       <ScrollShadow className="h-[calc(100dvh-100px)]" hideScrollBar>
         <h2 className="text-xl mb-4">Categories</h2>
         {!queryData && <FinderSkeleton length={6} cols="3" />}
-        <div className="grid gap-4 grid-cols-1 md:grid-cols-3">
+        <div className="flex items-center flex-wrap gap-2">
           {queryData?.map(({ category }) => (
             <div key={category._id}>
-              <Button
+              <Chip
+                as={Button}
                 key={category._id}
-                size="sm"
-                radius="lg"
-                variant={theme === 'dark' ? 'flat' : 'solid'}
+                variant="dot"
                 color={
                   categoryFilter.includes(category._id) ? 'primary' : 'default'
                 }
@@ -80,7 +80,7 @@ export default function SidebarFilters({
                 className="w-full"
               >
                 {category.name}
-              </Button>
+              </Chip>
             </div>
           ))}
         </div>
@@ -89,21 +89,20 @@ export default function SidebarFilters({
           {!queryData && <FinderSkeleton length={30} cols="2" />}
           {filteredItems?.map(({ category, blocks }) => (
             <div key={category._id} className="mb-4">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="flex items-center flex-wrap gap-2">
                 {blocks.map((block) => (
-                  <Button
+                  <Chip
+                    as={Button}
                     key={block._id}
-                    size="sm"
-                    radius="lg"
-                    variant={theme === 'dark' ? 'flat' : 'solid'}
+                    variant="dot"
                     color={
-                      blockFilter.includes(block._id) ? 'secondary' : 'default'
+                      blockFilter.includes(block._id) ? 'success' : 'default'
                     }
                     onClick={() => onBlockFilterClick(block._id)}
                     className="w-full"
                   >
                     {block.name}
-                  </Button>
+                  </Chip>
                 ))}
               </div>
             </div>

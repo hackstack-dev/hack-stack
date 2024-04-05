@@ -71,8 +71,6 @@ export function TechForm() {
     websiteUrl,
     tags
   }) => {
-    console.log(tags)
-    console.log(Array.from(tags ?? []))
     setSubmitting(true)
     try {
       const logoBase64 = await convertFileToBase64(logo)

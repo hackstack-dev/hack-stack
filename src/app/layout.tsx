@@ -3,6 +3,7 @@ import { Plus_Jakarta_Sans } from 'next/font/google'
 import Script from 'next/script'
 import AppProviders from '@/app/providers/AppProviders'
 import './globals.css'
+import NextTopLoader from 'nextjs-toploader'
 
 const font = Plus_Jakarta_Sans({ subsets: ['latin'] })
 
@@ -24,6 +25,8 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className={font.className}>
+        <NextTopLoader showSpinner={false} color="#d946ef" />
+
         <AppProviders>{children}</AppProviders>
         <Script
           src="https://beamanalytics.b-cdn.net/beam.min.js"

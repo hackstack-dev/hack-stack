@@ -106,7 +106,8 @@ export default defineSchema({
     websiteUrl: v.optional(v.string()),
     description: v.optional(v.string()),
     blockId: v.id('blocks'),
-    tags: v.optional(v.array(v.string()))
+    tags: v.optional(
+        v.array(v.string()))
   })
     .index('by_name', ['name'])
     .index('by_blockId', ['blockId']),
