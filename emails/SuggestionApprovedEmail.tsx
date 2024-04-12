@@ -131,7 +131,7 @@ export const SuggestionApprovedEmail = ({
 
 SuggestionApprovedEmail.PreviewProps = {
   username: 'batman',
-  userEmail: 'ofer.webdev@gmail.com',
+  userEmail: 'hackstack@hackazen.com',
   unsubscribeToken: '123',
   suggestion: 'RocksDB',
   suggestionType: 'tech',

@@ -5,7 +5,7 @@ import { useQuery } from 'convex/react'
 import { api } from '~/convex/_generated/api'
 import BackofficeNavigation from '@/app/hs/backoffice/BackofficeNavigation'
 import PageDataLoading from '@/app/hs/components/ui/PageDataLoading'
-import React from 'react'
+import type React from 'react'
 
 export default function BackOfficeLayout({
   children

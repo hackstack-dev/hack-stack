@@ -38,21 +38,6 @@ export default function BackofficeNavigation() {
               Users
             </Button>
           </li>
-          <li>
-            <Button
-              color={
-                pathname.includes('/hs/backoffice/sandbox')
-                  ? 'primary'
-                  : 'default'
-              }
-              variant="light"
-              radius="full"
-              as={Link}
-              href="/hs/backoffice/sandbox"
-            >
-              Sandbox
-            </Button>
-          </li>
         </ul>
       </nav>
     </aside>

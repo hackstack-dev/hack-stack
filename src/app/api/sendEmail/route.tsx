@@ -4,15 +4,14 @@ import { SuggestionApprovedEmail } from '~/emails/SuggestionApprovedEmail'
 import type React from 'react'
 import { NextResponse } from 'next/server'
 import SuggestionRejectedEmail from '~/emails/SuggestionRejectedEmail'
+import FeedbackReceivedEmail from "~/emails/FeedbackReceivedEmail";
 
 // biome-ignore lint/suspicious/noExplicitAny: <explanation>
 function getEmailComponent(type: string, data: any) {
   const emailComponents: Record<string, React.ReactElement> = {
     suggestionApprovedEmail: <SuggestionApprovedEmail {...data} />,
     suggestionRejectedEmail: <SuggestionRejectedEmail {...data} />,
-    feedbackReceivedEmail: <SuggestionApprovedEmail {...data} />,
-    feedbackReplyEmail: <SuggestionApprovedEmail {...data} />,
-    promotionEmail: <SuggestionApprovedEmail {...data} />
+    feedbackReceivedEmail: <FeedbackReceivedEmail {...data} />
   }
   const Component = emailComponents[type]
   return Component

@@ -5,8 +5,8 @@ import {
   authQuery,
   pointsPerSuggestionType
 } from '~/convex/utils'
-import { SuggestionTypeCount } from '~/convex/types'
-import { Id } from '~/convex/_generated/dataModel'
+import type { SuggestionTypeCount } from '~/convex/types'
+import type { Id } from '~/convex/_generated/dataModel'
 import { paginationOptsValidator } from 'convex/server'
 
 export const getUserByClerkId = internalQuery({

@@ -136,7 +136,7 @@ export const FeedbackReceivedEmail = ({
 }
 
 FeedbackReceivedEmail.PreviewProps = {
-  targetUserEmail: 'ofer.webdev@gmail.com',
+  targetUserEmail: 'hackstack@hackazen.com',
   sourceUserName: 'Gearldine Bednarik',
   sourceUserImage:
     'https://xsgames.co/randomusers/assets/avatars/female/32.jpg',

@@ -1,4 +1,4 @@
-import { internalMutation, query } from './_generated/server'
+import { internalMutation } from './_generated/server'
 import { authQuery } from '~/convex/utils'
 import { v } from 'convex/values'
 

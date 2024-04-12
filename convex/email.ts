@@ -13,7 +13,7 @@ export const sendEmail = internalAction({
   handler: async ({ auth }, { subject, html }) => {
     return resend.emails.send({
       from: 'notifications@hackstack.hackazen.com',
-      to: 'hackstack2024@gmail.com',
+      to: 'hackstack@hackazen.com',
       subject,
       html
     })

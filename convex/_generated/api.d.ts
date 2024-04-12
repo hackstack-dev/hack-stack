@@ -14,7 +14,6 @@ import type {
   FilterApi,
   FunctionReference,
 } from "convex/server";
-import type * as backoffice from "../backoffice.js";
 import type * as blocks from "../blocks.js";
 import type * as categories from "../categories.js";
 import type * as clerk from "../clerk.js";
@@ -43,7 +42,6 @@ import type * as utils from "../utils.js";
  * ```
  */
 declare const fullApi: ApiFromModules<{
-  backoffice: typeof backoffice;
   blocks: typeof blocks;
   categories: typeof categories;
   clerk: typeof clerk;
