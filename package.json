@@ -21,7 +21,7 @@
     "@react-email/tailwind": "0.0.14",
     "chart.js": "4.4.2",
     "clsx": "2.1.0",
-    "convex": "1.10.0",
+    "convex": "1.11.0",
     "convex-helpers": "0.1.27",
     "dayjs": "1.11.10",
     "framer-motion": "11.0.24",

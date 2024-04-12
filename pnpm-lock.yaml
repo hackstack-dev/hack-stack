@@ -36,11 +36,11 @@ dependencies:
     specifier: 2.1.0
     version: 2.1.0
   convex:
-    specifier: 1.10.0
-    version: 1.10.0(react-dom@18.2.0)(react@18.2.0)
+    specifier: 1.11.0
+    version: 1.11.0(react-dom@18.2.0)(react@18.2.0)
   convex-helpers:
     specifier: 0.1.27
-    version: 0.1.27(convex@1.10.0)(react@18.2.0)(zod@3.22.4)
+    version: 0.1.27(convex@1.11.0)(react@18.2.0)(zod@3.22.4)
   dayjs:
     specifier: 1.11.10
     version: 1.11.10
@@ -5499,7 +5499,7 @@ packages:
       proto-list: 1.2.4
     dev: false
 
-  /convex-helpers@0.1.27(convex@1.10.0)(react@18.2.0)(zod@3.22.4):
+  /convex-helpers@0.1.27(convex@1.11.0)(react@18.2.0)(zod@3.22.4):
     resolution: {integrity: sha512-Oc3xluBNd+rxy+Lok/X9QjaYmJddAZyMbOSE5OsFWsOulGqOp99PYAnngAYA0T/1Uw/D4j1bet2ql+nZLMtICg==}
     peerDependencies:
       convex: ^1.10.0
@@ -5514,13 +5514,13 @@ packages:
       zod:
         optional: true
     dependencies:
-      convex: 1.10.0(react-dom@18.2.0)(react@18.2.0)
+      convex: 1.11.0(react-dom@18.2.0)(react@18.2.0)
       react: 18.2.0
       zod: 3.22.4
     dev: false
 
-  /convex@1.10.0(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-dGU3K3z63e4JQSq4AQthgxUADux1/0qfgFBtOsolcPo+ilV2Dp5wfBJYMOvLi7wkmNvJ+b3I90XfLPGfGzQrWw==}
+  /convex@1.11.0(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-YVQ064Nx/cBWN01AJBL6TuJRzZfpxT6GQA/ne23pevmXwDohy5Lup9dGGnUkKLwFMwjqD/Wv4oXcotyFirBbJg==}
     engines: {node: '>=16.15.1', npm: '>=7.0.0'}
     hasBin: true
     peerDependencies:
@@ -5541,6 +5541,7 @@ packages:
       esbuild: 0.17.19
       jwt-decode: 3.1.2
       node-fetch: 2.7.0
+      prettier: 3.2.5
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
     transitivePeerDependencies:
@@ -7319,6 +7320,12 @@ packages:
   /prelude-ls@1.2.1:
     resolution: {integrity: sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g==}
     engines: {node: '>= 0.8.0'}
+    dev: false
+
+  /prettier@3.2.5:
+    resolution: {integrity: sha512-3/GWa9aOC0YeD7LUfvOG2NiDyhOWRvt1k+rcKhOuYnMY24iiCphgneUfJDyFXd6rZCAnuLBv6UeAULtrhT/F4A==}
+    engines: {node: '>=14'}
+    hasBin: true
     dev: false
 
   /prism-react-renderer@2.1.0(react@18.2.0):
