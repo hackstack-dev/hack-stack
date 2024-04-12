@@ -46,7 +46,7 @@
     "resend": "3.2.0",
     "sonner": "1.4.3",
     "svix": "1.21.0",
-    "tailwind-merge": "2.2.1",
+    "tailwind-merge": "2.2.2",
     "valtio": "1.13.2",
     "zod": "3.22.4"
   },
