@@ -96,7 +96,7 @@ export default function TechList({
                   width={25}
                 />
                 <div className="flex flex-col">
-                  <p className="text-lg">{tech.name}</p>
+                  <h2 className="text-lg font-semibold">{tech.name}</h2>
                   <Link
                     className="text-xs"
                     size="sm"
@@ -111,7 +111,7 @@ export default function TechList({
               </CardHeader>
               <Divider />
               <CardBody>
-                <p className="text-xs">{tech.description}</p>
+                <p className="text-xs text-default-500">{tech.description}</p>
               </CardBody>
               <Divider />
               <CardFooter className="flex items-center flex-wrap gap-2">
