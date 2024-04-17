@@ -15,7 +15,7 @@
     "@clerk/nextjs": "4.29.9",
     "@clerk/themes": "1.7.11",
     "@hookform/resolvers": "3.3.4",
-    "@nextui-org/react": "2.2.10",
+    "@nextui-org/react": "2.3.1",
     "@react-email/components": "0.0.16",
     "@react-email/render": "0.0.12",
     "@react-email/tailwind": "0.0.14",
@@ -51,7 +51,7 @@
     "zod": "3.22.4"
   },
   "devDependencies": {
-    "@biomejs/biome": "1.6.0",
+    "@biomejs/biome": "1.6.4",
     "@types/jsonwebtoken": "9.0.6",
     "@types/node": "20",
     "@types/react": "18",
