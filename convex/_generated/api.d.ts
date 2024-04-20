@@ -20,6 +20,7 @@ import type * as clerk from "../clerk.js";
 import type * as email from "../email.js";
 import type * as feedbacks from "../feedbacks.js";
 import type * as http from "../http.js";
+import type * as httpHandlers_clerk from "../httpHandlers/clerk.js";
 import type * as imageKit from "../imageKit.js";
 import type * as likes from "../likes.js";
 import type * as notifications from "../notifications.js";
@@ -48,6 +49,7 @@ declare const fullApi: ApiFromModules<{
   email: typeof email;
   feedbacks: typeof feedbacks;
   http: typeof http;
+  "httpHandlers/clerk": typeof httpHandlers_clerk;
   imageKit: typeof imageKit;
   likes: typeof likes;
   notifications: typeof notifications;
