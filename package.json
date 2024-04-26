@@ -11,6 +11,7 @@
     "email:dev": "email dev"
   },
   "dependencies": {
+    "@clerk/clerk-sdk-node": "5.0.1",
     "@clerk/nextjs": "5.0.2",
     "@clerk/themes": "1.7.13",
     "@hookform/resolvers": "3.3.4",
