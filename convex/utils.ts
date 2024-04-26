@@ -1,26 +1,16 @@
 import {
-  action,
-  type
-  ActionCtx,
-  mutation,
-  type
-  MutationCtx,
-  query,
-  type
-  QueryCtx
+    action, type
+        ActionCtx, mutation, type
+        MutationCtx, query, type
+        QueryCtx
 } from './_generated/server'
-import {
-  customAction,
-  customCtx,
-  customMutation,
-  customQuery
-} from 'convex-helpers/server/customFunctions'
-import { ConvexError } from 'convex/values'
-import { internal } from '~/convex/_generated/api'
-import type { UnwrapConvex } from '~/convex/types'
-import type { getUserByClerkId } from '~/convex/users'
-import type { Id } from '~/convex/_generated/dataModel'
-import { generateUsername } from 'friendly-username-generator'
+import {customAction, customCtx, customMutation, customQuery} from 'convex-helpers/server/customFunctions'
+import {ConvexError} from 'convex/values'
+import {internal} from '~/convex/_generated/api'
+import type {UnwrapConvex} from '~/convex/types'
+import type {getUserByClerkId} from '~/convex/users'
+import type {Id} from '~/convex/_generated/dataModel'
+import {generateUsername} from 'friendly-username-generator'
 
 export const authAction = customAction(
   action,
@@ -146,12 +136,15 @@ export const getUserId = async (ctx: QueryCtx | MutationCtx | ActionCtx) => {
   return (await ctx.auth.getUserIdentity())?.subject
 }
 
-export const resolverUsername = (firstName: string, lastName: string) => {
-  if (firstName === 'null' && lastName === 'null') {
+export const resolverUsername = (
+  firstName: string | null,
+  lastName: string | null
+) => {
+  if (firstName == null && lastName == null) {
     return generateUsername()
   }
-  return `${firstName === 'null' ? '' : firstName} ${
-    lastName === 'null' ? '' : lastName
+  return `${firstName == null ? '' : firstName} ${
+    lastName == null ? '' : lastName
   }`
 }
 
