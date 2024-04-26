@@ -52,7 +52,7 @@ const config: Config = {
 
           colors: {
             background: {
-                DEFAULT: '#fcfcfc'
+                DEFAULT: '#f3f4f6'
             },
             primary: {
               DEFAULT: '#000',
